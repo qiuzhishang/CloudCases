@@ -16,7 +16,7 @@ public interface TextMapper {
 
     //门诊信息
     @Insert("insert into outpatient_info" +
-            "( department_treatment, hospital, doctor_name, disease_info, phone_num, date, user_id)" +
+            "( department_treatment, hospital, doctor_name, disease_info, date, user_id)" +
             "values" +
             "( #{department_treatment}, #{hospital}, #{doctor_name}, #{disease_info}, #{date}, #{user_id})")
     int insertOutpatient(String department_treatment, String hospital,String doctor_name, String disease_info, Date date, Long user_id);

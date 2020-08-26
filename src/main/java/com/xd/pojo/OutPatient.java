@@ -8,6 +8,7 @@ public class OutPatient {
     private String hospital;//就诊医院
     private String disease_info;//病历内容
     private String doctor_name;//医生名字
+    private String phone_num;
 
     public String getDoctor_name() {
         return doctor_name;
@@ -17,7 +18,7 @@ public class OutPatient {
         this.doctor_name = doctor_name;
     }
 
-    private String phone_num;
+
 
     public long getId() {
         return id;
