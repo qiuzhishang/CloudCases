@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+
+spring:
+  profiles:
+    active: dev1
+---
+server:
+  port: 8081
+
+
+spring:
+  profiles: dev
+
+---
+server:
+  port: 8082
+
+spring:
+  profiles: dev1
+
+---
+spring:
+  datasource:
+    username: root
+    password: ASElab905
+    url: jdbc:mysql://39.100.100.198:3306/CloudCases?userUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#mybatis:
+#  mapperLocations: classpath:mapping
