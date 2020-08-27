@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -55,7 +56,7 @@ public class UploadFileController {
 //    }
     //病症图片
     @PostMapping(value = "/DiseasePicture")
-    public ResponseMessage fileUploads(@RequestParam(value = "files") MultipartFile[] files,
+    public ResponseMessage fileUploads(@RequestParam(value = "files[]") List<MultipartFile> files,
                            @RequestParam(value = "phone_num") String phone_num,
                            @RequestParam(value = "picture_type") int picture_type,
                            @RequestParam(value = "date") String date ) throws ParseException{
@@ -72,7 +73,7 @@ public class UploadFileController {
 
     //体检记录
     @PostMapping(value = "/MedicalExaminationReport")
-    public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files") MultipartFile[] files,
+    public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                     @RequestParam(value = "hospital") String hospital,
                                                     @RequestParam(value = "report_info") String report_info,
                                                     @RequestParam(value = "result") String result,
@@ -94,7 +95,7 @@ public class UploadFileController {
 
     //化验检查
     @PostMapping(value = "/LaboratoryExamination")
-    public ResponseMessage LaboratoryExamination(@RequestParam(value = "files") MultipartFile[] files,
+    public ResponseMessage LaboratoryExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                     @RequestParam(value = "items") String items,
                                                     @RequestParam(value = "result") String result,
                                                     @RequestParam(value = "phone_num") String phone_num,
@@ -113,7 +114,7 @@ public class UploadFileController {
     }
     //影像检查
     @PostMapping(value = "/ImageExamination")
-    public ResponseMessage ImageExamination(@RequestParam(value = "files") MultipartFile[] files,
+    public ResponseMessage ImageExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                  @RequestParam(value = "items") String items,
                                                  @RequestParam(value = "result") String result,
                                                  @RequestParam(value = "phone_num") String phone_num,
@@ -133,7 +134,7 @@ public class UploadFileController {
 
     //侵入型器械检查结果 InvasiveInstruments
     @PostMapping(value = "/InvasiveInstruments")
-    public ResponseMessage InvasiveInstruments(@RequestParam(value = "files") MultipartFile[] files,
+    public ResponseMessage InvasiveInstruments(@RequestParam(value = "files[]") List<MultipartFile> files,
                                             @RequestParam(value = "items") String items,
                                             @RequestParam(value = "result") String result,
                                             @RequestParam(value = "phone_num") String phone_num,

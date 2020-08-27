@@ -64,19 +64,21 @@ public class UploadFileService {
 //    }
 
     //病症图片
-    public ResponseMessage filesUpload(MultipartFile[] files, TextInfo info) {
+    public ResponseMessage filesUpload(List<MultipartFile> files, TextInfo info) {
 
         int flag = 1;
 
         Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
         Long user_id = user.getId();
 
-        System.out.println(files.length);
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isEmpty()) {
+        System.out.println(files.size());
+        for (MultipartFile file : files)
+
+         {
+            if (file.isEmpty()) {
                 System.out.println("file is empty");
             }
-            String fileName = files[i].getOriginalFilename();
+            String fileName = file.getOriginalFilename();
             fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                     + fileName.split("\\.")[1];
             File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
@@ -86,7 +88,7 @@ public class UploadFileService {
                 dest.getParentFile().mkdirs();
             }
             try {
-                files[i].transferTo(dest);
+                file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
                 info.setUser_id(user_id);
                 uploadFileMapper.insertPictureInfo(info);
@@ -101,10 +103,10 @@ public class UploadFileService {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("上传失败" + i);
+                System.out.println("上传失败" );
                 flag = 0;
             }
-            System.out.println("上传成功" + i);
+            System.out.println("上传成功");
 
         }
         ResponseMessage response = new ResponseMessage();
@@ -122,7 +124,7 @@ public class UploadFileService {
      * 2020.8.19
      */
     //体检报告
-    public ResponseMessage MedicalExaminationReportUpload(MultipartFile[] files, TextInfo info) {
+    public ResponseMessage MedicalExaminationReportUpload(List<MultipartFile> files, TextInfo info) {
 
         int flag = 1;
 
@@ -138,13 +140,13 @@ public class UploadFileService {
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
-        System.out.println(files.length);
-        for (int i = 0; i < files.length; i++) {
+        System.out.println(files.size());
+        for (MultipartFile file : files){
 
-            if (files[i].isEmpty()) {
+            if (file.isEmpty()) {
                 System.out.println("file is empty");
             }
-            String fileName = files[i].getOriginalFilename();
+            String fileName = file.getOriginalFilename();
 
             fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                     + fileName.split("\\.")[1];
@@ -155,17 +157,17 @@ public class UploadFileService {
             }
             try {
                 info.setUser_id(user_id);
-                files[i].transferTo(dest);
+                file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
                 uploadFileMapper.insertMedicalExaminationReportAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("上传失败" + i);
+                System.out.println("上传失败" );
                 flag = 0;
             }
-            System.out.println("上传成功" + i);
+            System.out.println("上传成功" );
 
         }
 
@@ -182,7 +184,7 @@ public class UploadFileService {
     }
 
     //化验检查
-    public ResponseMessage LaboratoryExaminationUpload(MultipartFile[] files, TextInfo info){
+    public ResponseMessage LaboratoryExaminationUpload(List<MultipartFile> files, TextInfo info){
         int flag = 1;
 
         Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
@@ -197,13 +199,13 @@ public class UploadFileService {
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
-        System.out.println(files.length);
-        for (int i = 0; i < files.length; i++) {
+        System.out.println(files.size());
+        for (MultipartFile file : files){
 
-            if (files[i].isEmpty()) {
+            if (file.isEmpty()) {
                 System.out.println("file is empty");
             }
-            String fileName = files[i].getOriginalFilename();
+            String fileName = file.getOriginalFilename();
 
             fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                     + fileName.split("\\.")[1];
@@ -214,17 +216,17 @@ public class UploadFileService {
             }
             try {
                 info.setUser_id(user_id);
-                files[i].transferTo(dest);
+                file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
                 uploadFileMapper.insertLaboratoryExaminationAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("上传失败" + i);
+                System.out.println("上传失败");
                 flag = 0;
             }
-            System.out.println("上传成功" + i);
+            System.out.println("上传成功" );
 
         }
 
@@ -240,7 +242,7 @@ public class UploadFileService {
     }
 
     //影像检查
-    public ResponseMessage ImageExaminationUpload(MultipartFile[] files, TextInfo info){
+    public ResponseMessage ImageExaminationUpload(List<MultipartFile> files, TextInfo info){
         int flag = 1;
 
         Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
@@ -255,13 +257,9 @@ public class UploadFileService {
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
-        System.out.println(files.length);
-        for (int i = 0; i < files.length; i++) {
-
-            if (files[i].isEmpty()) {
-                System.out.println("file is empty");
-            }
-            String fileName = files[i].getOriginalFilename();
+        System.out.println(files.size());
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
 
             fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                     + fileName.split("\\.")[1];
@@ -272,18 +270,18 @@ public class UploadFileService {
             }
             try {
                 info.setUser_id(user_id);
-                files[i].transferTo(dest);
+                file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+                System.out.println(file_addr);
 
                 uploadFileMapper.insertImageExaminationAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("上传失败" + i);
+                System.out.println("上传失败" );
                 flag = 0;
             }
-            System.out.println("上传成功" + i);
-
+            System.out.println("上传成功");
         }
 
 
@@ -298,7 +296,7 @@ public class UploadFileService {
     }
 
     //侵入型器械检查
-    public ResponseMessage InvasiveInstrumentsUpload(MultipartFile[] files, TextInfo info){
+    public ResponseMessage InvasiveInstrumentsUpload(List<MultipartFile> files, TextInfo info){
         int flag = 1;
 
         Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
@@ -313,13 +311,14 @@ public class UploadFileService {
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
-        System.out.println(files.length);
-        for (int i = 0; i < files.length; i++) {
+        System.out.println(files.size());
+        for (MultipartFile file : files) {
 
-            if (files[i].isEmpty()) {
+
+            if (file.isEmpty()) {
                 System.out.println("file is empty");
             }
-            String fileName = files[i].getOriginalFilename();
+            String fileName = file.getOriginalFilename();
 
             fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                     + fileName.split("\\.")[1];
@@ -330,17 +329,17 @@ public class UploadFileService {
             }
             try {
                 info.setUser_id(user_id);
-                files[i].transferTo(dest);
+                file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
                 uploadFileMapper.insertInvasiveInstrumentsAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("上传失败" + i);
+                System.out.println("上传失败");
                 flag = 0;
             }
-            System.out.println("上传成功" + i);
+            System.out.println("上传成功");
 
         }
 
