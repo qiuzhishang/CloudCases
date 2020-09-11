@@ -1,0 +1,44 @@
+package com.xd.mapper;
+
+import com.xd.pojo.Doctor;
+import com.xd.pojo.PatientAndDoctor;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Mapper
+@Repository
+public interface DoctorMapper {
+
+    //查询医生
+    @Select("select * from doctor_info where id_num = #{id_num}")
+    Doctor selectDoctorById(String id_num);
+
+    @Select("select * from doctor_info")
+    List<Doctor> selectAllDoctor();
+
+    @Insert("insert into doctor_info"+
+            "(name, id_num, specialty, personal_info, social_work, address, phone_num)"+
+            "values"+
+            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{address}, #{phone_num})")
+    int insertDoctorInfo(Doctor doctor);
+
+    //医生患者关系
+    @Insert("insert into doctor_patient_connection"
+            + "(patient_id, doctor_id, flag)"
+            + "values"
+            + "(#{patient_id}, #{doctor_id}, #{flag})")
+    int insertPatientAndDoctor(PatientAndDoctor patientAndDoctor);
+
+    @Select("select * from doctor_patient_connection where patient_id = #{patient_id}, doctor_id = #{doctor_id}")
+    PatientAndDoctor selectExits(Long patient_id, Long doctor_id);
+
+//    @Update("update user_enter_info set token = #{token} where phone_num = #{phone_num}")
+    @Update("update doctor_patient_connection set flag = #{flag}, where id = #{id}")
+    int updateFlag(int flag, Long id);
+
+}

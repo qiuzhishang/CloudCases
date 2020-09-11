@@ -1,6 +1,5 @@
 package com.xd.controller;
 
-import ch.qos.logback.core.db.dialect.DBUtil;
 import com.xd.mapper.UserInfoMapper;
 import com.xd.pojo.TextInfo;
 import com.xd.service.UploadFileService;
@@ -12,16 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/UploadFiles")
@@ -56,7 +47,7 @@ public class UploadFileController {
 //    }
     //病症图片
     @PostMapping(value = "/DiseasePicture")
-    public ResponseMessage fileUploads(@RequestParam(value = "files[]") List<MultipartFile> files,
+    public ResponseMessage DiseasePicture(@RequestParam(value = "files[]") List<MultipartFile> files,
                            @RequestParam(value = "phone_num") String phone_num,
                            @RequestParam(value = "picture_type") int picture_type,
                            @RequestParam(value = "date") String date ) throws ParseException{
@@ -67,7 +58,7 @@ public class UploadFileController {
         info.setDate(date);
         info.setPicture_type(picture_type);
 
-        ResponseMessage result = uploadFileService.filesUpload(files, info);
+        ResponseMessage result = uploadFileService.DiseasePictureUpload(files, info);
         return result;
     }
 

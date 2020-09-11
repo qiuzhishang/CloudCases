@@ -2,6 +2,7 @@ package com.xd.controller;
 
 import com.xd.pojo.PatientDiseaseInfo;
 import com.xd.pojo.RequestMessage;
+import com.xd.service.DoctorService;
 import com.xd.utils.ResponseMessage;
 
 import com.xd.service.UserService;
@@ -17,7 +18,43 @@ public class UserInfoController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DoctorService doctorService;
 
+    //医生注册信息
+    @RequestMapping(value = "/Doctor",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage Doctor(@RequestBody RequestMessage message){
+
+        doctorService.doctorInsertInfo(message);
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        responseMessage.setDoctors(doctorService.selectAllDoctor());
+
+        return responseMessage;
+    }
+
+    //选择医生
+    @RequestMapping(value = "/selectAllDoctor",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SelectDoctor(@RequestBody RequestMessage message){
+
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        responseMessage.setDoctors(doctorService.selectAllDoctor());
+        responseMessage.setStatus_code(1);
+        return responseMessage;
+    }
+
+    //医生患者关系确定
+    public ResponseMessage PatientAndDoctor(@RequestBody RequestMessage message){
+
+
+
+        ResponseMessage responseMessage = doctorService.PatientAndDoctor(message);
+
+
+
+        return responseMessage;
+    }
 
     //病人注册信息
     @RequestMapping(value = "/patient", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -43,7 +80,7 @@ public class UserInfoController {
 
         return result;
     }
-    //医生注册信息
+
 
 
 }

@@ -25,9 +25,9 @@ public interface UploadFileMapper {
     List<DiseasePicture> selectDiseasePicture(Long user_id);
 
     @Insert("insert into disease_picture_addr_info" +
-            "(file_addr, disease_picture_id)" +
+            "(file_addr, disease_picture_id, flag)" +
             "values" +
-            "(#{file_addr}, #{disease_picture_id})")
+            "(#{file_addr}, #{disease_picture_id}, #{flag})")
     int insertPictureAddrInfo(String file_addr, Long disease_picture_id);
 
     @Select("select file_addr from disease_picture_addr_info where disease_picture_id = #{disease_picture_id}")
@@ -52,14 +52,6 @@ public interface UploadFileMapper {
             "values" +
             "(#{file_addr}, #{report_id})")
     int insertMedicalExaminationReportAddr(String file_addr, Long report_id);
-
-
-    //门诊信息
-    @Insert("insert into outpatient_info" +
-            "(file_addr, date, department_treatment, hospital, doctor_name, user_id)" +
-            "values" +
-            "(#{file_addr}, #{date}, #{department_treatment}, #{hospital}, #{doctor_name}, #{user_id})")
-    int insertOutpatientMedicalRecords(String file_addr, Date date, String department_treatment, String hospital, String doctor_name, Long user_id);
 
     //化验检查
     @Insert("insert into laboratory_info" +

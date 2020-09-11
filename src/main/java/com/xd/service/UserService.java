@@ -1,5 +1,6 @@
 package com.xd.service;
 
+import com.xd.mapper.DoctorMapper;
 import com.xd.mapper.TextMapper;
 import com.xd.mapper.UploadFileMapper;
 import com.xd.mapper.UserInfoMapper;
@@ -23,7 +24,12 @@ public class UserService {
 
     @Autowired
     TextMapper textMapper;
+
+
     GenerateToken generateToken = new GenerateToken();
+
+
+
     public String userRegister(Register register){
         register.setTime();
 
@@ -178,16 +184,7 @@ public class UserService {
         response.setStatus_code(0);
         return response;
     }
-//------------------------------------------------------------------------------
 
-    public String doctorInsertInfo(Doctor doctor){
-        Doctor user = userInfoMapper.selectDoctorById(doctor.getId_num());
-        if (user != null)
-            return "{\"status_code\":0}";
-        userInfoMapper.insertDoctorInfo(doctor);
-        return "{\"status_code\":1}";
-    }
-//------------------------------------------------------------------------------
 
     public ResponseMessage selectAllPicture(RequestMessage message){
         ResponseMessage response = new ResponseMessage();

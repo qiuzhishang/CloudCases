@@ -18,6 +18,8 @@ public class ResponseMessage {
     private List<LaboratoryPicture> laboratoryPictures;
     private List<ImagePicture> imagePictures;
     private List<InstrumentPicture> instrumentPictures;
+    private List<Doctor> doctors;
+    private Doctor doctor;
 
     @Override
     public String toString() {
@@ -34,7 +36,25 @@ public class ResponseMessage {
                 ", laboratoryPictures=" + laboratoryPictures +
                 ", imagePictures=" + imagePictures +
                 ", instrumentPictures=" + instrumentPictures +
+                ", doctors=" + doctors +
+                ", doctor=" + doctor +
                 '}';
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
     }
 
     public List<InstrumentPicture> getInstrumentPictures() {

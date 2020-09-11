@@ -64,7 +64,7 @@ public class UploadFileService {
 //    }
 
     //病症图片
-    public ResponseMessage filesUpload(List<MultipartFile> files, TextInfo info) {
+    public ResponseMessage DiseasePictureUpload(List<MultipartFile> files, TextInfo info) {
 
         int flag = 1;
 

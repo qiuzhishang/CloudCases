@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface UserInfoMapper {
 
+    //Doctor
+
+
     //DiseaseInfo
     @Insert("insert into disease_info"+
             "(disease_type, disease_info, user_id)"+
@@ -59,14 +62,6 @@ public interface UserInfoMapper {
             "(#{name}, #{phone_num}, #{user_id})")
     int insertEmergeContactInfo(String name, String phone_num, Long user_id);
 
-    @Select("select * from doctor_info where id_num = #{id_num}")
-    Doctor selectDoctorById(String id_num);
-
-    @Insert("insert into doctor_info"+
-            "(name, id_num, specialty, personal_info, social_work, address, phone_num)"+
-            "values"+
-            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{address}, #{phone_num})")
-    int insertDoctorInfo(Doctor doctor);
 
 
 

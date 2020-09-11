@@ -17,8 +17,55 @@ public class RequestMessage {
     private AdmissionNote admissionNote;
     private OutPatientRecords outPatientRecords;
     private String examine_info;
+    private List<Long> add_doctor_id;
+    private List<Long> remove_doctor_id;
+    private Doctor doctor;
 
+    @Override
+    public String toString() {
+        return "RequestMessage{" +
+                "phone_num='" + phone_num + '\'' +
+                ", call_type=" + call_type +
+                ", diseasePicture=" + diseasePicture +
+                ", token='" + token + '\'' +
+                ", sign=" + sign +
+                ", patient=" + patient +
+                ", report=" + report +
+                ", patientDiseaseInfo=" + patientDiseaseInfo +
+                ", patientDiseaseInfoList=" + patientDiseaseInfoList +
+                ", outPatient=" + outPatient +
+                ", admissionNote=" + admissionNote +
+                ", outPatientRecords=" + outPatientRecords +
+                ", examine_info='" + examine_info + '\'' +
+                ", add_doctor_id=" + add_doctor_id +
+                ", remove_doctor_id=" + remove_doctor_id +
+                ", doctor=" + doctor +
+                '}';
+    }
 
+    public List<Long> getRemove_doctor_id() {
+        return remove_doctor_id;
+    }
+
+    public void setRemove_doctor_id(List<Long> remove_doctor_id) {
+        this.remove_doctor_id = remove_doctor_id;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public List<Long> getAdd_doctor_id() {
+        return add_doctor_id;
+    }
+
+    public void setAdd_doctor_id(List<Long> add_doctor_id) {
+        this.add_doctor_id = add_doctor_id;
+    }
 
     public String getExamine_info() {
         return examine_info;
@@ -42,21 +89,6 @@ public class RequestMessage {
 
     public void setCall_type(int call_type) {
         this.call_type = call_type;
-    }
-
-    @Override
-    public String toString() {
-        return "RequestMessage{" +
-                "phone_num='" + phone_num + '\'' +
-                ", pictureInfo=" + diseasePicture +
-                ", token='" + token + '\'' +
-                ", sign=" + sign +
-                ", patient=" + patient +
-                ", report=" + report +
-                ", patientDiseaseInfo=" + patientDiseaseInfo +
-                ", patientDiseaseInfoList=" + patientDiseaseInfoList +
-                ", outPatient=" + outPatient +
-                '}';
     }
 
     public AdmissionNote getAdmissionNote() {
