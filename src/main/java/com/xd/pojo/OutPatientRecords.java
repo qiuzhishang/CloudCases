@@ -18,6 +18,33 @@ public class OutPatientRecords {
     private String treat_items;//检查项目
     private String treat_methods;//非药物治疗措施
     private List<Medicine> medicines;//用药列表
+    private Long user_id;
+
+    @Override
+    public String toString() {
+        return "OutPatientRecords{" +
+                "id=" + id +
+                ", date=" + date +
+                ", department_treatment='" + department_treatment + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", disease_info='" + disease_info + '\'' +
+                ", doctor_name='" + doctor_name + '\'' +
+                ", treat_info='" + treat_info + '\'' +
+                ", treating_info='" + treating_info + '\'' +
+                ", treat_items='" + treat_items + '\'' +
+                ", treat_methods='" + treat_methods + '\'' +
+                ", medicines=" + medicines +
+                ", user_id=" + user_id +
+                '}';
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public Long getId() {
         return id;
@@ -119,19 +146,4 @@ public class OutPatientRecords {
         this.medicines = medicines;
     }
 
-    @Override
-    public String toString() {
-        return "TreatmentRecords{" +
-                "date='" + date + '\'' +
-                ", department_treatment='" + department_treatment + '\'' +
-                ", hospital='" + hospital + '\'' +
-                ", disease_info='" + disease_info + '\'' +
-                ", doctor_name='" + doctor_name + '\'' +
-                ", treat_info='" + treat_info + '\'' +
-                ", treating_info='" + treating_info + '\'' +
-                ", treat_items='" + treat_items + '\'' +
-                ", treat_methods='" + treat_methods + '\'' +
-                ", medicines=" + medicines +
-                '}';
-    }
 }

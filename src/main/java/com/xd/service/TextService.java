@@ -2,10 +2,7 @@ package com.xd.service;
 
 import com.xd.mapper.TextMapper;
 import com.xd.mapper.UserInfoMapper;
-import com.xd.pojo.Medicine;
-import com.xd.pojo.OutPatientRecords;
-import com.xd.pojo.Register;
-import com.xd.pojo.RequestMessage;
+import com.xd.pojo.*;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +21,7 @@ public class TextService {
     @Autowired
     UserInfoMapper userInfoMapper;
 
-        //门诊病历
+    //门诊病历
     public ResponseMessage OutpatientMedicalRecords(RequestMessage message){
 
 
@@ -58,6 +55,19 @@ public class TextService {
         }
 
     }
+
+    //查询门诊病历
+    public List<OutPatient> SelectOutPatient(RequestMessage message){
+        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
+        Long user_id = user.getId();
+
+        List<OutPatient> outPatients;
+        outPatients = textMapper.selectOutPatient(user_id);
+
+        return outPatients;
+
+    }
+
 
     //住院病历
     public ResponseMessage AdmissionNote(RequestMessage message){
@@ -93,12 +103,29 @@ public class TextService {
         return response;
     }
 
+    //查询住院病历
+    public List<AdmissionNote> SelectAdmissionNote(RequestMessage message){
+
+        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
+        Long user_id = user.getId();
+
+        List<AdmissionNote> admissionNotes;
+
+        admissionNotes = textMapper.selectAdmissionNote(user_id);
+
+        return admissionNotes;
+
+    }
+
+
     //门诊记录
     public ResponseMessage OutpatientRecords(RequestMessage message){
         Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
         Long user_id = user.getId();
+        message.getOutPatientRecords().setUser_id(user_id);
 
-        textMapper.insertOutPatientRecords(message.getOutPatientRecords().getDepartment_treatment(),
+        textMapper.insertOutPatientRecords(
+                message.getOutPatientRecords().getDepartment_treatment(),
                 message.getOutPatientRecords().getHospital(),
                 message.getOutPatientRecords().getDisease_info(),
                 message.getOutPatientRecords().getDoctor_name(),
@@ -106,11 +133,14 @@ public class TextService {
                 message.getOutPatientRecords().getTreating_info(),
                 message.getOutPatientRecords().getTreat_items(),
                 message.getOutPatientRecords().getTreat_methods(),
-                message.getOutPatientRecords().getDate(), user_id);
+                message.getOutPatientRecords().getDate(),
+                message.getOutPatientRecords().getUser_id()
+        );
+
         System.out.println(message.getOutPatientRecords().toString());
 //        textMapper.insertOutPatientRecords(message.getOutPatientRecords(),user_id);
 
-        List<OutPatientRecords> outpatientRecords = textMapper.selectIdByUserId(user_id);
+        List<OutPatientRecords> outpatientRecords = textMapper.selectOutPatientRecords(user_id);
         Long max = 0L;
         for (OutPatientRecords outpatientRecord : outpatientRecords) {
             if(max < outpatientRecord.getId())
@@ -130,16 +160,46 @@ public class TextService {
 
     }
 
+    //查询门诊记录
+    public List<OutPatientRecords> SelectOutpatientRecords(RequestMessage message){
+        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
+        Long user_id = user.getId();
+
+        List<OutPatientRecords> outPatientRecords;
+
+        outPatientRecords = textMapper.selectOutPatientRecords(user_id);
+
+        for (OutPatientRecords outPatientRecord : outPatientRecords) {
+            Long treat_id = outPatientRecord.getId();
+            List<Medicine> medicines = textMapper.selectMedicine(treat_id);
+            outPatientRecord.setMedicines(medicines);
+        }
+
+        return  outPatientRecords;
+    }
+
+
     //病理学检查
     public ResponseMessage DiseaseExamine(RequestMessage message){
         Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
         Long user_id = user.getId();
-        textMapper.insertExamineInfo(message.getExamine_info(), user_id);
+        textMapper.insertExamineInfo(message.getExamine().getExamine_info(), user_id);
 
         ResponseMessage response = new ResponseMessage();
         response.setStatus_code(1);
 
         return response;
+    }
+
+    //查询病理学检查
+    public List<Examine> SelectDiseaseExamine(RequestMessage message){
+        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
+        Long user_id = user.getId();
+
+        List<Examine> examines;
+        examines = textMapper.selectExamine(user_id);
+
+        return examines;
     }
 }
 

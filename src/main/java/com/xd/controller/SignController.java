@@ -20,6 +20,7 @@ public class SignController {
     @RequestMapping(value = "/sign", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 
     public ResponseMessage DoSign(@RequestBody RequestMessage message) {
+
         Sign signInfo = message.getSign();
         String token = message.getToken();
         ResponseMessage response = userService.userSign(signInfo, token);

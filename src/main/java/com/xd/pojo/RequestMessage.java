@@ -16,10 +16,7 @@ public class RequestMessage {
     private OutPatient outPatient;
     private AdmissionNote admissionNote;
     private OutPatientRecords outPatientRecords;
-    private String examine_info;
-    private List<Long> add_doctor_id;
-    private List<Long> remove_doctor_id;
-    private Doctor doctor;
+    private Examine examine;
 
     @Override
     public String toString() {
@@ -36,12 +33,24 @@ public class RequestMessage {
                 ", outPatient=" + outPatient +
                 ", admissionNote=" + admissionNote +
                 ", outPatientRecords=" + outPatientRecords +
-                ", examine_info='" + examine_info + '\'' +
+                ", examine=" + examine +
                 ", add_doctor_id=" + add_doctor_id +
                 ", remove_doctor_id=" + remove_doctor_id +
                 ", doctor=" + doctor +
                 '}';
     }
+
+    public Examine getExamine() {
+        return examine;
+    }
+
+    public void setExamine(Examine examine) {
+        this.examine = examine;
+    }
+
+    private List<Long> add_doctor_id;
+    private List<Long> remove_doctor_id;
+    private Doctor doctor;
 
     public List<Long> getRemove_doctor_id() {
         return remove_doctor_id;
@@ -67,13 +76,7 @@ public class RequestMessage {
         this.add_doctor_id = add_doctor_id;
     }
 
-    public String getExamine_info() {
-        return examine_info;
-    }
 
-    public void setExamine_info(String examine_info) {
-        this.examine_info = examine_info;
-    }
 
     public OutPatientRecords getOutPatientRecords() {
         return outPatientRecords;

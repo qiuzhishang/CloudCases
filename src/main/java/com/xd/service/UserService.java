@@ -185,7 +185,7 @@ public class UserService {
         return response;
     }
 
-
+    //查找所有图片
     public ResponseMessage selectAllPicture(RequestMessage message){
         ResponseMessage response = new ResponseMessage();
 
@@ -213,7 +213,7 @@ public class UserService {
 
         List<TextInfo> textInfos;
         textInfos = uploadFileMapper.selectMedicalExaminationReportId(user_id);
-        ResponseMessage response = new ResponseMessage();
+
         for (TextInfo textInfo : textInfos) {
             System.out.println(textInfo.getId());
             List<String> address = uploadFileMapper.selectAddress(textInfo.getId());

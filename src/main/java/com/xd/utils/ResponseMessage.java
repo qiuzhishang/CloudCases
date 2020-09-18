@@ -21,6 +21,11 @@ public class ResponseMessage {
     private List<Doctor> doctors;
     private Doctor doctor;
 
+    private List<AdmissionNote> admissionNotes;
+    private List<Examine> examines;
+    private List<OutPatient> outPatients;
+    private List<OutPatientRecords> outPatientRecords;
+
     @Override
     public String toString() {
         return "ResponseMessage{" +
@@ -38,7 +43,43 @@ public class ResponseMessage {
                 ", instrumentPictures=" + instrumentPictures +
                 ", doctors=" + doctors +
                 ", doctor=" + doctor +
+                ", admissionNotes=" + admissionNotes +
+                ", examines=" + examines +
+                ", outPatients=" + outPatients +
+                ", outPatientRecords=" + outPatientRecords +
                 '}';
+    }
+
+    public List<AdmissionNote> getAdmissionNotes() {
+        return admissionNotes;
+    }
+
+    public void setAdmissionNotes(List<AdmissionNote> admissionNotes) {
+        this.admissionNotes = admissionNotes;
+    }
+
+    public List<Examine> getExamines() {
+        return examines;
+    }
+
+    public void setExamines(List<Examine> examines) {
+        this.examines = examines;
+    }
+
+    public List<OutPatient> getOutPatients() {
+        return outPatients;
+    }
+
+    public void setOutPatients(List<OutPatient> outPatients) {
+        this.outPatients = outPatients;
+    }
+
+    public List<OutPatientRecords> getOutPatientRecords() {
+        return outPatientRecords;
+    }
+
+    public void setOutPatientRecords(List<OutPatientRecords> outPatientRecords) {
+        this.outPatientRecords = outPatientRecords;
     }
 
     public Doctor getDoctor() {

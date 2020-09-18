@@ -16,7 +16,34 @@ public class TextInfo {
     private int picture_type;
     private String items;
     private Long user_id;
+    private int flag;
     List<String> address;
+
+
+    @Override
+    public String toString() {
+        return "TextInfo{" +
+                "id=" + id +
+                ", hospital='" + hospital + '\'' +
+                ", report_info='" + report_info + '\'' +
+                ", result='" + result + '\'' +
+                ", phone_num='" + phone_num + '\'' +
+                ", date=" + date +
+                ", picture_type=" + picture_type +
+                ", items='" + items + '\'' +
+                ", user_id=" + user_id +
+                ", flag=" + flag +
+                ", address=" + address +
+                '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public String getItems() {
         return items;

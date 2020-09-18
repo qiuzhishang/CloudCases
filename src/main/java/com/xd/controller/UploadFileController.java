@@ -25,26 +25,6 @@ public class UploadFileController {
     UploadFileService uploadFileService;
 
 
-//    @PostMapping(value = "/upload")
-//    public String fileUpload(@RequestParam(value = "file") MultipartFile file,
-//                             @RequestParam(value = "phone_num") String phone_num,
-//                             @RequestParam(value = "picture_type") int picture_type,
-//                             @RequestParam(value = "date") String date){
-//
-//        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-//        java.sql.Date sDate = null;
-//        try {
-//            java.util.Date date3 = sdf2.parse(date);
-//            sDate = new java.sql.Date(date3.getTime());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        String result = uploadFileService.fileUpload(file, phone_num, picture_type, sDate);
-//        return result;
-//
-//    }
     //病症图片
     @PostMapping(value = "/DiseasePicture")
     public ResponseMessage DiseasePicture(@RequestParam(value = "files[]") List<MultipartFile> files,
@@ -130,12 +110,12 @@ public class UploadFileController {
                                             @RequestParam(value = "result") String result,
                                             @RequestParam(value = "phone_num") String phone_num,
                                             @RequestParam(value = "date") String date) throws ParseException {
-        //java String 转sql日期
+
         TextInfo info = new TextInfo();
         info.setItems(items);
         info.setResult(result);
         info.setPhone_num(phone_num);
-        info.setDate(date);
+        info.setDate(date);//java String 转sql日期
 
 
         ResponseMessage Result = uploadFileService.InvasiveInstrumentsUpload(files, info );

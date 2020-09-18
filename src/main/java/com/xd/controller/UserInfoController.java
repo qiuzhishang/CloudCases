@@ -45,6 +45,7 @@ public class UserInfoController {
     }
 
     //医生患者关系确定
+    @RequestMapping(value = "/selectPAD",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage PatientAndDoctor(@RequestBody RequestMessage message){
 
 

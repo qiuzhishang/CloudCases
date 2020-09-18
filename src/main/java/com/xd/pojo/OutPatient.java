@@ -1,5 +1,9 @@
 package com.xd.pojo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 //门诊病历
 public class OutPatient {
     private long id;
@@ -9,6 +13,15 @@ public class OutPatient {
     private String disease_info;//病历内容
     private String doctor_name;//医生名字
     private String phone_num;
+    private Long user_id;
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public String getDoctor_name() {
         return doctor_name;

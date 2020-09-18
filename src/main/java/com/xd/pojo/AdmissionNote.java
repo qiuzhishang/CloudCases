@@ -8,6 +8,28 @@ public class AdmissionNote {
     private String hospital;//医院名称
     private String doctor_name;//医生姓名
     private String admission_info;//住院病历内容
+    private Long user_id;
+
+    @Override
+    public String toString() {
+        return "AdmissionNote{" +
+                "s_date='" + s_date + '\'' +
+                ", o_date='" + o_date + '\'' +
+                ", department_treatment='" + department_treatment + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", doctor_name='" + doctor_name + '\'' +
+                ", admission_info='" + admission_info + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public String getS_date() {
         return s_date;
@@ -57,15 +79,4 @@ public class AdmissionNote {
         this.admission_info = admission_info;
     }
 
-    @Override
-    public String toString() {
-        return "AdmissionNote{" +
-                "s_date='" + s_date + '\'' +
-                ", o_date='" + o_date + '\'' +
-                ", department='" + department_treatment + '\'' +
-                ", hospital='" + hospital + '\'' +
-                ", doctor_name='" + doctor_name + '\'' +
-                ", admission_info='" + admission_info + '\'' +
-                '}';
-    }
 }

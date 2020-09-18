@@ -26,13 +26,11 @@ public class ResultController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/AllPicture", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 
+    @RequestMapping(value = "/AllPicture", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage Picture(@RequestBody RequestMessage message) {
 
-
         ResponseMessage response = userService.selectAllPicture(message);
-
 
 
         return response;
@@ -103,4 +101,75 @@ public class ResultController {
         return response;
     }
 
+    //查询住院病例
+    @RequestMapping(value = "/admission", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SeclectAdmissionNote(@RequestBody RequestMessage message){
+
+        List<AdmissionNote> admissionNotes = textService.SelectAdmissionNote(message);
+
+        ResponseMessage response = new ResponseMessage();
+        response.setAdmissionNotes(admissionNotes);
+
+        return response;
+    }
+
+    //查询病理学检查
+    @RequestMapping(value = "/examine", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SeclectExamine(@RequestBody RequestMessage message){
+
+        List<Examine> examines = textService.SelectDiseaseExamine(message);
+
+        ResponseMessage response = new ResponseMessage();
+        response.setExamines(examines);
+
+        return response;
+    }
+    //查询门诊信息
+    @RequestMapping(value = "/outPatient", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SeclectOutPatient(@RequestBody RequestMessage message) {
+
+        List<OutPatient> outPatients = textService.SelectOutPatient(message);
+
+        ResponseMessage response = new ResponseMessage();
+
+        response.setOutPatients(outPatients);
+
+        return response;
+
+    }
+
+    //查询门诊记录
+    @RequestMapping(value = "/outPatientRecords", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SeclectOutPatientRecords(@RequestBody RequestMessage message) {
+
+        List<OutPatientRecords> outPatientRecords = textService.SelectOutpatientRecords(message);
+
+        ResponseMessage response = new ResponseMessage();
+
+        response.setOutPatientRecords(outPatientRecords);
+
+        return response;
+
+
+    }
+
+
+    //查询所有文本信息
+    @RequestMapping(value = "/allTextInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SeclectAllTextInfo(@RequestBody RequestMessage message){
+
+        List<AdmissionNote> admissionNotes = textService.SelectAdmissionNote(message);
+        List<Examine> examines = textService.SelectDiseaseExamine(message);
+        List<OutPatient> outPatients = textService.SelectOutPatient(message);
+        List<OutPatientRecords> outPatientRecords = textService.SelectOutpatientRecords(message);
+
+        ResponseMessage response = new ResponseMessage();
+
+        response.setAdmissionNotes(admissionNotes);
+        response.setExamines(examines);
+        response.setOutPatients(outPatients);
+        response.setOutPatientRecords(outPatientRecords);
+
+        return response;
+    }
 }
