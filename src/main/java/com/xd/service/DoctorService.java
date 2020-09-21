@@ -31,6 +31,9 @@ public class DoctorService {
 
     //医生信息
     public ResponseMessage doctorInsertInfo(RequestMessage message){
+        Register users = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
+        Doctor doctor = message.getDoctor();
+
         Doctor user = doctorMapper.selectDoctorById(message.getDoctor().getId_num());
         ResponseMessage responseMessage = new ResponseMessage();
         if (user != null) {
@@ -38,9 +41,10 @@ public class DoctorService {
             return responseMessage;
         }
 
-        doctorMapper.insertDoctorInfo(message.getDoctor());
+        doctor.setUser_id(users.getId());
+        doctorMapper.insertDoctorInfo(doctor);
 
-        responseMessage.setDoctor(message.getDoctor());
+        responseMessage.setDoctor(doctor);
         responseMessage.setStatus_code(1);
         return responseMessage;
     }

@@ -13,6 +13,10 @@ import java.util.List;
 @Mapper
 @Repository
 public interface DoctorMapper {
+    //医生登录
+    @Select("select * from doctor_info where user_id = #{user_id}")
+    Doctor selectDoctorByUserId(Long user_id);
+
 
     //查询医生
     @Select("select * from doctor_info where id_num = #{id_num}")
@@ -22,9 +26,9 @@ public interface DoctorMapper {
     List<Doctor> selectAllDoctor();
 
     @Insert("insert into doctor_info"+
-            "(name, id_num, specialty, personal_info, social_work, address, phone_num)"+
+            "(name, id_num, specialty, personal_info, social_work, address, user_id)"+
             "values"+
-            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{address}, #{phone_num})")
+            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{address}, #{user_id})")
     int insertDoctorInfo(Doctor doctor);
 
     //医生患者关系

@@ -25,10 +25,7 @@ public class UserInfoController {
     @RequestMapping(value = "/Doctor",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage Doctor(@RequestBody RequestMessage message){
 
-        doctorService.doctorInsertInfo(message);
-        ResponseMessage responseMessage = new ResponseMessage();
-
-        responseMessage.setDoctors(doctorService.selectAllDoctor());
+        ResponseMessage responseMessage = doctorService.doctorInsertInfo(message);
 
         return responseMessage;
     }

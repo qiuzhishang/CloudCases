@@ -8,7 +8,29 @@ public class Doctor {
     private String personal_info;
     private String social_work;
     private String address;
-    private String phone_num;
+    private Long user_id;
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", id_num='" + id_num + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", personal_info='" + personal_info + '\'' +
+                ", social_work='" + social_work + '\'' +
+                ", address='" + address + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public Long getId() {
         return id;
@@ -17,29 +39,6 @@ public class Doctor {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", phone_num='" + phone_num + '\'' +
-                ", name='" + name + '\'' +
-                ", id_num='" + id_num + '\'' +
-                ", specialty='" + specialty + '\'' +
-                ", personal_info='" + personal_info + '\'' +
-                ", social_work='" + social_work + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
-
-    public String getPhone_num() {
-        return phone_num;
-    }
-
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
-    }
-
 
 
     public String getName() {

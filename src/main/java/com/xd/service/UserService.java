@@ -25,11 +25,15 @@ public class UserService {
     @Autowired
     TextMapper textMapper;
 
+    @Autowired
+    DoctorMapper doctorMapper;
+
 
     GenerateToken generateToken = new GenerateToken();
 
 
 
+    //用户注册
     public String userRegister(Register register){
         register.setTime();
 
@@ -52,81 +56,154 @@ public class UserService {
         return result;
     }
 
+    //登录
     public ResponseMessage userSign(Sign sign, String token) {
-        ResponseMessage message = new ResponseMessage();
+
+        ResponseMessage reponse = new ResponseMessage();
         Register user = userInfoMapper.selectUserByPhoneNum(sign.getPhone_num());
 
         if (user == null) {
             System.out.println("userSign    1");
-            message.setStatus_code(1);//账号不存在
-            return message;
+            reponse.setStatus_code(1);//账号不存在
+            return reponse;
         }
+
+        System.out.println(user.getId());
 
         Patient patientInfo = userInfoMapper.selectPatientByUserId(user.getId());
-        if (patientInfo == null) {
-            System.out.println("userSign    5");
-            message.setStatus_code(4);//信息为空
-            return message;
-        }
+        Doctor doctorInfo = doctorMapper.selectDoctorByUserId(user.getId());
+
         System.out.println(patientInfo);
+        System.out.println(doctorInfo);
 
-        if (sign.getPass_word() == null) {
-            System.out.println("userSign    2");
-            if (token.equals(user.getToken())){
-                System.out.println("-------------");
-                System.out.println("userSign    4");
-                int sex = patientInfo.getSex();
-                String name = patientInfo.getName();
+        System.out.println("user_type : " + user.getUser_type());
 
-                message.setStatus_code(0);
-                message.setName(name);
-                message.setSex(sex);
-                message.setUser_type(user.getUser_type());
-
-                return message;
-
-            }else{
-                message.setStatus_code(3);//token异常
-                return message;
+        //患者登录
+        if (UserType.Patient.getValue() == user.getUser_type()){
+            if (patientInfo == null) {
+                System.out.println("userSign    5");
+                reponse.setStatus_code(4);//信息为空
+                return reponse;
             }
 
-        } else {
-            if (!user.getPass_word().equals(sign.getPass_word())) {
-                System.out.println("userSign    3");
-                message.setStatus_code(2);//密码错误
-                return message;
+            System.out.println(patientInfo);
+
+            if (sign.getPass_word() == null){
+                System.out.println("userSign    2");
+                if (token.equals(user.getToken())){
+
+                    System.out.println(" patient Sign    4");
+                    String new_token = generateToken.generateToken(UUID.randomUUID().toString());
+
+                    int sex = patientInfo.getSex();
+                    String name = patientInfo.getName();
+
+                    userInfoMapper.updateToken(new_token, user.getId());
+
+                    reponse.setToken(new_token);
+                    reponse.setStatus_code(0);
+                    reponse.setName(name);
+                    reponse.setSex(sex);
+
+                    return reponse;
+
+                }else {
+                    reponse.setStatus_code(3);//token异常
+                    return reponse;
+                }
+
+            }else {
+
+                if (!user.getPass_word().equals(sign.getPass_word())) {
+                    System.out.println("userSign    3");
+                    reponse.setStatus_code(2);//密码错误
+                    return reponse;
+                }else {
+
+                    System.out.println("userSign    4");
+                    String new_token = generateToken.generateToken(UUID.randomUUID().toString());
+
+                    int sex = patientInfo.getSex();
+                    String name = patientInfo.getName();
+
+                    userInfoMapper.updateToken(new_token, user.getId());
+
+                    reponse.setToken(new_token);
+                    reponse.setStatus_code(0);
+                    reponse.setName(name);
+                    reponse.setSex(sex);
+
+                    return reponse;
+                }
             }
 
 
-            System.out.println("------------------------------");
-            if (UserType.Patient.getValue() == user.getUser_type()) {
+        }else if(UserType.Doctor.getValue() == user.getUser_type()){//医生登录
 
-                System.out.println("userSign    4");
-                String new_token = generateToken.generateToken(UUID.randomUUID().toString());
+            System.out.println("==============================");
 
-                int sex = patientInfo.getSex();
-                String name = patientInfo.getName();
-
-                userInfoMapper.updateToken(new_token, sign.getPhone_num());
-
-                message.setToken(new_token);
-                message.setStatus_code(0);
-                message.setName(name);
-                message.setSex(sex);
-
-                return message;
-
-            } else if (UserType.Doctor.getValue() == user.getUser_type()) {
-                System.out.println("6");
-                // TODO
-                return null;
+            if (doctorInfo == null) {
+                System.out.println("userSign    5");
+                reponse.setStatus_code(4);//信息为空
+                return reponse;
             }
-            System.out.println("userSign    7");
+
+            System.out.println(doctorInfo);
+
+            if (sign.getPass_word() == null){
+                System.out.println("userSign    2");
+                if (token.equals(user.getToken())){
+
+                    System.out.println(" doctor Sign    4");
+                    String new_token = generateToken.generateToken(UUID.randomUUID().toString());
+
+                    String name = doctorInfo.getName();
+
+                    userInfoMapper.updateToken(new_token, user.getId());
+
+                    reponse.setToken(new_token);
+                    reponse.setStatus_code(0);
+                    reponse.setDoctor(doctorInfo);
+
+                    return reponse;
+
+                }else {
+                    reponse.setStatus_code(3);//token异常
+                    return reponse;
+                }
+
+            }else {
+
+                if (!user.getPass_word().equals(sign.getPass_word())) {
+                    System.out.println("userSign    3");
+                    reponse.setStatus_code(2);//密码错误
+                    return reponse;
+                }else {
+
+                    System.out.println("doctor    4");
+                    String new_token = generateToken.generateToken(UUID.randomUUID().toString());
+
+                    String name = doctorInfo.getName();
+
+                    userInfoMapper.updateToken(new_token, user.getId());
+
+                    reponse.setToken(new_token);
+                    reponse.setStatus_code(0);
+                    reponse.setDoctor(doctorInfo);
+
+                    return reponse;
+                }
+            }
+
+
         }
+
+
         System.out.println("userSign    8");
         return null;
     }
 
+    //患者输入个人信息
     public ResponseMessage patientInsertInfo(RequestMessage message){
         System.out.println(message);
         Patient user = userInfoMapper.selectPatientByIdNum(message.getPatient().getId_num());
@@ -172,6 +249,8 @@ public class UserService {
             return response;
         }
     }
+
+    //患者病症信息
     public ResponseMessage PatientDiseaseInfo(PatientDiseaseInfo patientDiseaseInfo, String phone_num, String token){
         Register user = userInfoMapper.selectToken(phone_num);
         ResponseMessage response = new ResponseMessage();
