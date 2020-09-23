@@ -124,6 +124,15 @@ public class UploadFileController {
     }
 
 
+    @PostMapping(value = "/doctorUploadFiles")
+    public ResponseMessage doctorUploadFiles(@RequestParam(value = "files[]") List<MultipartFile> files){
+
+        // ResponseMessage Result = uploadFileService.InvasiveInstrumentsUpload();
+
+        return null;
+    }
+
+
 
     //门诊病历
 //    @PostMapping(value = "/OutpatientMedicalRecords")

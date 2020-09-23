@@ -15,6 +15,7 @@ com\xd\pojo\Emerge.class
 com\xd\controller\ResultController.class
 com\xd\controller\UploadFileController.class
 com\xd\mapper\UserInfoMapper.class
+com\xd\utils\DoctorMessage.class
 com\xd\pojo\OutPatient.class
 com\xd\pojo\Medicine.class
 com\xd\controller\TestController.class

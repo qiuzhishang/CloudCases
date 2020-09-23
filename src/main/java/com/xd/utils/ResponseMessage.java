@@ -26,6 +26,8 @@ public class ResponseMessage {
     private List<OutPatient> outPatients;
     private List<OutPatientRecords> outPatientRecords;
 
+    private List<DoctorMessage> doctorMessages;
+
     @Override
     public String toString() {
         return "ResponseMessage{" +
@@ -47,7 +49,16 @@ public class ResponseMessage {
                 ", examines=" + examines +
                 ", outPatients=" + outPatients +
                 ", outPatientRecords=" + outPatientRecords +
+                ", doctorMessages=" + doctorMessages +
                 '}';
+    }
+
+    public List<DoctorMessage> getDoctorMessages() {
+        return doctorMessages;
+    }
+
+    public void setDoctorMessages(List<DoctorMessage> doctorMessages) {
+        this.doctorMessages = doctorMessages;
     }
 
     public List<AdmissionNote> getAdmissionNotes() {

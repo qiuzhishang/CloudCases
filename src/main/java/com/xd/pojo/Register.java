@@ -1,12 +1,16 @@
 package com.xd.pojo;
 
 public class Register {
+
     private Long id;
     private String phone_num;
     private String pass_word;
     private String ver_code;
     private int user_type;
 
+    private String token;
+    private Long user_id;
+    private Long time;
 
     public Long getId() {
         return id;
@@ -32,9 +36,7 @@ public class Register {
                 '}';
     }
 
-    private String token;
-    private Long user_id;
-    private Long time;
+
 
     public Long getTime() {
         return time;

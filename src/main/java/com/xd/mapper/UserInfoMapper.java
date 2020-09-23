@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface UserInfoMapper {
 
+    @Select("select * from user_enter_info where id = #{id}")
+    Register selectPhoneNum(Long id);
+
     //Doctor
 
 
@@ -24,8 +27,6 @@ public interface UserInfoMapper {
 
     @Select("select * from disease_info where user_id = #{user_id}")
     List<PatientDiseaseInfo> selectDiseaseInfo(Long user_id);
-
-
 
     //Token
     @Select("select * from user_enter_info where phone_num = #{phone_num}")
@@ -51,7 +52,6 @@ public interface UserInfoMapper {
 
     @Select("select * from patient_info where user_id = #{user_id}")
     Patient selectPatientByUserId(Long user_id);
-
 
     @Insert("insert into patient_info"+
             "(name, id_num, sex, race, birthplace, postal_addr, now_addr, pre_addr1, pre_addr2, user_id)"+

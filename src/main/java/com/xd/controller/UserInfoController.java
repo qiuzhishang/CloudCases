@@ -45,11 +45,16 @@ public class UserInfoController {
     @RequestMapping(value = "/selectPAD",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage PatientAndDoctor(@RequestBody RequestMessage message){
 
+        ResponseMessage responseMessage = doctorService.PatientSelectDoctor(message);
 
+        return responseMessage;
+    }
 
-        ResponseMessage responseMessage = doctorService.PatientAndDoctor(message);
+    //医生查看患者信息
+    @RequestMapping(value = "/selectDAP",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage DoctorSeclectPatient(@RequestBody RequestMessage message){
 
-
+        ResponseMessage responseMessage = doctorService.DoctorSelectPatient(message);
 
         return responseMessage;
     }

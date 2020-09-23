@@ -18,6 +18,11 @@ public class RequestMessage {
     private OutPatientRecords outPatientRecords;
     private Examine examine;
 
+    private List<Long> add_doctor_id;
+    private List<Long> remove_doctor_id;
+
+    private Doctor doctor;
+
     @Override
     public String toString() {
         return "RequestMessage{" +
@@ -48,9 +53,7 @@ public class RequestMessage {
         this.examine = examine;
     }
 
-    private List<Long> add_doctor_id;
-    private List<Long> remove_doctor_id;
-    private Doctor doctor;
+
 
     public List<Long> getRemove_doctor_id() {
         return remove_doctor_id;

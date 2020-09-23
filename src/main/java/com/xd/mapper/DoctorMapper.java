@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.omg.CORBA.LongHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface DoctorMapper {
 
     //查询医生
     @Select("select * from doctor_info where id_num = #{id_num}")
-    Doctor selectDoctorById(String id_num);
+    Doctor selectDoctorByIdNum(String id_num);
 
     @Select("select * from doctor_info")
     List<Doctor> selectAllDoctor();
@@ -36,13 +37,21 @@ public interface DoctorMapper {
             + "(patient_id, doctor_id, flag)"
             + "values"
             + "(#{patient_id}, #{doctor_id}, #{flag})")
-    int insertPatientAndDoctor(PatientAndDoctor patientAndDoctor);
+    // int insertPatientAndDoctor(PatientAndDoctor patientAndDoctor);
+    int insertPatientAndDoctor(Long patient_id, Long doctor_id, int flag);
 
-    @Select("select * from doctor_patient_connection where patient_id = #{patient_id}, doctor_id = #{doctor_id}")
+    @Select("select * from doctor_patient_connection where patient_id = #{patient_id} and doctor_id = #{doctor_id}")
     PatientAndDoctor selectExits(Long patient_id, Long doctor_id);
 
-//    @Update("update user_enter_info set token = #{token} where phone_num = #{phone_num}")
-    @Update("update doctor_patient_connection set flag = #{flag}, where id = #{id}")
+    @Select("select doctor_id from doctor_patient_connection where patient_id = #{patient_id}")
+    List<Long> selectedDoctorId(Long patient_id);
+
+    //医生查找对应的患者
+    @Select("select patient_id from doctor_patient_connection where doctor_id = #{doctor_id} and flag = #{flag}")
+    List<Long> selectPatient(Long doctor_id, int flag);
+
+    //@Update("update user_enter_info set token = #{token} where phone_num = #{phone_num}")
+    @Update("update doctor_patient_connection set flag = #{flag} where id = #{id}")
     int updateFlag(int flag, Long id);
 
 }

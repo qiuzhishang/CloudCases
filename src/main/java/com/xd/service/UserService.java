@@ -163,7 +163,7 @@ public class UserService {
 
                     reponse.setToken(new_token);
                     reponse.setStatus_code(0);
-                    reponse.setDoctor(doctorInfo);
+                    reponse.setName(doctorInfo.getName());
 
                     return reponse;
 
@@ -189,7 +189,7 @@ public class UserService {
 
                     reponse.setToken(new_token);
                     reponse.setStatus_code(0);
-                    reponse.setDoctor(doctorInfo);
+                    reponse.setName(doctorInfo.getName());
 
                     return reponse;
                 }
