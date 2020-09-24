@@ -8,6 +8,7 @@ import com.xd.pojo.*;
 import com.xd.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.java2d.pipe.SpanIterator;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +33,13 @@ public class UserService {
     GenerateToken generateToken = new GenerateToken();
 
 
+    public Long translateToId(String num){
+
+        Register user = userInfoMapper.selectUserByPhoneNum(num);
+        System.out.println("------------------" + user);
+
+        return user.getId();
+    }
 
     //用户注册
     public String userRegister(Register register){

@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SuppressWarnings("all")
 @RestController
+
+//用户注册；患者和医生
 public class RegisterController {
 
     @Autowired
     private UserService userService;
-    //注册
+
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 
     public String Config(@RequestBody Register request) {

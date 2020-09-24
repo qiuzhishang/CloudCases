@@ -24,9 +24,15 @@ public class DoctorService {
     UserInfoMapper userInfoMapper;
 
     public List<Doctor> selectAllDoctor() {
-        List<Doctor> doctors = doctorMapper.selectAllDoctor();
 
-        return doctors;
+        return doctorMapper.selectAllDoctor();
+
+    }
+
+
+    public List<Long> selectedDoctorId(Long id){
+
+        return doctorMapper.selectDoctorId(id, 1);
 
     }
 

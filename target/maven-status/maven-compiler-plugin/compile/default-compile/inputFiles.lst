@@ -1,6 +1,5 @@
 D:\CloudCases\src\main\java\com\xd\pojo\DiseasePicture.java
 D:\CloudCases\src\main\java\com\xd\service\UserService.java
-D:\CloudCases\src\main\java\com\xd\controller\ResultController.java
 D:\CloudCases\src\main\java\com\xd\service\UploadFileService.java
 D:\CloudCases\src\main\java\com\xd\pojo\Examine.java
 D:\CloudCases\src\main\java\com\xd\utils\UserType.java
@@ -20,13 +19,13 @@ D:\CloudCases\src\main\java\com\xd\controller\TextController.java
 D:\CloudCases\src\main\java\com\xd\pojo\PatientDiseaseInfo.java
 D:\CloudCases\src\main\java\com\xd\controller\RegisterController.java
 D:\CloudCases\src\main\java\com\xd\mapper\TextMapper.java
+D:\CloudCases\src\main\java\com\xd\controller\PatientController.java
 D:\CloudCases\src\main\java\com\xd\controller\UploadFileController.java
 D:\CloudCases\src\main\java\com\xd\pojo\AdmissionNote.java
 D:\CloudCases\src\main\java\com\xd\pojo\Sign.java
 D:\CloudCases\src\main\java\com\xd\pojo\Medicine.java
 D:\CloudCases\src\main\java\com\xd\pojo\OutPatient.java
 D:\CloudCases\src\main\java\com\xd\pojo\TextInfo.java
-D:\CloudCases\src\main\java\com\xd\controller\UserInfoController.java
 D:\CloudCases\src\main\java\com\xd\pojo\OutPatientRecords.java
 D:\CloudCases\src\main\java\com\xd\redis\RedisClient.java
 D:\CloudCases\src\main\java\com\xd\pojo\PatientAndDoctor.java
@@ -37,6 +36,8 @@ D:\CloudCases\src\main\java\com\xd\pojo\LaboratoryPicture.java
 D:\CloudCases\src\main\java\com\xd\utils\DoctorMessage.java
 D:\CloudCases\src\main\java\com\xd\pojo\InstrumentPicture.java
 D:\CloudCases\src\main\java\com\xd\pojo\isToken.java
+D:\CloudCases\src\main\java\com\xd\controller\DoctorController.java
 D:\CloudCases\src\main\java\com\xd\mapper\DoctorMapper.java
+D:\CloudCases\src\main\java\com\xd\controller\SelectResultController.java
 D:\CloudCases\src\main\java\com\xd\pojo\Patient.java
 D:\CloudCases\src\main\java\com\xd\controller\SignController.java

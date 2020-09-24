@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.omg.CORBA.LongHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,6 +24,9 @@ public interface DoctorMapper {
 
     @Select("select * from doctor_info")
     List<Doctor> selectAllDoctor();
+
+    @Select("select doctor_id from doctor_patient_connection where patient_id = #{patient_id} and flag = #{flag}")
+    List<Long> selectDoctorId(Long patient_id, int flag);
 
     @Insert("insert into doctor_info"+
             "(name, id_num, specialty, personal_info, social_work, address, user_id)"+

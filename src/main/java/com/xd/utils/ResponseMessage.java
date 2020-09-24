@@ -28,6 +28,8 @@ public class ResponseMessage {
 
     private List<DoctorMessage> doctorMessages;
 
+    private List<Long> selected_doctor_id;
+
     @Override
     public String toString() {
         return "ResponseMessage{" +
@@ -50,7 +52,16 @@ public class ResponseMessage {
                 ", outPatients=" + outPatients +
                 ", outPatientRecords=" + outPatientRecords +
                 ", doctorMessages=" + doctorMessages +
+                ", selected_doctor_id=" + selected_doctor_id +
                 '}';
+    }
+
+    public List<Long> getSelected_doctor_id() {
+        return selected_doctor_id;
+    }
+
+    public void setSelected_doctor_id(List<Long> selected_doctor_id) {
+        this.selected_doctor_id = selected_doctor_id;
     }
 
     public List<DoctorMessage> getDoctorMessages() {
