@@ -29,6 +29,8 @@ public class DoctorController {
         return responseMessage;
     }
 
+
+
     //选择医生
     @RequestMapping(value = "/selectAllDoctor",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage SelectDoctor(@RequestBody RequestMessage message){

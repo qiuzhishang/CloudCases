@@ -7,6 +7,7 @@ import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,7 +118,6 @@ public class TextService {
 
     }
 
-
     //门诊记录
     public ResponseMessage OutpatientRecords(RequestMessage message){
         Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
@@ -147,6 +147,11 @@ public class TextService {
                 max = outpatientRecord.getId();
         }
         List<Medicine> medicines = message.getOutPatientRecords().getMedicines();
+        if (medicines == null){
+            ResponseMessage response = new ResponseMessage();
+            response.setStatus_code(1);
+            return response;
+        }
         for (Medicine medicine : medicines) {
 
             textMapper.insertMedicine(medicine.getMedicine_name(),medicine.getMedicine_name(),medicine.getTime(), max);
@@ -156,7 +161,6 @@ public class TextService {
         ResponseMessage response = new ResponseMessage();
         response.setStatus_code(1);
         return response;
-
 
     }
 
@@ -170,9 +174,18 @@ public class TextService {
         outPatientRecords = textMapper.selectOutPatientRecords(user_id);
 
         for (OutPatientRecords outPatientRecord : outPatientRecords) {
-            Long treat_id = outPatientRecord.getId();
-            List<Medicine> medicines = textMapper.selectMedicine(treat_id);
-            outPatientRecord.setMedicines(medicines);
+            try {
+                Long treat_id = outPatientRecord.getId();
+
+                List<Medicine> medicines = textMapper.selectMedicine(treat_id);
+                System.out.println("================"+ treat_id);
+                outPatientRecord.setMedicines(medicines);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
         }
 
         return  outPatientRecords;
@@ -181,8 +194,10 @@ public class TextService {
 
     //病理学检查
     public ResponseMessage DiseaseExamine(RequestMessage message){
+
         Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
         Long user_id = user.getId();
+
         textMapper.insertExamineInfo(message.getExamine().getExamine_info(), user_id);
 
         ResponseMessage response = new ResponseMessage();

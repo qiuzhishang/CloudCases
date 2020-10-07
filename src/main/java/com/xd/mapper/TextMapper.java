@@ -53,7 +53,7 @@ public interface TextMapper {
             "(#{medicine_name}, #{medicine_method}, #{time}, #{treat_id}) ")
     int insertMedicine(String medicine_name, String medicine_method, String time, Long treat_id);
 
-    @Select("select * from medicie_info where treat_id = #{treat_id}")
+    @Select("select * from medicine_info where treat_id = #{treat_id}")
     List<Medicine> selectMedicine(Long treat_id);
 
     //病理学检查

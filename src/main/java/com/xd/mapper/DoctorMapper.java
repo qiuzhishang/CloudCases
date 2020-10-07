@@ -29,9 +29,9 @@ public interface DoctorMapper {
     List<Long> selectDoctorId(Long patient_id, int flag);
 
     @Insert("insert into doctor_info"+
-            "(name, id_num, specialty, personal_info, social_work, address, user_id)"+
+            "(name, id_num, specialty, personal_info, social_work, user_id)"+
             "values"+
-            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{address}, #{user_id})")
+            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{user_id})")
     int insertDoctorInfo(Doctor doctor);
 
     //医生患者关系

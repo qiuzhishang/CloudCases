@@ -1,5 +1,6 @@
 package com.xd.service;
 
+import com.xd.mapper.DoctorMapper;
 import com.xd.mapper.UploadFileMapper;
 import com.xd.mapper.UserInfoMapper;
 import com.xd.pojo.*;
@@ -21,6 +22,9 @@ public class UploadFileService {
 
     @Autowired
     UserInfoMapper userInfoMapper;
+
+    @Autowired
+    DoctorMapper doctorMapper;
 
 //    public String fileUpload(MultipartFile file, String phone_num, int picture_type, Date date) {
 //        String filePath = "D:\\picture\\";
@@ -63,6 +67,70 @@ public class UploadFileService {
 //        return null;
 //    }
 
+    //医生上传个人图片信息
+    public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info){
+
+        /*
+        * 先插入个人信息，然后插入图片地址
+        * doctor_info, doctor_addr_info*/
+        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
+        Long user_id = user.getId();
+
+        doctor.setUser_id(user_id);
+
+        doctorMapper.insertDoctorInfo(doctor);
+
+        Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
+        Long doctor_id = doc.getId();
+
+        System.out.println(files.size());
+
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        int count = 1;
+        int flag = 1;
+
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
+                    + fileName.split("\\.")[1];
+            File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
+            //存入数据库的路径path
+
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(dest);
+                String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+
+
+                uploadFileMapper.insertDoctorAddr(file_addr, count, doctor_id);
+
+                count++;
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("上传失败" );
+                flag = 0;
+            }
+            System.out.println("上传成功");
+        }
+        ResponseMessage response = new ResponseMessage();
+        if (flag == 1) {
+
+            response.setStatus_code(1);
+            return response;
+        } else {
+            response.setStatus_code(0);
+            return response;
+        }
+
+    }
+
+
+
     //病症图片
     public ResponseMessage DiseasePictureUpload(List<MultipartFile> files, TextInfo info) {
 
@@ -72,9 +140,8 @@ public class UploadFileService {
         Long user_id = user.getId();
 
         System.out.println(files.size());
-        for (MultipartFile file : files)
+        for (MultipartFile file : files) {
 
-         {
             if (file.isEmpty()) {
                 System.out.println("file is empty");
             }

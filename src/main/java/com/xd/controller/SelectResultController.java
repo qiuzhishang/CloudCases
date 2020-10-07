@@ -36,6 +36,13 @@ public class SelectResultController {
         return response;
     }
 
+    //查询医生的文本信息
+
+    //查询医生的所有图片信息
+
+    //查询医生的个人信息
+
+
     //查询体检报告图片
     @RequestMapping(value = "/ReportPicture", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage selectReportPicture(@RequestBody RequestMessage message) {
@@ -172,4 +179,35 @@ public class SelectResultController {
 
         return response;
     }
+
+    //查询所有信息
+    @RequestMapping(value = "/allInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage SeclectAllInfo(@RequestBody RequestMessage message){
+
+        List<AdmissionNote> admissionNotes = textService.SelectAdmissionNote(message);
+        List<Examine> examines = textService.SelectDiseaseExamine(message);
+        List<OutPatient> outPatients = textService.SelectOutPatient(message);
+        List<OutPatientRecords> outPatientRecords = textService.SelectOutpatientRecords(message);
+        List<TextInfo> textInfos = userService.selectReportPicture(message);
+        List<DiseasePicture> diseasePictures = userService.selectDiseasePicture(message);
+        List<LaboratoryPicture> laboratoryPictures = userService.selectLaboratoryPicture(message);
+        List<ImagePicture> imagePictures = userService.selectImagePicture(message);
+        List<InstrumentPicture> instrumentPictures = userService.selectInstrumentPicture(message);
+
+        ResponseMessage response = new ResponseMessage();
+
+        response.setAdmissionNotes(admissionNotes);
+        response.setExamines(examines);
+        response.setOutPatients(outPatients);
+        response.setOutPatientRecords(outPatientRecords);
+        response.setTextInfo(textInfos);
+        response.setDiseasePictures(diseasePictures);
+        response.setLaboratoryPictures(laboratoryPictures);
+        response.setImagePictures(imagePictures);
+        response.setInstrumentPictures(instrumentPictures);
+
+        return response;
+    }
+
+
 }

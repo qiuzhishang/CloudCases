@@ -13,6 +13,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UploadFileMapper {
+    //医生图片信息
+    @Insert("insert into doctor_addr_info"
+            + "(doctor_addr_info, picture_type, doctor_id)"
+            + "values"
+            + "(#{doctor_addr_info}, #{picture_type}, #{doctor_id})")
+    int insertDoctorAddr(String doctor_addr_info, int picture_type, Long doctor_id);
+
     //疾病信息
     @Insert("insert into disease_picture_info" +
             "( picture_type, user_id, date)" +

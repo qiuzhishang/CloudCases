@@ -47,6 +47,8 @@ public class TextController {
     public ResponseMessage DiseaseExamine(@RequestBody RequestMessage message){
         System.out.println(message);
         ResponseMessage response = textService.DiseaseExamine(message);
+
+        System.out.println(response);
         return response;
     }
 
