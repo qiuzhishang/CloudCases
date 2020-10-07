@@ -165,7 +165,7 @@ public class UploadFileService {
                     if (max < diseasePicture.getId())
                         max = diseasePicture.getId();
                 }
-                uploadFileMapper.insertPictureAddrInfo(file_addr, max);
+                uploadFileMapper.insertPictureAddrInfo(file_addr, max, 0);
 
 
             } catch (IOException e) {
