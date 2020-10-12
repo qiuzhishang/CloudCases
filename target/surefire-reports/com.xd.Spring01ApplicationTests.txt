@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.xd.Spring01ApplicationTests
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.096 s - in com.xd.Spring01ApplicationTests
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.419 s - in com.xd.Spring01ApplicationTests
+>>>>>>> 47990e7a50d0e372981c91e3265e18fcab4725a0

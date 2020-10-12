@@ -35,7 +35,9 @@ public interface UploadFileMapper {
             "(file_addr, disease_picture_id, flag)" +
             "values" +
             "(#{file_addr}, #{disease_picture_id}, 0)")
+
     int insertPictureAddrInfo(String file_addr, Long disease_picture_id);
+
 
     @Select("select file_addr from disease_picture_addr_info where disease_picture_id = #{disease_picture_id}")
     List<String> selectDiseasePictureAddr(Long disease_picture_id);
