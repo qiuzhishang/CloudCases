@@ -34,7 +34,7 @@ public interface UploadFileMapper {
     @Insert("insert into disease_picture_addr_info" +
             "(file_addr, disease_picture_id, flag)" +
             "values" +
-            "(#{file_addr}, #{disease_picture_id}, #{flag})")
+            "(#{file_addr}, #{disease_picture_id}, 0)")
     int insertPictureAddrInfo(String file_addr, Long disease_picture_id);
 
     @Select("select file_addr from disease_picture_addr_info where disease_picture_id = #{disease_picture_id}")
@@ -43,9 +43,9 @@ public interface UploadFileMapper {
 
     //体检报告
     @Insert("insert into report_info" +
-            "( date, hospital, report_info, result, user_id)" +
+            "( date, hospital, report_info, result, user_id, flag)" +
             "values" +
-            "(#{date}, #{hospital}, #{report_info}, #{result}, #{user_id})")
+            "(#{date}, #{hospital}, #{report_info}, #{result}, #{user_id}, 0)")
     int insertMedicalExaminationReport(TextInfo info);
 
     @Select("select * from report_info where user_id = #{user_id}")
@@ -55,9 +55,9 @@ public interface UploadFileMapper {
     List<String> selectAddress(Long report_id);
 
     @Insert("insert into report_addr_info" +
-            "( file_addr, report_id)" +
+            "( file_addr, report_id, flag)" +
             "values" +
-            "(#{file_addr}, #{report_id})")
+            "(#{file_addr}, #{report_id}, 0)")
     int insertMedicalExaminationReportAddr(String file_addr, Long report_id);
 
     //化验检查
@@ -73,9 +73,9 @@ public interface UploadFileMapper {
 
 
     @Insert("insert into laboratory_addr_info" +
-            "( file_addr, laboratory_id)" +
+            "( file_addr, laboratory_id, flag)" +
             "values" +
-            "(#{file_addr}, #{laboratory_id})")
+            "(#{file_addr}, #{laboratory_id}, 0)")
     int insertLaboratoryExaminationAddr(String file_addr, Long laboratory_id);
 
     @Select("select file_addr from laboratory_addr_info where laboratory_id = #{laboratory_id}")
@@ -92,9 +92,9 @@ public interface UploadFileMapper {
     List<ImagePicture> selectImageExaminationId(Long user_id);
 
     @Insert("insert into image_addr_info" +
-            "( file_addr, image_id)" +
+            "( file_addr, image_id, flag)" +
             "values" +
-            "(#{file_addr}, #{image_id})")
+            "(#{file_addr}, #{image_id}, 0)")
     int insertImageExaminationAddr(String file_addr, Long image_id);
 
     @Select("select file_addr from image_addr_info where image_id = #{image_id}")
@@ -111,9 +111,9 @@ public interface UploadFileMapper {
     List<InstrumentPicture> selectInvasiveInstrumentsId(Long user_id);
 
     @Insert("insert into instrument_addr_info" +
-            "( file_addr, instrument_id)" +
+            "( file_addr, instrument_id, flag)" +
             "values" +
-            "(#{file_addr}, #{instrument_id})")
+            "(#{file_addr}, #{instrument_id}, 0)")
     int insertInvasiveInstrumentsAddr(String file_addr, Long instrument_id);
 
     @Select("select file_addr from image_addr_info where image_id = #{image_id}")

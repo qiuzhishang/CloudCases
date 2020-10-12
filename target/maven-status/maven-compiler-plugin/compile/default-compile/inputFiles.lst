@@ -1,5 +1,6 @@
 D:\CloudCases\src\main\java\com\xd\pojo\DiseasePicture.java
 D:\CloudCases\src\main\java\com\xd\service\UserService.java
+D:\CloudCases\src\main\java\com\xd\pojo\DoctorResult.java
 D:\CloudCases\src\main\java\com\xd\service\UploadFileService.java
 D:\CloudCases\src\main\java\com\xd\pojo\Examine.java
 D:\CloudCases\src\main\java\com\xd\utils\UserType.java
@@ -10,6 +11,7 @@ D:\CloudCases\src\main\java\com\xd\service\DoctorService.java
 D:\CloudCases\src\main\java\com\xd\mapper\UserInfoMapper.java
 D:\CloudCases\src\main\java\com\xd\pojo\Doctor.java
 D:\CloudCases\src\main\java\com\xd\pojo\Report.java
+D:\CloudCases\src\main\java\com\xd\pojo\DoctorAddr.java
 D:\CloudCases\src\main\java\com\xd\controller\TestController.java
 D:\CloudCases\src\main\java\com\xd\pojo\Emerge.java
 D:\CloudCases\src\main\java\com\xd\pojo\Register.java

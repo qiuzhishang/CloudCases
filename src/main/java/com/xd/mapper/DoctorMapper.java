@@ -1,6 +1,7 @@
 package com.xd.mapper;
 
 import com.xd.pojo.Doctor;
+import com.xd.pojo.DoctorAddr;
 import com.xd.pojo.PatientAndDoctor;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,10 +14,14 @@ import java.util.List;
 @Mapper
 @Repository
 public interface DoctorMapper {
+
+
     //医生登录
     @Select("select * from doctor_info where user_id = #{user_id}")
     Doctor selectDoctorByUserId(Long user_id);
 
+    @Select("select * from doctor_addr_info where doctor_id = #{doctor_id}")
+    List<DoctorAddr> selectDoctorAddrInfo(Long doctor_id);
 
     //查询医生
     @Select("select * from doctor_info where id_num = #{id_num}")

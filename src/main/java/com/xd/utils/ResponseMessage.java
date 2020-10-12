@@ -30,6 +30,8 @@ public class ResponseMessage {
 
     private List<Long> selected_doctor_id;
 
+    private DoctorResult doctorResult;
+
     @Override
     public String toString() {
         return "ResponseMessage{" +
@@ -53,7 +55,16 @@ public class ResponseMessage {
                 ", outPatientRecords=" + outPatientRecords +
                 ", doctorMessages=" + doctorMessages +
                 ", selected_doctor_id=" + selected_doctor_id +
+                ", doctorResult=" + doctorResult +
                 '}';
+    }
+
+    public DoctorResult getDoctorResult() {
+        return doctorResult;
+    }
+
+    public void setDoctorResult(DoctorResult doctorResult) {
+        this.doctorResult = doctorResult;
     }
 
     public List<Long> getSelected_doctor_id() {

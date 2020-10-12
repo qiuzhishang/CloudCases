@@ -41,6 +41,29 @@ public class UserService {
         return user.getId();
     }
 
+    //查询医生信息
+    public ResponseMessage DoctorInfos(RequestMessage message){
+
+        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
+        Long user_id = user.getId();
+
+        Doctor doctor = doctorMapper.selectDoctorByUserId(user_id);
+        Long doctor_id = doctor.getId();
+
+        ResponseMessage responseMessage = new ResponseMessage();
+
+
+        DoctorResult doctorResult = new DoctorResult();
+
+        responseMessage.setStatus_code(1);
+        doctorResult.setDoctorAddrs(doctorMapper.selectDoctorAddrInfo(doctor_id));
+        doctorResult.setDoctor(doctor);
+
+        responseMessage.setDoctorResult(doctorResult);
+
+        return responseMessage;
+    }
+
     //用户注册
     public String userRegister(Register register){
         register.setTime();

@@ -41,7 +41,15 @@ public class SelectResultController {
     //查询医生的所有图片信息
 
     //查询医生的个人信息
+    @RequestMapping(value = "/DoctorInfos", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage Doctor(@RequestBody RequestMessage message){
 
+        ResponseMessage responseMessage = userService.DoctorInfos(message);
+
+        return responseMessage;
+
+
+    }
 
     //查询体检报告图片
     @RequestMapping(value = "/ReportPicture", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

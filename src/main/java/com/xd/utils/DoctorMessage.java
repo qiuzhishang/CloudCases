@@ -2,8 +2,6 @@ package com.xd.utils;
 
 import com.xd.pojo.Patient;
 
-import java.security.PrivateKey;
-import java.util.List;
 
 public class DoctorMessage {
     private String phone_num;
