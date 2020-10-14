@@ -112,7 +112,15 @@ public class TextService {
 
         List<AdmissionNote> admissionNotes;
 
+
         admissionNotes = textMapper.selectAdmissionNote(user_id);
+
+        for (AdmissionNote admissionNote : admissionNotes) {
+
+            System.out.println(admissionNote);
+            break;
+        }
+
 
         return admissionNotes;
 
@@ -124,6 +132,18 @@ public class TextService {
         Long user_id = user.getId();
         message.getOutPatientRecords().setUser_id(user_id);
 
+        String date = message.getOutPatientRecords().getDate();
+
+        //java String 转sql日期
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date sDate = null;
+        try {
+            java.util.Date date3 = sdf2.parse(date);
+            sDate = new Date(date3.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         textMapper.insertOutPatientRecords(
                 message.getOutPatientRecords().getDepartment_treatment(),
                 message.getOutPatientRecords().getHospital(),
@@ -133,7 +153,7 @@ public class TextService {
                 message.getOutPatientRecords().getTreating_info(),
                 message.getOutPatientRecords().getTreat_items(),
                 message.getOutPatientRecords().getTreat_methods(),
-                message.getOutPatientRecords().getDate(),
+                sDate,
                 message.getOutPatientRecords().getUser_id()
         );
 

@@ -6,7 +6,7 @@ import java.util.List;
 public class LaboratoryPicture {
     private Long id;
 
-    private Date date;
+    private String date;
 
     private Long user_id;
     private List<String> address;
@@ -29,11 +29,11 @@ public class LaboratoryPicture {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

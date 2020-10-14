@@ -6,7 +6,7 @@ import java.util.List;
 public class DiseasePicture {
     private Long id;
     private String file_addr;
-    private Date date;
+    private String date;
     private int picture_type;
     private Long user_id;
     private List<String> address;
@@ -17,16 +17,6 @@ public class DiseasePicture {
 
     public void setAddress(List<String> address) {
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "DiseasePicture{" +
-                "file_addr='" + file_addr + '\'' +
-                ", date=" + date +
-                ", picture_type=" + picture_type +
-                ", uer_id=" + user_id +
-                '}';
     }
 
     public Long getId() {
@@ -45,11 +35,23 @@ public class DiseasePicture {
         this.file_addr = file_addr;
     }
 
-    public Date getDate() {
+    @Override
+    public String toString() {
+        return "DiseasePicture{" +
+                "id=" + id +
+                ", file_addr='" + file_addr + '\'' +
+                ", date='" + date + '\'' +
+                ", picture_type=" + picture_type +
+                ", user_id=" + user_id +
+                ", address=" + address +
+                '}';
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

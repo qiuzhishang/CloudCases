@@ -8,7 +8,7 @@ import java.util.List;
 //门诊记录
 public class OutPatientRecords {
     private Long id;
-    private Date date;//日期
+    private String date;//日期
     private String department_treatment;//就诊科室
     private String hospital;//就诊医院
     private String disease_info;//诊断内容
@@ -19,24 +19,6 @@ public class OutPatientRecords {
     private String treat_methods;//非药物治疗措施
     private List<Medicine> medicines;//用药列表
     private Long user_id;
-
-    @Override
-    public String toString() {
-        return "OutPatientRecords{" +
-                "id=" + id +
-                ", date=" + date +
-                ", department_treatment='" + department_treatment + '\'' +
-                ", hospital='" + hospital + '\'' +
-                ", disease_info='" + disease_info + '\'' +
-                ", doctor_name='" + doctor_name + '\'' +
-                ", treat_info='" + treat_info + '\'' +
-                ", treating_info='" + treating_info + '\'' +
-                ", treat_items='" + treat_items + '\'' +
-                ", treat_methods='" + treat_methods + '\'' +
-                ", medicines=" + medicines +
-                ", user_id=" + user_id +
-                '}';
-    }
 
     public Long getUser_id() {
         return user_id;
@@ -54,24 +36,30 @@ public class OutPatientRecords {
         this.id = id;
     }
 
-    public Date getDate() {
+    @Override
+    public String toString() {
+        return "OutPatientRecords{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", department_treatment='" + department_treatment + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", disease_info='" + disease_info + '\'' +
+                ", doctor_name='" + doctor_name + '\'' +
+                ", treat_info='" + treat_info + '\'' +
+                ", treating_info='" + treating_info + '\'' +
+                ", treat_items='" + treat_items + '\'' +
+                ", treat_methods='" + treat_methods + '\'' +
+                ", medicines=" + medicines +
+                ", user_id=" + user_id +
+                '}';
+    }
+
+    public String getDate() {
         return date;
     }
-    public void setDate(Date date){
-        this.date = date;
-    }
-
 
     public void setDate(String date) {
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-        java.sql.Date sDate = null;
-        try {
-            java.util.Date date3 = sdf2.parse(date);
-            sDate = new java.sql.Date(date3.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.date = sDate;
+        this.date = date;
     }
 
     public String getDepartment_treatment() {

@@ -6,20 +6,10 @@ import java.util.List;
 public class ImagePicture {
     private Long id;
 
-    private Date date;
+    private String date;
 
     private Long user_id;
     private List<String> address;
-
-    @Override
-    public String toString() {
-        return "LaboratoryPicture{" +
-                "id=" + id +
-                ", date=" + date +
-                ", user_id=" + user_id +
-                ", address=" + address +
-                '}';
-    }
 
     public Long getId() {
         return id;
@@ -29,11 +19,21 @@ public class ImagePicture {
         this.id = id;
     }
 
-    public Date getDate() {
+    @Override
+    public String toString() {
+        return "ImagePicture{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", user_id=" + user_id +
+                ", address=" + address +
+                '}';
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -41,7 +41,7 @@ public interface TextMapper {
             "( department_treatment, hospital, disease_info, doctor_name, treat_info, treating_info, treat_items, treat_methods, date, user_id)" +
             "values" +
             "( #{department_treatment}, #{hospital}, #{disease_info}, #{doctor_name}, #{treat_info}, #{treating_info}, #{treat_items}, #{treat_methods}, #{date}, #{user_id})")
-    int insertOutPatientRecords(String department_treatment, String hospital, String disease_info, String doctor_name, String treat_info, String treating_info, String treat_items, String treat_methods, Date date, Long user_id);
+    int insertOutPatientRecords(String department_treatment, String hospital, String disease_info, String doctor_name, String treat_info, String treating_info, String treat_items, String treat_methods, java.sql.Date date, Long user_id);
 //            int insertOutPatientRecords(OutPatientRecords outPatientRecords, Long user_id);
 
     @Select("select * from outpatient_records where user_id = #{user_id}")

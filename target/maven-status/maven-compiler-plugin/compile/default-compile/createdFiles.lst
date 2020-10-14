@@ -2,6 +2,7 @@ com\xd\pojo\AdmissionNote.class
 com\xd\utils\UserType$1.class
 com\xd\pojo\PatientAndDoctor.class
 com\xd\pojo\PatientDiseaseInfo.class
+com\xd\pojo\DoctorResult.class
 com\xd\pojo\Patient.class
 com\xd\mapper\DoctorMapper.class
 com\xd\pojo\LaboratoryPicture.class
@@ -30,6 +31,7 @@ com\xd\controller\SelectResultController.class
 com\xd\mapper\UserInfoMapper.class
 com\xd\utils\DoctorMessage.class
 com\xd\pojo\OutPatient.class
+com\xd\pojo\DoctorAddr.class
 com\xd\controller\TestController.class
 com\xd\pojo\isToken.class
 com\xd\pojo\Register.class
