@@ -5,12 +5,14 @@ import com.xd.pojo.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 
 @Mapper
 @Repository
 public interface UserInfoMapper {
+
 
     @Select("select * from user_enter_info where id = #{id}")
     Register selectPhoneNum(Long id);
@@ -54,10 +56,10 @@ public interface UserInfoMapper {
     Patient selectPatientByUserId(Long user_id);
 
     @Insert("insert into patient_info"+
-            "(name, id_num, sex, race, birthplace, postal_addr, now_addr, pre_addr1, pre_addr2, user_id)"+
+            "(name, id_num, sex, race, birthplace, postal_addr, now_addr, pre_addr1, pre_addr2, user_id, birthday)"+
             "values"+
-            "(#{name}, #{id_num}, #{sex}, #{race}, #{birthplace}, #{postal_addr}, #{now_addr}, #{pre_addr1}, #{pre_addr2}, #{user_id})")
-    int insertPatientInfo(Patient patient);
+            "(#{name}, #{id_num}, #{sex}, #{race}, #{birthplace}, #{postal_addr}, #{now_addr}, #{pre_addr1}, #{pre_addr2}, #{user_id}, #{birthday})")
+    int insertPatientInfo(String name, String id_num, int sex, String race, String birthplace, String postal_addr, String now_addr, String pre_addr1, String pre_addr2, Long user_id, Date birthday);
 
     @Insert("insert into emerge_contact" +
             "(name, phone_num, user_id)" +

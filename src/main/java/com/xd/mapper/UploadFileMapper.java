@@ -5,6 +5,7 @@ import com.xd.pojo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -18,7 +19,12 @@ public interface UploadFileMapper {
             + "(doctor_addr_info, picture_type, doctor_id)"
             + "values"
             + "(#{doctor_addr_info}, #{picture_type}, #{doctor_id})")
-    int insertDoctorAddr(String doctor_addr_info, int picture_type, Long doctor_id);
+    int insertDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
+
+    //@Update("update doctor_patient_connection set flag = #{flag} where id = #{id}")
+    //医生第二次上传更新图片信息
+    @Update("update doctor_addr_info set doctor_addr_info = #{doctor_addr_info} where picture_type = #{picture_type} and doctor_id = #{doctor_id}  ")
+    int updateDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
 
     //疾病信息
     @Insert("insert into disease_picture_info" +

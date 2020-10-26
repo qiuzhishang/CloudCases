@@ -68,7 +68,7 @@ public class UploadFileService {
 //    }
 
     //医生上传个人图片信息
-    public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info){
+    public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info, List<Long> types){
 
         /*
         * 先插入个人信息，然后插入图片地址
@@ -78,16 +78,65 @@ public class UploadFileService {
 
         doctor.setUser_id(user_id);
 
+        Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
+
+
+        if (doc != null){
+            System.out.println(files.size());
+
+            Long doctor_id = doc.getId();
+            ResponseMessage responseMessage = new ResponseMessage();
+
+            int count = 0;
+            int flag = 1;
+
+            for (MultipartFile file : files) {
+                String fileName = file.getOriginalFilename();
+                fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
+                        + fileName.split("\\.")[1];
+                File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
+                //存入数据库的路径path
+
+                if (!dest.getParentFile().exists()) {
+                    dest.getParentFile().mkdirs();
+                }
+                try {
+                    file.transferTo(dest);
+                    String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+
+
+                    uploadFileMapper.updateDoctorAddr(file_addr, types.get(count), doctor_id);
+
+                    count++;
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("上传失败" );
+                    flag = 0;
+                }
+                System.out.println("上传成功");
+            }
+            ResponseMessage response = new ResponseMessage();
+            if (flag == 1) {
+
+                response.setStatus_code(1);
+                return response;
+            } else {
+                response.setStatus_code(0);
+                return response;
+            }
+        }
+
         doctorMapper.insertDoctorInfo(doctor);
 
-        Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
         Long doctor_id = doc.getId();
 
         System.out.println(files.size());
 
         ResponseMessage responseMessage = new ResponseMessage();
 
-        int count = 1;
+        int count = 0;
         int flag = 1;
 
         for (MultipartFile file : files) {
@@ -105,7 +154,7 @@ public class UploadFileService {
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
 
-                uploadFileMapper.insertDoctorAddr(file_addr, count, doctor_id);
+                uploadFileMapper.insertDoctorAddr(file_addr, types.get(count), doctor_id);
 
                 count++;
 

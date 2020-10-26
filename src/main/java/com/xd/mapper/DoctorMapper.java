@@ -33,11 +33,15 @@ public interface DoctorMapper {
     @Select("select doctor_id from doctor_patient_connection where patient_id = #{patient_id} and flag = #{flag}")
     List<Long> selectDoctorId(Long patient_id, int flag);
 
+    //医生填写个人信息
     @Insert("insert into doctor_info"+
             "(name, id_num, specialty, personal_info, social_work, user_id)"+
             "values"+
             "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{user_id})")
     int insertDoctorInfo(Doctor doctor);
+
+    //医生第二次上传图片执行更新操作
+
 
     //医生患者关系
     @Insert("insert into doctor_patient_connection"

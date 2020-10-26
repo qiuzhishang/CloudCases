@@ -9,6 +9,8 @@ import com.xd.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -134,6 +136,7 @@ public class UserService {
                     reponse.setStatus_code(0);
                     reponse.setName(name);
                     reponse.setSex(sex);
+                    reponse.setUser_type(user.getUser_type());
 
                     return reponse;
 
@@ -162,6 +165,7 @@ public class UserService {
                     reponse.setStatus_code(0);
                     reponse.setName(name);
                     reponse.setSex(sex);
+                    reponse.setUser_type(user.getUser_type());
 
                     return reponse;
                 }
@@ -194,6 +198,7 @@ public class UserService {
                     reponse.setToken(new_token);
                     reponse.setStatus_code(0);
                     reponse.setName(doctorInfo.getName());
+                    reponse.setUser_type(user.getUser_type());
 
                     return reponse;
 
@@ -220,6 +225,7 @@ public class UserService {
                     reponse.setToken(new_token);
                     reponse.setStatus_code(0);
                     reponse.setName(doctorInfo.getName());
+                    reponse.setUser_type(user.getUser_type());
 
                     return reponse;
                 }
@@ -244,17 +250,39 @@ public class UserService {
             return response;
         }
         if ((message.getPatient().getSex() != 0 || message.getPatient().getSex() != 1) &&
-                message.getPatient().getName()!=null &&
-                message.getPatient().getId_num()!=null &&
-                message.getPatient().getBirthplace()!=null &&
-                message.getPatient().getEmerge()!=null &&
-                message.getPatient().getNow_addr()!=null &&
+                message.getPatient().getName()       !=null &&
+                message.getPatient().getId_num()     !=null &&
+                message.getPatient().getBirthplace() !=null &&
+                message.getPatient().getEmerge()     !=null &&
+                message.getPatient().getNow_addr()   !=null &&
                 message.getPatient().getPostal_addr()!=null &&
-                message.getPatient().getRace() != null) {
+                message.getPatient().getRace()       != null) {
             Register err = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
             Long id = err.getId();
             message.getPatient().setUser_id(id);
-            userInfoMapper.insertPatientInfo(message.getPatient());
+
+            String date = message.getPatient().getBirthday();
+
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+            java.sql.Date sDate = null;
+            try {
+                java.util.Date date3 = sdf2.parse(date);
+                sDate = new java.sql.Date(date3.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            userInfoMapper.insertPatientInfo(message.getPatient().getName(),
+                    message.getPatient().getId_num(),
+                    message.getPatient().getSex(),
+                    message.getPatient().getRace(),
+                    message.getPatient().getBirthplace(),
+                    message.getPatient().getPostal_addr(),
+                    message.getPatient().getNow_addr(),
+                    message.getPatient().getPre_addr1(),
+                    message.getPatient().getPre_addr2(),
+                    message.getPatient().getUser_id(),
+                    sDate);
 
             List<Emerge> emerge = message.getPatient().getEmerge();
             System.out.println(emerge);

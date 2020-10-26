@@ -29,3 +29,22 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #mybatis:
 #  mapperLocations: classpath:mapping
+
+---
+server:
+  tomcat:
+
+    #最大链接数
+    max-connections: 6500
+    #最大等待队列长度
+    accept-count: 1000
+    #请求头最大长度kb
+    max-http-header-size: 1048576
+    #请请求体最大长度kb
+    #max-http-post-size: 2097152
+    #最小线程数
+    #最大线程数
+    threads:
+      min-spare: 500
+      max: 2500
+---

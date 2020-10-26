@@ -14,6 +14,7 @@ public class Patient {
     }
 
     private String name;
+    private String birthday;
     private String id_num;
     private int sex;
     private String race;
@@ -30,6 +31,7 @@ public class Patient {
         return "Patient{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", birthday='" + birthday + '\'' +
                 ", id_num='" + id_num + '\'' +
                 ", sex=" + sex +
                 ", race='" + race + '\'' +
@@ -41,6 +43,15 @@ public class Patient {
                 ", emerge=" + emerge +
                 ", user_id=" + user_id +
                 '}';
+    }
+
+    public String getBirthday() {
+
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public Long getUser_id() {

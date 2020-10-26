@@ -4,19 +4,21 @@ import java.util.List;
 
 public class RequestMessage {
 
-    private String phone_num;
-    private int call_type;
-    private DiseasePicture diseasePicture;
-    private String token;
+    private int user_type;
+
     private Sign sign;
-    private Patient patient;
+
+    private String token;
+    private String phone_num;
+
     private Report report;
-    private PatientDiseaseInfo patientDiseaseInfo;
-    private List<PatientDiseaseInfo> patientDiseaseInfoList;
+    private Examine examine;
+    private Patient patient;
     private OutPatient outPatient;
     private AdmissionNote admissionNote;
+    private DiseasePicture diseasePicture;
     private OutPatientRecords outPatientRecords;
-    private Examine examine;
+    private PatientDiseaseInfo patientDiseaseInfo;
 
     private List<Long> add_doctor_id;
     private List<Long> remove_doctor_id;
@@ -27,14 +29,13 @@ public class RequestMessage {
     public String toString() {
         return "RequestMessage{" +
                 "phone_num='" + phone_num + '\'' +
-                ", call_type=" + call_type +
+                ", call_type=" + user_type +
                 ", diseasePicture=" + diseasePicture +
                 ", token='" + token + '\'' +
                 ", sign=" + sign +
                 ", patient=" + patient +
                 ", report=" + report +
                 ", patientDiseaseInfo=" + patientDiseaseInfo +
-                ", patientDiseaseInfoList=" + patientDiseaseInfoList +
                 ", outPatient=" + outPatient +
                 ", admissionNote=" + admissionNote +
                 ", outPatientRecords=" + outPatientRecords +
@@ -89,12 +90,12 @@ public class RequestMessage {
         this.outPatientRecords = outPatientRecords;
     }
 
-    public int getCall_type() {
-        return call_type;
+    public int getUser_type() {
+        return user_type;
     }
 
-    public void setCall_type(int call_type) {
-        this.call_type = call_type;
+    public void setUser_type(int user_type) {
+        this.user_type = user_type;
     }
 
     public AdmissionNote getAdmissionNote() {
@@ -168,12 +169,12 @@ public class RequestMessage {
         this.patientDiseaseInfo = patientDiseaseInfo;
     }
 
-    public List<PatientDiseaseInfo> getPatientDiseaseInfoList() {
-        return patientDiseaseInfoList;
-    }
-
-    public void setPatientDiseaseInfoList(List<PatientDiseaseInfo> patientDiseaseInfoList) {
-        this.patientDiseaseInfoList = patientDiseaseInfoList;
-    }
+    // public List<PatientDiseaseInfo> getPatientDiseaseInfoList() {
+    //     return patientDiseaseInfoList;
+    // }
+    //
+    // public void setPatientDiseaseInfoList(List<PatientDiseaseInfo> patientDiseaseInfoList) {
+    //     this.patientDiseaseInfoList = patientDiseaseInfoList;
+    // }
 
 }

@@ -28,6 +28,7 @@ public class UploadFileController {
     //医生全部信息填写
     @PostMapping(value = "/DoctorInfo")
     public ResponseMessage DoctorInfo(@RequestParam(value = "files[]") List<MultipartFile> files,
+                                      @RequestParam(value = "types[]") List<Long> types,
                                       @RequestParam(value = "phone_num") String phone_num,
                                       @RequestParam(value = "name") String name,
                                       @RequestParam(value = "id_num") String id_num,
@@ -44,7 +45,7 @@ public class UploadFileController {
         doctor.setPersonal_info(personal_info);
         doctor.setSocial_work(social_work);
 
-        ResponseMessage result = uploadFileService.DoctorInfo(files, doctor, info);
+        ResponseMessage result = uploadFileService.DoctorInfo(files, doctor, info, types);
 
         return result;
 
