@@ -9,6 +9,8 @@ public class ResponseMessage {
     private int status_code;
     private String token;
     private String name;
+    private Long userId;
+
     private int sex;
     private List<PatientDiseaseInfo> patientDiseaseInfoList;
     private Patient patient;
@@ -26,11 +28,10 @@ public class ResponseMessage {
     private List<OutPatient> outPatients;
     private List<OutPatientRecords> outPatientRecords;
 
-    private List<DoctorMessage> doctorMessages;
+    private List<DoctorWatchPatientInfo> doctorWatchPatientInfos;
 
     private List<Long> selected_doctor_id;
 
-    private DoctorResult doctorResult;
 
     @Override
     public String toString() {
@@ -38,6 +39,7 @@ public class ResponseMessage {
                 "status_code=" + status_code +
                 ", token='" + token + '\'' +
                 ", name='" + name + '\'' +
+                ", userId=" + userId +
                 ", sex=" + sex +
                 ", patientDiseaseInfoList=" + patientDiseaseInfoList +
                 ", patient=" + patient +
@@ -53,18 +55,17 @@ public class ResponseMessage {
                 ", examines=" + examines +
                 ", outPatients=" + outPatients +
                 ", outPatientRecords=" + outPatientRecords +
-                ", doctorMessages=" + doctorMessages +
+                ", doctorWatchPatientInfos=" + doctorWatchPatientInfos +
                 ", selected_doctor_id=" + selected_doctor_id +
-                ", doctorResult=" + doctorResult +
                 '}';
     }
 
-    public DoctorResult getDoctorResult() {
-        return doctorResult;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setDoctorResult(DoctorResult doctorResult) {
-        this.doctorResult = doctorResult;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public List<Long> getSelected_doctor_id() {
@@ -75,12 +76,12 @@ public class ResponseMessage {
         this.selected_doctor_id = selected_doctor_id;
     }
 
-    public List<DoctorMessage> getDoctorMessages() {
-        return doctorMessages;
+    public List<DoctorWatchPatientInfo> getDoctorWatchPatientInfos() {
+        return doctorWatchPatientInfos;
     }
 
-    public void setDoctorMessages(List<DoctorMessage> doctorMessages) {
-        this.doctorMessages = doctorMessages;
+    public void setDoctorWatchPatientInfos(List<DoctorWatchPatientInfo> doctorWatchPatientInfos) {
+        this.doctorWatchPatientInfos = doctorWatchPatientInfos;
     }
 
     public List<AdmissionNote> getAdmissionNotes() {

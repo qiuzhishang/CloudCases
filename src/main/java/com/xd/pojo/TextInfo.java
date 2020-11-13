@@ -11,14 +11,14 @@ public class TextInfo {
     private String hospital;
     private String report_info;
     private String result;
-    private String phone_num;
+
     private Date date;
     private int picture_type;
     private String items;
     private Long user_id;
     private int flag;
     List<String> address;
-
+    private Long userId;
 
     @Override
     public String toString() {
@@ -27,14 +27,22 @@ public class TextInfo {
                 ", hospital='" + hospital + '\'' +
                 ", report_info='" + report_info + '\'' +
                 ", result='" + result + '\'' +
-                ", phone_num='" + phone_num + '\'' +
                 ", date=" + date +
                 ", picture_type=" + picture_type +
                 ", items='" + items + '\'' +
                 ", user_id=" + user_id +
                 ", flag=" + flag +
                 ", address=" + address +
+                ", userId=" + userId +
                 '}';
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public int getFlag() {
@@ -113,14 +121,6 @@ public class TextInfo {
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public String getPhone_num() {
-        return phone_num;
-    }
-
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
     }
 
     public Date getDate() {

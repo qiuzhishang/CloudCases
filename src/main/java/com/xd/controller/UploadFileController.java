@@ -1,7 +1,5 @@
 package com.xd.controller;
 
-import com.xd.mapper.UserInfoMapper;
-import com.xd.pojo.Doctor;
 import com.xd.pojo.TextInfo;
 import com.xd.service.UploadFileService;
 import com.xd.utils.ResponseMessage;
@@ -15,57 +13,32 @@ import org.springframework.web.multipart.MultipartFile;
 import java.text.ParseException;
 import java.util.List;
 
+/*
+* 患者上传图片操作
+* */
+
 @RestController
 @RequestMapping("/UploadFiles")
 public class UploadFileController {
 
     @Autowired
-    UserInfoMapper userInfoMapper;
-
-    @Autowired
-    UploadFileService uploadFileService;
-
-    //医生全部信息填写
-    @PostMapping(value = "/DoctorInfo")
-    public ResponseMessage DoctorInfo(@RequestParam(value = "files[]") List<MultipartFile> files,
-                                      @RequestParam(value = "types[]") List<Long> types,
-                                      @RequestParam(value = "phone_num") String phone_num,
-                                      @RequestParam(value = "name") String name,
-                                      @RequestParam(value = "id_num") String id_num,
-                                      @RequestParam(value = "specialty") String specialty,
-                                      @RequestParam(value = "personal_info") String personal_info,
-                                      @RequestParam(value = "social_work") String social_work){
-        TextInfo info = new TextInfo();
-        Doctor doctor = new Doctor();
-
-        info.setPhone_num(phone_num);
-        doctor.setName(name);
-        doctor.setId_num(id_num);
-        doctor.setSpecialty(specialty);
-        doctor.setPersonal_info(personal_info);
-        doctor.setSocial_work(social_work);
-
-        ResponseMessage result = uploadFileService.DoctorInfo(files, doctor, info, types);
-
-        return result;
-
-    }
+    private UploadFileService uploadFileService;
 
 
     //病症图片
     @PostMapping(value = "/DiseasePicture")
     public ResponseMessage DiseasePicture(@RequestParam(value = "files[]") List<MultipartFile> files,
-                           @RequestParam(value = "phone_num") String phone_num,
+                           @RequestParam(value = "userId") Long userId,
                            @RequestParam(value = "picture_type") int picture_type,
                            @RequestParam(value = "date") String date ) throws ParseException{
 
         TextInfo info = new TextInfo();
 
-        info.setPhone_num(phone_num);
+        info.setUserId(userId);
         info.setDate(date);
         info.setPicture_type(picture_type);
 
-        ResponseMessage result = uploadFileService.DiseasePictureUpload(files, info);
+        ResponseMessage result = uploadFileService. DiseasePictureUpload(files, info);
         return result;
     }
 
@@ -75,16 +48,15 @@ public class UploadFileController {
                                                     @RequestParam(value = "hospital") String hospital,
                                                     @RequestParam(value = "report_info") String report_info,
                                                     @RequestParam(value = "result") String result,
-                                                    @RequestParam(value = "phone_num") String phone_num,
+                                                    @RequestParam(value = "userId") Long userId,
                                                     @RequestParam(value = "date") String date) throws ParseException {
             //java String 转sql日期
             TextInfo info = new TextInfo();
             info.setHospital(hospital);
             info.setResult(result);
             info.setReport_info(report_info);
-            info.setPhone_num(phone_num);
+            info.setUserId(userId);
             info.setDate(date);
-
 
             ResponseMessage Result = uploadFileService.MedicalExaminationReportUpload(files, info );
 
@@ -96,13 +68,13 @@ public class UploadFileController {
     public ResponseMessage LaboratoryExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                     @RequestParam(value = "items") String items,
                                                     @RequestParam(value = "result") String result,
-                                                    @RequestParam(value = "phone_num") String phone_num,
+                                                    @RequestParam(value = "userId") Long userId,
                                                     @RequestParam(value = "date") String date) throws ParseException {
         //java String 转sql日期
         TextInfo info = new TextInfo();
         info.setItems(items);
         info.setResult(result);
-        info.setPhone_num(phone_num);
+        info.setUserId(userId);
         info.setDate(date);
 
 
@@ -115,13 +87,13 @@ public class UploadFileController {
     public ResponseMessage ImageExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                  @RequestParam(value = "items") String items,
                                                  @RequestParam(value = "result") String result,
-                                                 @RequestParam(value = "phone_num") String phone_num,
+                                                 @RequestParam(value = "userId") Long userId,
                                                  @RequestParam(value = "date") String date) throws ParseException {
         //java String 转sql日期
         TextInfo info = new TextInfo();
         info.setItems(items);
         info.setResult(result);
-        info.setPhone_num(phone_num);
+        info.setUserId(userId);
         info.setDate(date);
 
 
@@ -135,13 +107,13 @@ public class UploadFileController {
     public ResponseMessage InvasiveInstruments(@RequestParam(value = "files[]") List<MultipartFile> files,
                                             @RequestParam(value = "items") String items,
                                             @RequestParam(value = "result") String result,
-                                            @RequestParam(value = "phone_num") String phone_num,
+                                            @RequestParam(value = "userId") Long userId,
                                             @RequestParam(value = "date") String date) throws ParseException {
 
         TextInfo info = new TextInfo();
         info.setItems(items);
         info.setResult(result);
-        info.setPhone_num(phone_num);
+        info.setUserId(userId);
         info.setDate(date);//java String 转sql日期
 
 

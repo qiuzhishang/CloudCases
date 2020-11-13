@@ -20,6 +20,7 @@ public interface DoctorMapper {
     @Select("select * from doctor_info where user_id = #{user_id}")
     Doctor selectDoctorByUserId(Long user_id);
 
+    //查询医生图片信息
     @Select("select * from doctor_addr_info where doctor_id = #{doctor_id}")
     List<DoctorAddr> selectDoctorAddrInfo(Long doctor_id);
 
@@ -35,13 +36,26 @@ public interface DoctorMapper {
 
     //医生填写个人信息
     @Insert("insert into doctor_info"+
-            "(name, id_num, specialty, personal_info, social_work, user_id)"+
+            "(name, id_num, hospital, department, specialty, personal_info, social_work, user_id)"+
             "values"+
-            "(#{name}, #{id_num}, #{specialty}, #{personal_info}, #{social_work}, #{user_id})")
+            "(#{name}, #{id_num}, #{hospital}, #{department}, #{specialty}, #{personal_info}, #{social_work}, #{user_id})")
     int insertDoctorInfo(Doctor doctor);
 
-    //医生第二次上传图片执行更新操作
+    //医生查询个人信息
+    @Select("select * from doctor_info where user_id = #{user_id}")
+    Doctor selectDoctorInfo(Long user_id);
 
+    //医生图片信息
+    @Insert("insert into doctor_addr_info"
+            + "(doctor_addr_info, picture_type, doctor_id, flag)"
+            + "values"
+            + "(#{doctor_addr_info}, #{picture_type}, #{doctor_id}, 0)")
+    int insertDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
+
+    //@Update("update doctor_patient_connection set flag = #{flag} where id = #{id}")
+    //医生第二次上传更新图片信息
+    @Update("update doctor_addr_info set doctor_addr_info = #{doctor_addr_info} where picture_type = #{picture_type} and doctor_id = #{doctor_id}  ")
+    int updateDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
 
     //医生患者关系
     @Insert("insert into doctor_patient_connection"
@@ -64,5 +78,8 @@ public interface DoctorMapper {
     //@Update("update user_enter_info set token = #{token} where phone_num = #{phone_num}")
     @Update("update doctor_patient_connection set flag = #{flag} where id = #{id}")
     int updateFlag(int flag, Long id);
+
+    //医生查看跟自己关联患者的详细信息（模糊查询）
+
 
 }

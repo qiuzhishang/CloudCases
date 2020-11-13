@@ -4,6 +4,25 @@ public class Sign {
     private String phone_num;
     private String pass_word;
     private String ver_code;
+    private int user_type;
+
+    @Override
+    public String toString() {
+        return "Sign{" +
+                "phone_num='" + phone_num + '\'' +
+                ", pass_word='" + pass_word + '\'' +
+                ", ver_code='" + ver_code + '\'' +
+                ", user_type=" + user_type +
+                '}';
+    }
+
+    public int getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(int user_type) {
+        this.user_type = user_type;
+    }
 
     public String getPhone_num() {
         return phone_num;
@@ -28,15 +47,6 @@ public class Sign {
     public void setVer_code(String ver_code) {
         this.ver_code = ver_code;
 
-    }
-
-    @Override
-    public String toString() {
-        return "Sign{" +
-                "phone_num='" + phone_num + '\'' +
-                ", pass_word='" + pass_word + '\'' +
-                ", verfi_code='" + ver_code + '\'' +
-                '}';
     }
 
     public Sign clone() {

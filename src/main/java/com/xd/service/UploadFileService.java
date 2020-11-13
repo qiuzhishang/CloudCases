@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -18,13 +19,13 @@ import java.util.List;
 @Service
 public class UploadFileService {
     @Autowired
-    UploadFileMapper uploadFileMapper;
+    private UploadFileMapper uploadFileMapper;
 
     @Autowired
-    UserInfoMapper userInfoMapper;
+    private UserInfoMapper userInfoMapper;
 
     @Autowired
-    DoctorMapper doctorMapper;
+    private DoctorMapper doctorMapper;
 
 //    public String fileUpload(MultipartFile file, String phone_num, int picture_type, Date date) {
 //        String filePath = "D:\\picture\\";
@@ -67,116 +68,7 @@ public class UploadFileService {
 //        return null;
 //    }
 
-    //医生上传个人图片信息
-    public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info, List<Long> types){
 
-        /*
-        * 先插入个人信息，然后插入图片地址
-        * doctor_info, doctor_addr_info*/
-        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
-        Long user_id = user.getId();
-
-        doctor.setUser_id(user_id);
-
-        Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
-
-
-        if (doc != null){
-            System.out.println(files.size());
-
-            Long doctor_id = doc.getId();
-            ResponseMessage responseMessage = new ResponseMessage();
-
-            int count = 0;
-            int flag = 1;
-
-            for (MultipartFile file : files) {
-                String fileName = file.getOriginalFilename();
-                fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
-                        + fileName.split("\\.")[1];
-                File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
-                //存入数据库的路径path
-
-                if (!dest.getParentFile().exists()) {
-                    dest.getParentFile().mkdirs();
-                }
-                try {
-                    file.transferTo(dest);
-                    String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
-
-
-                    uploadFileMapper.updateDoctorAddr(file_addr, types.get(count), doctor_id);
-
-                    count++;
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("上传失败" );
-                    flag = 0;
-                }
-                System.out.println("上传成功");
-            }
-            ResponseMessage response = new ResponseMessage();
-            if (flag == 1) {
-
-                response.setStatus_code(1);
-                return response;
-            } else {
-                response.setStatus_code(0);
-                return response;
-            }
-        }
-
-        doctorMapper.insertDoctorInfo(doctor);
-
-        Long doctor_id = doc.getId();
-
-        System.out.println(files.size());
-
-        ResponseMessage responseMessage = new ResponseMessage();
-
-        int count = 0;
-        int flag = 1;
-
-        for (MultipartFile file : files) {
-            String fileName = file.getOriginalFilename();
-            fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
-                    + fileName.split("\\.")[1];
-            File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
-            //存入数据库的路径path
-
-            if (!dest.getParentFile().exists()) {
-                dest.getParentFile().mkdirs();
-            }
-            try {
-                file.transferTo(dest);
-                String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
-
-
-                uploadFileMapper.insertDoctorAddr(file_addr, types.get(count), doctor_id);
-
-                count++;
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("上传失败" );
-                flag = 0;
-            }
-            System.out.println("上传成功");
-        }
-        ResponseMessage response = new ResponseMessage();
-        if (flag == 1) {
-
-            response.setStatus_code(1);
-            return response;
-        } else {
-            response.setStatus_code(0);
-            return response;
-        }
-
-    }
 
 
 
@@ -185,8 +77,7 @@ public class UploadFileService {
 
         int flag = 1;
 
-        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = info.getUserId();
 
         System.out.println(files.size());
         for (MultipartFile file : files) {
@@ -206,6 +97,7 @@ public class UploadFileService {
             try {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+
                 info.setUser_id(user_id);
                 uploadFileMapper.insertPictureInfo(info);
                 List<DiseasePicture> diseasePictures = uploadFileMapper.selectDiseasePicture(user_id);
@@ -244,10 +136,10 @@ public class UploadFileService {
 
         int flag = 1;
 
-        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
-        Long user_id = user.getId();
-        info.setUser_id(user_id);
+        Long user_id = info.getUserId();
+
         uploadFileMapper.insertMedicalExaminationReport(info);
+
         List<TextInfo> IdReceive= uploadFileMapper.selectMedicalExaminationReportId(user_id);
         Long max = 0L;
         for (TextInfo textInfo : IdReceive) {
@@ -303,8 +195,7 @@ public class UploadFileService {
     public ResponseMessage LaboratoryExaminationUpload(List<MultipartFile> files, TextInfo info){
         int flag = 1;
 
-        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = info.getUserId();
         info.setUser_id(user_id);
         uploadFileMapper.insertLaboratoryExamination(info);
         List<LaboratoryPicture> IdReceive= uploadFileMapper.selectLaboratoryExaminationId(user_id);
@@ -361,8 +252,8 @@ public class UploadFileService {
     public ResponseMessage ImageExaminationUpload(List<MultipartFile> files, TextInfo info){
         int flag = 1;
 
-        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = info.getUserId();
+
         info.setUser_id(user_id);
         uploadFileMapper.insertImageExamination(info);
         List<ImagePicture> IdReceive= uploadFileMapper.selectImageExaminationId(user_id);
@@ -415,9 +306,9 @@ public class UploadFileService {
     public ResponseMessage InvasiveInstrumentsUpload(List<MultipartFile> files, TextInfo info){
         int flag = 1;
 
-        Register user = userInfoMapper.selectUserByPhoneNum(info.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = info.getUserId();
         info.setUser_id(user_id);
+
         uploadFileMapper.insertInvasiveInstruments(info);
         List<InstrumentPicture> IdReceive= uploadFileMapper.selectInvasiveInstrumentsId(user_id);
         Long max = 0L;

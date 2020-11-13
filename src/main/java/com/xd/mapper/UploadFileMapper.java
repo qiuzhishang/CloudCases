@@ -14,17 +14,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UploadFileMapper {
-    //医生图片信息
-    @Insert("insert into doctor_addr_info"
-            + "(doctor_addr_info, picture_type, doctor_id)"
-            + "values"
-            + "(#{doctor_addr_info}, #{picture_type}, #{doctor_id})")
-    int insertDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
 
-    //@Update("update doctor_patient_connection set flag = #{flag} where id = #{id}")
-    //医生第二次上传更新图片信息
-    @Update("update doctor_addr_info set doctor_addr_info = #{doctor_addr_info} where picture_type = #{picture_type} and doctor_id = #{doctor_id}  ")
-    int updateDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
 
     //疾病信息
     @Insert("insert into disease_picture_info" +
@@ -70,9 +60,9 @@ public interface UploadFileMapper {
 
     //化验检查
     @Insert("insert into laboratory_info" +
-            "( date, items, result, user_id)" +
+            "( date, items, result, user_id, flag)" +
             "values" +
-            "(#{date}, #{items}, #{result}, #{user_id})")
+            "(#{date}, #{items}, #{result}, #{user_id}, 0)")
     int insertLaboratoryExamination(TextInfo info);
 
     @Select("select * from laboratory_info where user_id = #{user_id}")

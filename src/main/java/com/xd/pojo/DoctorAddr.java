@@ -1,11 +1,14 @@
 package com.xd.pojo;
 
+import java.util.List;
+
 public class DoctorAddr {
 
     private Long id;
     private Long doctor_id;
     private String doctor_addr_info;
     private int picture_type;
+    private int flag;
 
     @Override
     public String toString() {
@@ -14,7 +17,16 @@ public class DoctorAddr {
                 ", doctor_id=" + doctor_id +
                 ", doctor_addr_info='" + doctor_addr_info + '\'' +
                 ", picture_type=" + picture_type +
+                ", flag=" + flag +
                 '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public Long getId() {

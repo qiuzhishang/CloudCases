@@ -1,5 +1,7 @@
 package com.xd.controller;
 
+import com.xd.mapper.PatientMapper;
+import com.xd.mapper.RegisterMapper;
 import com.xd.mapper.UserInfoMapper;
 import com.xd.pojo.PatientDiseaseInfo;
 import com.xd.pojo.Register;
@@ -14,12 +16,15 @@ import java.util.List;
 @RestController
 public class TestController {
     @Autowired
-    UserInfoMapper userInfoMapper;
+    private RegisterMapper registerMapper;
+
+    @Autowired
+    private PatientMapper patientMapper;
 
     @RequestMapping(value = "/disease/info")
     public ResponseMessage Config(@RequestBody RequestMessage message){
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        List<PatientDiseaseInfo> result = userInfoMapper.selectDiseaseInfo(user.getId());
+        Register user = registerMapper.selectUserByPhoneNum(message.getPhone_num(),message.getUser_type());
+        List<PatientDiseaseInfo> result = patientMapper.selectDiseaseInfo(user.getId());
 
         System.out.println(result);
 

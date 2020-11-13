@@ -7,9 +7,11 @@ public class RequestMessage {
     private int user_type;
 
     private Sign sign;
+    private Register register;
 
     private String token;
     private String phone_num;
+    private Long userId;
 
     private Report report;
     private Examine examine;
@@ -25,25 +27,55 @@ public class RequestMessage {
 
     private Doctor doctor;
 
+    private WatchPatientsInfo watchPatientsInfo;
+
     @Override
     public String toString() {
         return "RequestMessage{" +
-                "phone_num='" + phone_num + '\'' +
-                ", call_type=" + user_type +
-                ", diseasePicture=" + diseasePicture +
-                ", token='" + token + '\'' +
+                "user_type=" + user_type +
                 ", sign=" + sign +
-                ", patient=" + patient +
+                ", register=" + register +
+                ", token='" + token + '\'' +
+                ", phone_num='" + phone_num + '\'' +
+                ", userId=" + userId +
                 ", report=" + report +
-                ", patientDiseaseInfo=" + patientDiseaseInfo +
+                ", examine=" + examine +
+                ", patient=" + patient +
                 ", outPatient=" + outPatient +
                 ", admissionNote=" + admissionNote +
+                ", diseasePicture=" + diseasePicture +
                 ", outPatientRecords=" + outPatientRecords +
-                ", examine=" + examine +
+                ", patientDiseaseInfo=" + patientDiseaseInfo +
                 ", add_doctor_id=" + add_doctor_id +
                 ", remove_doctor_id=" + remove_doctor_id +
                 ", doctor=" + doctor +
+                ", watchPatientsInfo=" + watchPatientsInfo +
                 '}';
+    }
+
+    public Register getRegister() {
+        return register;
+    }
+
+    public void setRegister(Register register) {
+        this.register = register;
+    }
+
+    public WatchPatientsInfo getWatchPatientsInfo() {
+        return watchPatientsInfo;
+    }
+
+    public void setWatchPatientsInfo(WatchPatientsInfo watchPatientsInfo) {
+        this.watchPatientsInfo = watchPatientsInfo;
+    }
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Examine getExamine() {

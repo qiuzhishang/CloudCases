@@ -7,7 +7,6 @@ import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,9 +24,7 @@ public class TextService {
     //门诊病历
     public ResponseMessage OutpatientMedicalRecords(RequestMessage message){
 
-
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = message.getUserId();
         String date = message.getOutPatient().getDate();
 
         //java String 转sql日期
@@ -45,35 +42,28 @@ public class TextService {
                 message.getOutPatient().getDoctor_name(),
                 message.getOutPatient().getDisease_info(),
                 sDate, user_id);
-        ResponseMessage response = new ResponseMessage();
-        if (user != null){
-            response.setStatus_code(1);
-            return response;
-        }
-        else{
-            response.setStatus_code(0);
-            return response;
-        }
 
+        ResponseMessage response = new ResponseMessage();
+
+        response.setStatus_code(1);
+
+        return response;
     }
 
     //查询门诊病历
     public List<OutPatient> SelectOutPatient(RequestMessage message){
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
 
-        List<OutPatient> outPatients;
-        outPatients = textMapper.selectOutPatient(user_id);
+        Long user_id = message.getUserId();
 
-        return outPatients;
+        return textMapper.selectOutPatient(user_id);
 
     }
 
 
     //住院病历
     public ResponseMessage AdmissionNote(RequestMessage message){
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
+
+        Long user_id = message.getUserId();
         String date1 = message.getAdmissionNote().getS_date();
         String date2 = message.getAdmissionNote().getO_date();
         //java String 转sql日期
@@ -107,29 +97,17 @@ public class TextService {
     //查询住院病历
     public List<AdmissionNote> SelectAdmissionNote(RequestMessage message){
 
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = message.getUserId();
 
-        List<AdmissionNote> admissionNotes;
-
-
-        admissionNotes = textMapper.selectAdmissionNote(user_id);
-
-        for (AdmissionNote admissionNote : admissionNotes) {
-
-            System.out.println(admissionNote);
-            break;
-        }
-
-
-        return admissionNotes;
+        return textMapper.selectAdmissionNote(user_id);
 
     }
 
     //门诊记录
     public ResponseMessage OutpatientRecords(RequestMessage message){
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
+
+        Long user_id = message.getUserId();
+
         message.getOutPatientRecords().setUser_id(user_id);
 
         String date = message.getOutPatientRecords().getDate();
@@ -172,11 +150,10 @@ public class TextService {
             response.setStatus_code(1);
             return response;
         }
-        for (Medicine medicine : medicines) {
+        for (Medicine medicine : medicines)
 
             textMapper.insertMedicine(medicine.getMedicine_name(),medicine.getMedicine_name(),medicine.getTime(), max);
 
-        }
 
         ResponseMessage response = new ResponseMessage();
         response.setStatus_code(1);
@@ -186,8 +163,8 @@ public class TextService {
 
     //查询门诊记录
     public List<OutPatientRecords> SelectOutpatientRecords(RequestMessage message){
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
+
+        Long user_id = message.getUserId();
 
         List<OutPatientRecords> outPatientRecords;
 
@@ -215,8 +192,7 @@ public class TextService {
     //病理学检查
     public ResponseMessage DiseaseExamine(RequestMessage message){
 
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
+        Long user_id = message.getUserId();
 
         textMapper.insertExamineInfo(message.getExamine().getExamine_info(), user_id);
 
@@ -228,13 +204,10 @@ public class TextService {
 
     //查询病理学检查
     public List<Examine> SelectDiseaseExamine(RequestMessage message){
-        Register user = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long user_id = user.getId();
 
-        List<Examine> examines;
-        examines = textMapper.selectExamine(user_id);
+        Long user_id = message.getUserId();
 
-        return examines;
+        return textMapper.selectExamine(user_id);
     }
 }
 

@@ -2,161 +2,161 @@ package com.xd.service;
 
 
 import com.xd.mapper.DoctorMapper;
+import com.xd.mapper.PatientMapper;
 import com.xd.mapper.UserInfoMapper;
-import com.xd.pojo.Doctor;
-import com.xd.pojo.PatientAndDoctor;
-import com.xd.pojo.Register;
-import com.xd.pojo.RequestMessage;
-import com.xd.utils.DoctorMessage;
+import com.xd.pojo.*;
+import com.xd.utils.AddressMethod;
+import com.xd.utils.DoctorWatchPatientInfo;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Service
 public class DoctorService {
 
     @Autowired
-    DoctorMapper doctorMapper;
+    private DoctorMapper doctorMapper;
 
     @Autowired
-    UserInfoMapper userInfoMapper;
+    private UserInfoMapper userInfoMapper;
 
-    public List<Doctor> selectAllDoctor() {
+    @Autowired
+    private PatientMapper patientMapper;
 
-        return doctorMapper.selectAllDoctor();
+    //医生上传个人图片信息
+    public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info, List<Long> types){
 
-    }
+        /*
+         * 先插入个人信息，然后插入图片地址
+         * doctor_info, doctor_addr_info*/
+
+        Long user_id = info.getUserId();
+
+        doctor.setUser_id(user_id);
+
+        Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
 
 
-    public List<Long> selectedDoctorId(Long id){
+        if (doc != null){
+            System.out.println(files.size());
 
-        return doctorMapper.selectDoctorId(id, 1);
+            Long doctor_id = doc.getId();
+            ResponseMessage responseMessage = new ResponseMessage();
 
-    }
+            int count = 0;
+            int flag = 1;
 
-    //医生信息
-    public ResponseMessage doctorInsertInfo(RequestMessage message) {
-        Register users = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Doctor doctor = message.getDoctor();
+            for (MultipartFile file : files) {
+                String fileName = file.getOriginalFilename();
+                fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
+                        + fileName.split("\\.")[1];
+                File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
+                //存入数据库的路径path
 
-        Doctor user = doctorMapper.selectDoctorByIdNum(message.getDoctor().getId_num());
-        ResponseMessage responseMessage = new ResponseMessage();
-        if (user != null) {
-            responseMessage.setStatus_code(0);
-            return responseMessage;
+                if (!dest.getParentFile().exists()) {
+                    dest.getParentFile().mkdirs();
+                }
+                try {
+                    file.transferTo(dest);
+                    String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+
+
+                    doctorMapper.updateDoctorAddr(file_addr, types.get(count), doctor_id);
+
+                    count++;
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("上传失败" );
+                    flag = 0;
+                }
+                System.out.println("上传成功");
+            }
+            ResponseMessage response = new ResponseMessage();
+            if (flag == 1) {
+
+                response.setStatus_code(1);
+                return response;
+            } else {
+                response.setStatus_code(0);
+                return response;
+            }
         }
 
-        doctor.setUser_id(users.getId());
         doctorMapper.insertDoctorInfo(doctor);
 
-        responseMessage.setDoctor(doctor);
-        responseMessage.setStatus_code(1);
-        return responseMessage;
-    }
+        Long doctor_id = doc.getId();
 
-
-    public ResponseMessage PatientSelectDoctor(RequestMessage message) {
-
-        Register register = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-
-        System.out.println(register);
-
-        if (register == null){
-            return null;
-        }
-
-        Long patient_id = register.getUser_id();
-
-        System.out.println("patient id ========="+ patient_id);
-
-        List<Long> defectList ;//差集List
-        List<Long> collectionList;//交集List
-
-        List<Long> doctors_id = message.getAdd_doctor_id();//获取的要添加的医生id
-        System.out.println(doctors_id);
-
-        List<Long> selected_id = doctorMapper.selectedDoctorId(patient_id);//已经存在列表的医生id
-
-
-        if (selected_id.size() == 0) {
-            for (Long doctor_id : doctors_id) {
-
-                try {
-
-                    System.out.println(doctor_id);
-                    System.out.println("==============" + patient_id + "==================");
-
-                    doctorMapper.insertPatientAndDoctor(patient_id, doctor_id, 1);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
-            }
-        } else {
-
-            //获取交集
-            collectionList = receiveCollectionList(selected_id, doctors_id);
-            System.out.println("-----------------------------");
-            System.out.println(collectionList);
-            System.out.println("-----------------------------");
-
-            System.out.println("===================交集===================");
-            System.out.println(collectionList);
-
-            for (Long aLong : collectionList) {
-
-                System.out.println("----"+ aLong + "------");                        
-                                                                                     
-                System.out.println("==============" + patient_id);                   
-                                                                                     
-                PatientAndDoctor patientAndDoctor = doctorMapper.selectExits(patient_id, aLong);
-                                                                                     
-                doctorMapper.updateFlag(1, patientAndDoctor.getId());
-
-            }
-
-
-            //获取差集
-            defectList = receiveDefectList(selected_id, collectionList);
-            for (Long aLong : defectList) {
-
-                System.out.println("----"+ aLong + "------");
-
-                System.out.println("==============" + patient_id);
-
-                PatientAndDoctor patientAndDoctor = doctorMapper.selectExits(patient_id, aLong);
-
-                doctorMapper.updateFlag(0, patientAndDoctor.getId());
-
-            }
-
-            defectList = receiveDefectList(doctors_id, collectionList);
-
-            for (Long aLong : defectList) {
-
-                System.out.println("----"+ aLong + "------");
-
-                doctorMapper.insertPatientAndDoctor(patient_id, aLong, 1);
-
-            }
-
-
-        }
+        System.out.println(files.size());
 
         ResponseMessage responseMessage = new ResponseMessage();
-        responseMessage.setStatus_code(1);
 
-        return responseMessage;
+        int count = 0;
+        int flag = 1;
+
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
+                    + fileName.split("\\.")[1];
+            File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
+            //存入数据库的路径path
+
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(dest);
+                String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+
+
+                doctorMapper.insertDoctorAddr(file_addr, types.get(count), doctor_id);
+
+                count++;
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("上传失败" );
+                flag = 0;
+            }
+            System.out.println("上传成功");
+        }
+        ResponseMessage response = new ResponseMessage();
+        if (flag == 1) {
+
+            response.setStatus_code(1);
+            return response;
+        } else {
+            response.setStatus_code(0);
+            return response;
+        }
 
     }
 
-    public ResponseMessage DoctorSelectPatient(RequestMessage message) {
+    //医生查看个人信息
+    public ResponseMessage DoctorPersonalInfo(RequestMessage message){
 
-        Register register = userInfoMapper.selectUserByPhoneNum(message.getPhone_num());
-        Long doctor_user_id = register.getId();
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        Doctor doctor = doctorMapper.selectDoctorInfo(message.getUserId());
+
+        doctor.setAddress(doctorMapper.selectDoctorAddrInfo(doctor.getId()));
+
+        responseMessage.setStatus_code(1);
+        responseMessage.setDoctor(doctor);
+
+        return responseMessage;
+    }
+    //医生查看跟自己已经关联的患者的个人资料信息
+    public ResponseMessage DoctorWatchPatient(RequestMessage message) {
+
+        Long doctor_user_id = message.getUserId();
 
         Doctor doctor = doctorMapper.selectDoctorByUserId(doctor_user_id);
 
@@ -174,55 +174,36 @@ public class DoctorService {
             return responseMessage;
         }
 
-        List<DoctorMessage> doctorMessages = new ArrayList<>();
+        message.getWatchPatientsInfo();
+        System.out.println(message.getWatchPatientsInfo().getId_num()+ message.getWatchPatientsInfo().getName() + message.getWatchPatientsInfo().getPhone_num());
+
+        List<DoctorWatchPatientInfo> doctorWatchPatientInfos = new ArrayList<>();
 
         for (int i = 0; i < patient.size(); i++) {
 
             Register user = userInfoMapper.selectPhoneNum(patient.get(i));
-            DoctorMessage doctorMessage = new DoctorMessage();
+            DoctorWatchPatientInfo doctorWatchPatientInfo = new DoctorWatchPatientInfo();
 
-            doctorMessage.setPhone_num(user.getPhone_num());
-            doctorMessage.setPatient(userInfoMapper.selectPatientByUserId(user.getId()));
+            doctorWatchPatientInfo.setPhone_num(user.getPhone_num());
+            doctorWatchPatientInfo.setPatient(patientMapper.selectPatientByUserId(user.getId()));
 
-            doctorMessages.add(doctorMessage);
+            doctorWatchPatientInfos.add(doctorWatchPatientInfo);
 
         }
 
         responseMessage.setStatus_code(1);
-        responseMessage.setDoctorMessages(doctorMessages);
+        responseMessage.setDoctorWatchPatientInfos(doctorWatchPatientInfos);
 
         return responseMessage;
     }
 
-    //获取交集
-    public static List<Long> receiveCollectionList(List<Long> firstArrayList, List<Long> secondArrayList) {
-        List<Long> resultList = new ArrayList<Long>();
-        LinkedList<Long> result = new LinkedList<Long>(firstArrayList);// 大集合用linkedlist
-        HashSet<Long> othHash = new HashSet<Long>(secondArrayList);// 小集合用hashset
-        Iterator<Long> iter = result.iterator();// 采用Iterator迭代器进行数据的操作
-        while(iter.hasNext()) {
-            if(!othHash.contains(iter.next())) {
-                iter.remove();
-            }
-        }
-        resultList = new ArrayList<Long>(result);
-        return resultList;
-    }
 
-    //获取差集
-    public static List<Long> receiveDefectList(List<Long> firstArrayList, List<Long> secondArrayList) {
-        List<Long> resultList = new ArrayList<Long>();
-        LinkedList<Long> result = new LinkedList<Long>(firstArrayList);// 大集合用linkedlist
-        HashSet<Long> othHash = new HashSet<Long>(secondArrayList);// 小集合用hashset
-        Iterator<Long> iter = result.iterator();// 采用Iterator迭代器进行数据的操作
-        while (iter.hasNext()) {
-            if (othHash.contains(iter.next())) {
-                iter.remove();
-            }
-        }
-        resultList = new ArrayList<Long>(result);
-        return resultList;
+    //医生查看跟自己已经关联的患者的其他病症信息
+    public ResponseMessage WatchPatientHospitalInfo(RequestMessage message){
+
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        return responseMessage;
 
     }
-
 }

@@ -1,13 +1,18 @@
 package com.xd.pojo;
 
+import java.util.List;
+
 public class Doctor {
     private Long id;
     private String name;
     private String id_num;
+    private String hospital;
+    private String department;
+
     private String specialty;
     private String personal_info;
     private String social_work;
-    private String address;
+    private List<DoctorAddr> address;
     private Long user_id;
 
     @Override
@@ -16,12 +21,30 @@ public class Doctor {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", id_num='" + id_num + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", department='" + department + '\'' +
                 ", specialty='" + specialty + '\'' +
                 ", personal_info='" + personal_info + '\'' +
                 ", social_work='" + social_work + '\'' +
                 ", address='" + address + '\'' +
                 ", user_id=" + user_id +
                 '}';
+    }
+
+    public String getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public Long getUser_id() {
@@ -81,12 +104,11 @@ public class Doctor {
         this.social_work = social_work;
     }
 
-    public String getAddress() {
+    public List<DoctorAddr> getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(List<DoctorAddr> address) {
         this.address = address;
     }
-
 }

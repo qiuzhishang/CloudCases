@@ -1,7 +1,10 @@
 package com.xd.controller;
 
 import com.xd.pojo.Register;
+import com.xd.pojo.RequestMessage;
+import com.xd.service.RegisterService;
 import com.xd.service.UserService;
+import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
 
     @Autowired
-    private UserService userService;
+    private RegisterService registerService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 
-    public String Config(@RequestBody Register request) {
+    public ResponseMessage Config(@RequestBody RequestMessage message) {
 
-        System.out.println(request.toString());
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        System.out.println(message.toString());
         System.out.println("Config--------------1");
 
-        String result = userService.userRegister(request);
+        responseMessage = registerService.userRegister(message);
 
-        return result;
+        return responseMessage;
     }
 
 

@@ -2,6 +2,7 @@ package com.xd.controller;
 
 import com.xd.pojo.RequestMessage;
 import com.xd.pojo.Sign;
+import com.xd.service.SignService;
 import com.xd.service.UserService;
 import com.xd.utils.ResponseMessage;
 
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("all")
 public class SignController {
     @Autowired
-    private UserService userService;
+    private SignService userService;
+
     //登陆
     @RequestMapping(value = "/sign", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 
