@@ -1,7 +1,6 @@
 package com.xd.utils;
 
-import java.io.File;
-
+//生成图片存储地址
 public class AddressMethod {
 
     public static String GeneratorAddress(Long user_id, String fileName){

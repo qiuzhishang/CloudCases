@@ -2,7 +2,6 @@ package com.xd.controller;
 
 import com.xd.mapper.PatientMapper;
 import com.xd.mapper.RegisterMapper;
-import com.xd.mapper.UserInfoMapper;
 import com.xd.pojo.PatientDiseaseInfo;
 import com.xd.pojo.Register;
 import com.xd.pojo.RequestMessage;
@@ -14,6 +13,8 @@ import java.util.List;
 
 @SuppressWarnings("all")
 @RestController
+
+//测试
 public class TestController {
     @Autowired
     private RegisterMapper registerMapper;

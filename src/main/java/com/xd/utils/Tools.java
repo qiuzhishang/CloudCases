@@ -3,6 +3,7 @@ package com.xd.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+//工具类
 public class Tools {
 
     public static List<Long> receiveCollectionList(List<Long> first, List<Long> second) {

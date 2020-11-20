@@ -2,11 +2,9 @@ package com.xd.service;
 
 
 import com.xd.mapper.DoctorMapper;
-import com.xd.mapper.PatientMapper;
-import com.xd.mapper.UserInfoMapper;
+import com.xd.mapper.DoctorSelectPatientTextInfo;
 import com.xd.pojo.*;
 import com.xd.utils.AddressMethod;
-import com.xd.utils.DoctorWatchPatientInfo;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +21,7 @@ public class DoctorService {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private UserInfoMapper userInfoMapper;
-
-    @Autowired
-    private PatientMapper patientMapper;
+    private DoctorSelectPatientTextInfo doctorSelectPatientTextInfo;
 
     //医生上传个人图片信息
     public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info, List<Long> types){
@@ -40,9 +35,12 @@ public class DoctorService {
         doctor.setUser_id(user_id);
 
         Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
+        Doctor doctor1 = doctorMapper.selectDoctorByIdNum(doctor.getId_num());
+
+        String fileName;
 
 
-        if (doc != null){
+        if (doc != null || doctor1 != null){
             System.out.println(files.size());
 
             Long doctor_id = doc.getId();
@@ -52,7 +50,8 @@ public class DoctorService {
             int flag = 1;
 
             for (MultipartFile file : files) {
-                String fileName = file.getOriginalFilename();
+
+                fileName = file.getOriginalFilename();
                 fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                         + fileName.split("\\.")[1];
                 File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
@@ -95,13 +94,13 @@ public class DoctorService {
 
         System.out.println(files.size());
 
-        ResponseMessage responseMessage = new ResponseMessage();
-
         int count = 0;
         int flag = 1;
 
         for (MultipartFile file : files) {
-            String fileName = file.getOriginalFilename();
+
+            fileName = file.getOriginalFilename();
+
             fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
                     + fileName.split("\\.")[1];
             File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
@@ -153,57 +152,55 @@ public class DoctorService {
 
         return responseMessage;
     }
-    //医生查看跟自己已经关联的患者的个人资料信息
+
+
+    //医生查看跟自己已经关联的患者的个人资料信息（模糊查询）
     public ResponseMessage DoctorWatchPatient(RequestMessage message) {
-
-        Long doctor_user_id = message.getUserId();
-
-        Doctor doctor = doctorMapper.selectDoctorByUserId(doctor_user_id);
-
-        System.out.println("==================doctor id" + doctor.getId());
-
-        List<Long> patient = doctorMapper.selectPatient(doctor.getId(), 1);
-
-        System.out.println("=======================" + patient);
 
         ResponseMessage responseMessage = new ResponseMessage();
 
-        if (patient.size() == 0) {
-            responseMessage.setStatus_code(0);//没有人选择
+        //Long doctor_id,  String name, String id_num, String phone_num
+        List<Patient> patients = doctorMapper.selectPatients(message.getUserId(),
+                message.getWatchPatientsInfo().getName(),
+                message.getWatchPatientsInfo().getId_num(),
+                message.getWatchPatientsInfo().getPhone_num());
 
-            return responseMessage;
-        }
-
-        message.getWatchPatientsInfo();
-        System.out.println(message.getWatchPatientsInfo().getId_num()+ message.getWatchPatientsInfo().getName() + message.getWatchPatientsInfo().getPhone_num());
-
-        List<DoctorWatchPatientInfo> doctorWatchPatientInfos = new ArrayList<>();
-
-        for (int i = 0; i < patient.size(); i++) {
-
-            Register user = userInfoMapper.selectPhoneNum(patient.get(i));
-            DoctorWatchPatientInfo doctorWatchPatientInfo = new DoctorWatchPatientInfo();
-
-            doctorWatchPatientInfo.setPhone_num(user.getPhone_num());
-            doctorWatchPatientInfo.setPatient(patientMapper.selectPatientByUserId(user.getId()));
-
-            doctorWatchPatientInfos.add(doctorWatchPatientInfo);
-
-        }
-
+        responseMessage.setPatients(patients);
         responseMessage.setStatus_code(1);
-        responseMessage.setDoctorWatchPatientInfos(doctorWatchPatientInfos);
 
         return responseMessage;
+
+
     }
 
 
     //医生查看跟自己已经关联的患者的其他病症信息
     public ResponseMessage WatchPatientHospitalInfo(RequestMessage message){
 
+        Long patientId = message.getPatient().getUser_id();
+
+        List<AdmissionNote> admissionNotes = doctorSelectPatientTextInfo.doctorSelectAdmissionNote(patientId);
+        List<OutPatient> outPatients = doctorSelectPatientTextInfo.doctorSelectOutPatient(patientId);
+        List<OutPatientRecords> outPatientRecords = doctorSelectPatientTextInfo.doctorSelectOutPatientRecords(patientId);
+        List<Examine> examines = doctorSelectPatientTextInfo.doctorSelectExamine(patientId);
+        List<DiseasePicture> diseasePictures = doctorSelectPatientTextInfo.doctorSelectDiseasePicture(patientId);
+        List<Report> reports = doctorSelectPatientTextInfo.doctorSelectMedicalExaminationReportId(patientId);
+        List<LaboratoryPicture> laboratoryPictures = doctorSelectPatientTextInfo.doctorSelectLaboratoryExaminationId(patientId);
+        List<ImagePicture> imagePictures = doctorSelectPatientTextInfo.doctorSelectImageExaminationId(patientId);
+        List<InstrumentPicture> instrumentPictures = doctorSelectPatientTextInfo.doctorSelectInvasiveInstrumentsId(patientId);
+
         ResponseMessage responseMessage = new ResponseMessage();
 
-        return responseMessage;
+        responseMessage.setAdmissionNotes(admissionNotes);
+        responseMessage.setOutPatients(outPatients);
+        responseMessage.setOutPatientRecords(outPatientRecords);
+        responseMessage.setExamines(examines);
+        responseMessage.setDiseasePictures(diseasePictures);
+        responseMessage.setReports(reports);
+        responseMessage.setLaboratoryPictures(laboratoryPictures);
+        responseMessage.setImagePictures(imagePictures);
+        responseMessage.setInstrumentPictures(instrumentPictures);
 
+        return responseMessage;
     }
 }

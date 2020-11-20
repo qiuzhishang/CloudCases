@@ -1,8 +1,5 @@
 package com.xd.pojo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 //门诊记录
@@ -19,22 +16,7 @@ public class OutPatientRecords {
     private String treat_methods;//非药物治疗措施
     private List<Medicine> medicines;//用药列表
     private Long user_id;
-
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private int flag;
 
     @Override
     public String toString() {
@@ -51,7 +33,32 @@ public class OutPatientRecords {
                 ", treat_methods='" + treat_methods + '\'' +
                 ", medicines=" + medicines +
                 ", user_id=" + user_id +
+                ", flag=" + flag +
                 '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDate() {

@@ -9,6 +9,7 @@ public class AdmissionNote {
     private String doctor_name;//医生姓名
     private String admission_info;//住院病历内容
     private Long user_id;
+    private int flag;
 
     @Override
     public String toString() {
@@ -20,7 +21,16 @@ public class AdmissionNote {
                 ", doctor_name='" + doctor_name + '\'' +
                 ", admission_info='" + admission_info + '\'' +
                 ", user_id=" + user_id +
+                ", flag=" + flag +
                 '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public Long getUser_id() {

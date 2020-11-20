@@ -5,8 +5,6 @@ import com.xd.pojo.RequestMessage;
 import com.xd.pojo.TextInfo;
 import com.xd.service.DoctorService;
 import com.xd.service.UploadFileService;
-import com.xd.service.UserService;
-import com.xd.utils.DoctorWatchPatientInfo;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +17,7 @@ import java.util.List;
 public class DoctorController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private DoctorService doctorService;
-
-    @Autowired
-    private UploadFileService uploadFileService;
 
     //医生全部信息填写
     @PostMapping(value = "/DoctorInfo")
@@ -51,42 +43,30 @@ public class DoctorController {
         doctor.setHospital(hospital);
         doctor.setDepartment(department);
 
-        ResponseMessage result = doctorService.DoctorInfo(files, doctor, info, types);
-
-        return result;
+        return doctorService.DoctorInfo(files, doctor, info, types);
 
     }
 
     //医生查看跟自己相关联的患者基本信息
     @RequestMapping(value = "/selectDAP",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public DoctorWatchPatientInfo DoctorSeclectPatient(@RequestBody RequestMessage message){
+    public ResponseMessage DoctorSeclectPatient(@RequestBody RequestMessage message){
 
-        DoctorWatchPatientInfo doctorWatchPatientInfo = new DoctorWatchPatientInfo();
+        return doctorService.DoctorWatchPatient(message);
 
-        doctorService.DoctorWatchPatient(message);
-
-        return doctorWatchPatientInfo;
     }
 
-    //医生查看某个患者的详细信息
-    @RequestMapping(value = "/seePatientInfo",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    //医生查看某个患者的患病详细信息
+    @RequestMapping(value = "/watchPatientInfo",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage WatchPatientsInfo(@RequestBody RequestMessage message){
 
-
-        ResponseMessage responseMessage = doctorService.WatchPatientHospitalInfo(message);
-
-        return responseMessage;
+        return doctorService.WatchPatientHospitalInfo(message);
     }
 
-    //查询医生的个人信息
+    //医生查看个人信息
     @RequestMapping(value = "/DoctorInfos", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage DoctorPernalInfo(@RequestBody RequestMessage message){
 
-        ResponseMessage responseMessage = doctorService.DoctorPersonalInfo(message);
-
-        return responseMessage;
-
-
+        return doctorService.DoctorPersonalInfo(message);
     }
 
 

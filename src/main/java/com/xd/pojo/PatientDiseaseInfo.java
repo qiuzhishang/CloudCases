@@ -1,9 +1,29 @@
 package com.xd.pojo;
 
+
 public class PatientDiseaseInfo {
     private int id;
     private int disease_type;
     private String disease_info;
+    private int flag;
+
+    @Override
+    public String toString() {
+        return "PatientDiseaseInfo{" +
+                "id=" + id +
+                ", disease_type=" + disease_type +
+                ", disease_info='" + disease_info + '\'' +
+                ", flag=" + flag +
+                '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public int getDisease_type() {
         return disease_type;
@@ -29,12 +49,4 @@ public class PatientDiseaseInfo {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "PatientDiseaseInfo{" +
-                "id=" + id +
-                ", disease_type=" + disease_type +
-                ", disease_info='" + disease_info + '\'' +
-                '}';
-    }
 }

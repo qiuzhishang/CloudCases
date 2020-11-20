@@ -2,6 +2,7 @@ package com.xd.mapper;
 
 import com.xd.pojo.Doctor;
 import com.xd.pojo.DoctorAddr;
+import com.xd.pojo.Patient;
 import com.xd.pojo.PatientAndDoctor;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -80,6 +81,14 @@ public interface DoctorMapper {
     int updateFlag(int flag, Long id);
 
     //医生查看跟自己关联患者的详细信息（模糊查询）
+    @Select("<script>select id, name, birthday, id_num,sex,race,birthplace,postal_addr,pre_addr1, pre_addr2, user_id" +
+            "FROM patient_info p LEFT JOIN doctor_patient_connection dp ON p.user_id=dp.patient_id " +
+            "where"+
+            "flag=1 AND doctor_id= #{doctor_id}  " +
+            "<if test='name!= null'> and name like concat(#{name}, '%' ) </if>" +
+            "<if test='id_num!= null'> and id_num like concat(#{id_num}, '%' ) </if>"+
+            "<if test='phone_num!= null'> and phone_num like concat(#{phone_num}, '%' ) </if></script>")
+    List<Patient> selectPatients(Long doctor_id,  String name, String id_num, String phone_num);
 
 
 }

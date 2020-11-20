@@ -1,15 +1,47 @@
 package com.xd.pojo;
 
-import java.util.Date;
+import java.util.List;
 
 public class Report {
     private Long id;
     private String date;
     private String hospital;
     private String report_info;
-    private String phone_num;
     private String result;
     private Long user_id;
+    private int flag;
+
+    private List<String> address;
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", report_info='" + report_info + '\'' +
+                ", result='" + result + '\'' +
+                ", user_id=" + user_id +
+                ", flag=" + flag +
+                ", address=" + address +
+                '}';
+    }
+
+    public List<String> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<String> address) {
+        this.address = address;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public String getResult() {
         return result;
@@ -27,33 +59,12 @@ public class Report {
         this.user_id = user_id;
     }
 
-    @Override
-    public String toString() {
-        return "Report{" +
-                "id=" + id +
-                ", date='" + date + '\'' +
-                ", hospital='" + hospital + '\'' +
-                ", report_info='" + report_info + '\'' +
-                ", phone_num='" + phone_num + '\'' +
-                '}';
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-
-
-    public String getPhone_num() {
-        return phone_num;
-    }
-
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
     }
 
     public Long getId() {

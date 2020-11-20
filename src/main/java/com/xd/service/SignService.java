@@ -59,6 +59,7 @@ public class SignService {
             if (patientInfo == null) {
                 System.out.println("userSign    5");
                 responseMessage.setStatus_code(4);//个人信息为空
+                responseMessage.setUserId(user.getId());
                 return responseMessage;
             }
 
@@ -82,6 +83,7 @@ public class SignService {
                     responseMessage.setName(name);
                     responseMessage.setSex(sex);
                     responseMessage.setUser_type(user.getUser_type());
+                    responseMessage.setUserId(user.getId());
 
                     return responseMessage;
 
@@ -111,6 +113,7 @@ public class SignService {
                     responseMessage.setName(name);
                     responseMessage.setSex(sex);
                     responseMessage.setUser_type(user.getUser_type());
+                    responseMessage.setUserId(user.getId());
 
                     return responseMessage;
                 }
@@ -124,6 +127,8 @@ public class SignService {
             if (doctorInfo == null) {
                 System.out.println("userSign    5");
                 responseMessage.setStatus_code(4);//个人信息为空
+                responseMessage.setUserId(user.getId());
+
                 return responseMessage;
             }
 
@@ -144,6 +149,7 @@ public class SignService {
                     responseMessage.setStatus_code(0);
                     responseMessage.setName(doctorInfo.getName());
                     responseMessage.setUser_type(user.getUser_type());
+                    responseMessage.setUserId(user.getId());
 
                     return responseMessage;
 
@@ -170,6 +176,7 @@ public class SignService {
                     responseMessage.setStatus_code(0);
                     responseMessage.setName(name);
                     responseMessage.setUser_type(user.getUser_type());
+                    responseMessage.setUserId(user.getId());
 
                 }
                 return responseMessage;

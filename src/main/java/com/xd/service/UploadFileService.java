@@ -1,8 +1,7 @@
 package com.xd.service;
 
 import com.xd.mapper.DoctorMapper;
-import com.xd.mapper.UploadFileMapper;
-import com.xd.mapper.UserInfoMapper;
+import com.xd.mapper.PatientUploadFileMapper;
 import com.xd.pojo.*;
 import com.xd.utils.AddressMethod;
 import com.xd.utils.ResponseMessage;
@@ -19,58 +18,10 @@ import java.util.List;
 @Service
 public class UploadFileService {
     @Autowired
-    private UploadFileMapper uploadFileMapper;
-
-    @Autowired
-    private UserInfoMapper userInfoMapper;
+    private PatientUploadFileMapper patientUploadFileMapper;
 
     @Autowired
     private DoctorMapper doctorMapper;
-
-//    public String fileUpload(MultipartFile file, String phone_num, int picture_type, Date date) {
-//        String filePath = "D:\\picture\\";
-//        String picture_addr = "";
-//        int flag = 1;
-//        Register user = userInfoMapper.selectUserByPhoneNum(phone_num);
-//        Long id = user.getId();
-//
-//        File dir = new File(filePath + id);
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        String fileName = file.getOriginalFilename();
-//        System.out.println(fileName);
-//        fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
-//                + fileName.split("\\.")[1];
-//        System.out.println("fileName:" + fileName);
-//        File dest = new File(filePath + id + "\\" + fileName);
-//        try {
-//            // 将获取到的附件file,transferTo写入到指定的位置(即:创建dest时，指定的路径)
-//            file.transferTo(dest);
-//        } catch (IllegalStateException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//            System.out.println("上传失败");
-//            flag = 0;
-//        }
-//        picture_addr += filePath + id + "\\" + fileName;
-//        System.out.println("文件的全路径名字(含路径、后缀)>>>>>>>" + filePath + id + "\\" + fileName);
-////        }
-//
-//        upFileMapper.insertPictureInfo(picture_addr, picture_type, id, date);
-//        System.out.println(picture_addr + picture_type + phone_num);
-//        if (flag == 1)
-//            return "{\"address\":\"" + picture_addr + "\"}";
-//        return null;
-//    }
-
-
-
-
 
     //病症图片
     public ResponseMessage DiseasePictureUpload(List<MultipartFile> files, TextInfo info) {
@@ -99,14 +50,14 @@ public class UploadFileService {
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
                 info.setUser_id(user_id);
-                uploadFileMapper.insertPictureInfo(info);
-                List<DiseasePicture> diseasePictures = uploadFileMapper.selectDiseasePicture(user_id);
+                patientUploadFileMapper.insertPictureInfo(info);
+                List<DiseasePicture> diseasePictures = patientUploadFileMapper.selectDiseasePicture(user_id);
                 Long max = 0L;
                 for (DiseasePicture diseasePicture : diseasePictures) {
                     if (max < diseasePicture.getId())
                         max = diseasePicture.getId();
                 }
-                uploadFileMapper.insertPictureAddrInfo(file_addr, max);
+                patientUploadFileMapper.insertPictureAddrInfo(file_addr, max);
 
 
             } catch (IOException e) {
@@ -138,11 +89,11 @@ public class UploadFileService {
 
         Long user_id = info.getUserId();
 
-        uploadFileMapper.insertMedicalExaminationReport(info);
+        patientUploadFileMapper.insertMedicalExaminationReport(info);
 
-        List<TextInfo> IdReceive= uploadFileMapper.selectMedicalExaminationReportId(user_id);
+        List<Report> IdReceive= patientUploadFileMapper.selectMedicalExaminationReportId(user_id);
         Long max = 0L;
-        for (TextInfo textInfo : IdReceive) {
+        for (Report textInfo : IdReceive) {
             if (max < textInfo.getId()){
                 max = textInfo.getId();
             }
@@ -168,7 +119,7 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                uploadFileMapper.insertMedicalExaminationReportAddr(file_addr, max);
+                patientUploadFileMapper.insertMedicalExaminationReportAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -197,8 +148,8 @@ public class UploadFileService {
 
         Long user_id = info.getUserId();
         info.setUser_id(user_id);
-        uploadFileMapper.insertLaboratoryExamination(info);
-        List<LaboratoryPicture> IdReceive= uploadFileMapper.selectLaboratoryExaminationId(user_id);
+        patientUploadFileMapper.insertLaboratoryExamination(info);
+        List<LaboratoryPicture> IdReceive= patientUploadFileMapper.selectLaboratoryExaminationId(user_id);
         Long max = 0L;
         for (LaboratoryPicture laboratoryPicture : IdReceive) {
             if (max < laboratoryPicture.getId()){
@@ -226,7 +177,7 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                uploadFileMapper.insertLaboratoryExaminationAddr(file_addr, max);
+                patientUploadFileMapper.insertLaboratoryExaminationAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -255,8 +206,8 @@ public class UploadFileService {
         Long user_id = info.getUserId();
 
         info.setUser_id(user_id);
-        uploadFileMapper.insertImageExamination(info);
-        List<ImagePicture> IdReceive= uploadFileMapper.selectImageExaminationId(user_id);
+        patientUploadFileMapper.insertImageExamination(info);
+        List<ImagePicture> IdReceive= patientUploadFileMapper.selectImageExaminationId(user_id);
         Long max = 0L;
         for (ImagePicture imagePicture : IdReceive) {
             if (max < imagePicture.getId()){
@@ -281,7 +232,7 @@ public class UploadFileService {
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
                 System.out.println(file_addr);
 
-                uploadFileMapper.insertImageExaminationAddr(file_addr, max);
+                patientUploadFileMapper.insertImageExaminationAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -309,8 +260,8 @@ public class UploadFileService {
         Long user_id = info.getUserId();
         info.setUser_id(user_id);
 
-        uploadFileMapper.insertInvasiveInstruments(info);
-        List<InstrumentPicture> IdReceive= uploadFileMapper.selectInvasiveInstrumentsId(user_id);
+        patientUploadFileMapper.insertInvasiveInstruments(info);
+        List<InstrumentPicture> IdReceive= patientUploadFileMapper.selectInvasiveInstrumentsId(user_id);
         Long max = 0L;
         for (InstrumentPicture imagePicture : IdReceive) {
             if (max < imagePicture.getId()){
@@ -339,7 +290,7 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                uploadFileMapper.insertInvasiveInstrumentsAddr(file_addr, max);
+                patientUploadFileMapper.insertInvasiveInstrumentsAddr(file_addr, max);
 
             } catch (IOException e) {
                 e.printStackTrace();

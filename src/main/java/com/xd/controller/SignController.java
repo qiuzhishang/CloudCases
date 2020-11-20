@@ -3,7 +3,6 @@ package com.xd.controller;
 import com.xd.pojo.RequestMessage;
 import com.xd.pojo.Sign;
 import com.xd.service.SignService;
-import com.xd.service.UserService;
 import com.xd.utils.ResponseMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SuppressWarnings("all")
+
+//用户登录
 public class SignController {
     @Autowired
     private SignService userService;

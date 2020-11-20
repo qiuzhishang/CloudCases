@@ -1,5 +1,6 @@
 package com.xd.pojo;
 
+//模糊查询请求
 public class WatchPatientsInfo {
 
     private String name;

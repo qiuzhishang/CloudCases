@@ -1,15 +1,49 @@
 package com.xd.pojo;
 
-import java.util.Date;
 import java.util.List;
 
+//病症自拍
 public class DiseasePicture {
     private Long id;
     private String file_addr;
     private String date;
+    private String information;
     private int picture_type;
     private Long user_id;
+    private int flag;
+
     private List<String> address;
+
+    @Override
+    public String toString() {
+        return "DiseasePicture{" +
+                "id=" + id +
+                ", file_addr='" + file_addr + '\'' +
+                ", date='" + date + '\'' +
+                ", info='" + information + '\'' +
+                ", picture_type=" + picture_type +
+                ", user_id=" + user_id +
+                ", flag=" + flag +
+                ", address=" + address +
+                '}';
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
 
     public List<String> getAddress() {
         return address;
@@ -33,18 +67,6 @@ public class DiseasePicture {
 
     public void setFile_addr(String file_addr) {
         this.file_addr = file_addr;
-    }
-
-    @Override
-    public String toString() {
-        return "DiseasePicture{" +
-                "id=" + id +
-                ", file_addr='" + file_addr + '\'' +
-                ", date='" + date + '\'' +
-                ", picture_type=" + picture_type +
-                ", user_id=" + user_id +
-                ", address=" + address +
-                '}';
     }
 
     public String getDate() {

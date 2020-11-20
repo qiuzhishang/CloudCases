@@ -4,6 +4,7 @@ import com.xd.pojo.*;
 
 import java.util.List;
 
+//统一返回的类
 public class ResponseMessage {
 
     private int status_code;
@@ -29,6 +30,8 @@ public class ResponseMessage {
     private List<OutPatientRecords> outPatientRecords;
 
     private List<DoctorWatchPatientInfo> doctorWatchPatientInfos;
+    private List<Patient> patients;
+    private List<Report> reports;
 
     private List<Long> selected_doctor_id;
 
@@ -56,8 +59,26 @@ public class ResponseMessage {
                 ", outPatients=" + outPatients +
                 ", outPatientRecords=" + outPatientRecords +
                 ", doctorWatchPatientInfos=" + doctorWatchPatientInfos +
+                ", patients=" + patients +
+                ", reports=" + reports +
                 ", selected_doctor_id=" + selected_doctor_id +
                 '}';
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 
     public Long getUserId() {

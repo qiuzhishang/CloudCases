@@ -8,6 +8,7 @@ public class Doctor {
     private String id_num;
     private String hospital;
     private String department;
+    private int flag;
 
     private String specialty;
     private String personal_info;
@@ -23,12 +24,21 @@ public class Doctor {
                 ", id_num='" + id_num + '\'' +
                 ", hospital='" + hospital + '\'' +
                 ", department='" + department + '\'' +
+                ", flag=" + flag +
                 ", specialty='" + specialty + '\'' +
                 ", personal_info='" + personal_info + '\'' +
                 ", social_work='" + social_work + '\'' +
-                ", address='" + address + '\'' +
+                ", address=" + address +
                 ", user_id=" + user_id +
                 '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public String getHospital() {

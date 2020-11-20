@@ -5,12 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
+//文本信息
 public class TextInfo {
     private Long id;
     private String hospital;
     private String report_info;
     private String result;
+    private String information;
 
     private Date date;
     private int picture_type;
@@ -27,6 +28,7 @@ public class TextInfo {
                 ", hospital='" + hospital + '\'' +
                 ", report_info='" + report_info + '\'' +
                 ", result='" + result + '\'' +
+                ", information='" + information + '\'' +
                 ", date=" + date +
                 ", picture_type=" + picture_type +
                 ", items='" + items + '\'' +
@@ -35,6 +37,14 @@ public class TextInfo {
                 ", address=" + address +
                 ", userId=" + userId +
                 '}';
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public Long getUserId() {

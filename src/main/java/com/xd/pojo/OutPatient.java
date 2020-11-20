@@ -14,6 +14,30 @@ public class OutPatient {
     private String doctor_name;//医生名字
     private String phone_num;
     private Long user_id;
+    private int flag;
+
+    @Override
+    public String toString() {
+        return "OutPatient{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", department_treatment='" + department_treatment + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", disease_info='" + disease_info + '\'' +
+                ", doctor_name='" + doctor_name + '\'' +
+                ", phone_num='" + phone_num + '\'' +
+                ", user_id=" + user_id +
+                ", flag=" + flag +
+                '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public Long getUser_id() {
         return user_id;
@@ -81,15 +105,4 @@ public class OutPatient {
         this.phone_num = phone_num;
     }
 
-    @Override
-    public String toString() {
-        return "OutPatient{" +
-                "id=" + id +
-                ", date='" + date + '\'' +
-                ", department_treatment='" + department_treatment + '\'' +
-                ", hospital='" + hospital + '\'' +
-                ", disease_info='" + disease_info + '\'' +
-                ", phone_num='" + phone_num + '\'' +
-                '}';
-    }
 }

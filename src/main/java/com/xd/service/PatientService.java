@@ -1,9 +1,9 @@
 package com.xd.service;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.xd.mapper.DoctorMapper;
 import com.xd.mapper.PatientMapper;
 import com.xd.mapper.RegisterMapper;
+import com.xd.mapper.PatientUploadFileMapper;
 import com.xd.pojo.*;
 import com.xd.utils.ResponseMessage;
 import com.xd.utils.Tools;
@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Service
@@ -29,6 +27,10 @@ public class PatientService {
     @Autowired
     private DoctorMapper doctorMapper;
 
+    @Autowired
+    private PatientUploadFileMapper patientUploadFileMapper;
+
+
     public List<Doctor> selectAllDoctor() {
 
 
@@ -41,13 +43,6 @@ public class PatientService {
 
     }
 
-
-    //已经选择的医生
-    public List<Long> selectedDoctorId(Long id){
-
-        return doctorMapper.selectDoctorId(id, 1);
-
-    }
 
     //患者完善个人信息
     public ResponseMessage patientInsertInfo(RequestMessage message){
@@ -210,10 +205,9 @@ public class PatientService {
 
     }
 
-    //患者病症信息
+    //患者既往病史
     public ResponseMessage PatientDiseaseInfo(RequestMessage message){
 
-        Register user = registerMapper.selectUserByUserId(message.getUserId());
         ResponseMessage response = new ResponseMessage();
 
         //int insertDiseaseInfo(int disease_type, String disease_info, Long user_id);
@@ -221,5 +215,119 @@ public class PatientService {
 
         response.setStatus_code(1);
         return response;
+    }
+
+
+    //查找所有图片
+    public ResponseMessage selectAllPicture(RequestMessage message){
+
+        ResponseMessage response = new ResponseMessage();
+
+        List<Report> reports = selectReportPicture(message);
+        List<DiseasePicture> diseasePictures = selectDiseasePicture(message);
+        List<LaboratoryPicture> laboratoryPictures = selectLaboratoryPicture(message);
+        List<ImagePicture> imagePictures = selectImagePicture(message);
+        List<InstrumentPicture> instrumentPictures = selectInstrumentPicture(message);
+
+        response.setReports(reports);
+        response.setDiseasePictures(diseasePictures);
+        response.setLaboratoryPictures(laboratoryPictures);
+        response.setImagePictures(imagePictures);
+        response.setInstrumentPictures(instrumentPictures);
+
+
+        return response;
+
+    }
+
+    //查找体检报告
+    public List<Report> selectReportPicture(RequestMessage message){
+
+        Long user_id = message.getUserId();
+
+        List<Report> reports = patientUploadFileMapper.selectMedicalExaminationReportId(user_id);
+
+        for (Report report : reports) {
+            System.out.println(report.getId());
+            List<String> address = patientUploadFileMapper.selectAddress(report.getId());
+            System.out.println(address);
+            report.setAddress(address);
+        }
+
+        return reports;
+    }
+
+    //查找病历照片
+    public List<DiseasePicture> selectDiseasePicture(RequestMessage message){
+
+        Long user_id = message.getUserId();
+
+        List<DiseasePicture> diseasePictures;
+        diseasePictures = patientUploadFileMapper.selectDiseasePicture(user_id);
+
+        for (DiseasePicture diseasePicture : diseasePictures) {
+            System.out.println(diseasePicture.getId());
+            List<String> address = patientUploadFileMapper.selectDiseasePictureAddr(diseasePicture.getId());
+            System.out.println(address);
+            diseasePicture.setAddress(address);
+        }
+
+        return diseasePictures;
+
+    }
+
+    //查找化验检查
+    public List<LaboratoryPicture> selectLaboratoryPicture(RequestMessage message){
+
+        Long user_id = message.getUserId();
+
+        List<LaboratoryPicture> laboratoryPictures;
+        laboratoryPictures = patientUploadFileMapper.selectLaboratoryExaminationId(user_id);
+        ResponseMessage response = new ResponseMessage();
+        for (LaboratoryPicture laboratoryPicture : laboratoryPictures) {
+            System.out.println(laboratoryPicture.getId());
+            List<String> address = patientUploadFileMapper.selectLaboratoryAddress(laboratoryPicture.getId());
+            System.out.println(address);
+            laboratoryPicture.setAddress(address);
+        }
+
+        return laboratoryPictures;
+    }
+
+    //查找影像检查
+    public List<ImagePicture> selectImagePicture(RequestMessage message){
+
+        Long user_id = message.getUserId();
+
+
+        List<ImagePicture> imagePictures;
+        imagePictures = patientUploadFileMapper.selectImageExaminationId(user_id);
+        ResponseMessage response = new ResponseMessage();
+        for (ImagePicture imagePicture : imagePictures) {
+            System.out.println(imagePicture.getId());
+            List<String> address = patientUploadFileMapper.selectImageExaminationAddress(imagePicture.getId());
+            System.out.println(address);
+            imagePicture.setAddress(address);
+        }
+
+        return imagePictures;
+    }
+
+    //侵入型器械检查
+    public List<InstrumentPicture> selectInstrumentPicture(RequestMessage message){
+
+        Long user_id = message.getUserId();
+
+        List<InstrumentPicture> instrumentPictures;
+        instrumentPictures = patientUploadFileMapper.selectInvasiveInstrumentsId(user_id);
+
+        for (InstrumentPicture instrumentPicture : instrumentPictures) {
+            System.out.println(instrumentPicture.getId());
+            List<String> address = patientUploadFileMapper.selectInvasiveInstrumentsAddress(instrumentPicture.getId());
+            System.out.println(address);
+            instrumentPicture.setAddress(address);
+        }
+
+        return instrumentPictures;
     }
 }

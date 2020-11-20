@@ -1,5 +1,7 @@
 package com.xd.utils;
 
+
+//医生患者类型
 public enum UserType {
     Patient {
         public int getValue() {

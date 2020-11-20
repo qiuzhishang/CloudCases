@@ -2,7 +2,7 @@ package com.xd.utils;
 
 import com.xd.pojo.Patient;
 
-
+//医生查看患者信息
 public class DoctorWatchPatientInfo {
     private String phone_num;
     private Patient patient;

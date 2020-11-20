@@ -7,6 +7,7 @@ public class LaboratoryPicture {
     private Long id;
 
     private String date;
+    private int flag;
 
     private Long user_id;
     private List<String> address;
@@ -15,10 +16,19 @@ public class LaboratoryPicture {
     public String toString() {
         return "LaboratoryPicture{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date='" + date + '\'' +
+                ", flag=" + flag +
                 ", user_id=" + user_id +
                 ", address=" + address +
                 '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public Long getId() {

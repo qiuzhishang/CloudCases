@@ -4,6 +4,7 @@ public class Examine {
     private Long id;
     private Long user_id;
     private String examine_info;
+    private int flag;
 
     @Override
     public String toString() {
@@ -11,7 +12,16 @@ public class Examine {
                 "id=" + id +
                 ", user_id=" + user_id +
                 ", examine_info='" + examine_info + '\'' +
+                ", flag=" + flag +
                 '}';
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public Long getId() {

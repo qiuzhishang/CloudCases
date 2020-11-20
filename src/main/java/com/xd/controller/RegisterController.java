@@ -1,9 +1,7 @@
 package com.xd.controller;
 
-import com.xd.pojo.Register;
 import com.xd.pojo.RequestMessage;
 import com.xd.service.RegisterService;
-import com.xd.service.UserService;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

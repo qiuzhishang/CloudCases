@@ -1,7 +1,6 @@
 package com.xd.service;
 
 import com.xd.mapper.RegisterMapper;
-import com.xd.mapper.UserInfoMapper;
 import com.xd.pojo.Register;
 import com.xd.pojo.RequestMessage;
 import com.xd.utils.GenerateToken;
@@ -13,8 +12,6 @@ import java.util.UUID;
 
 @Service
 public class RegisterService {
-    @Autowired
-    UserInfoMapper userInfoMapper;
 
     @Autowired
     RegisterMapper registerMapper;
