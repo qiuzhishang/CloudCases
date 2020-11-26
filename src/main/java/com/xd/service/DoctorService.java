@@ -35,16 +35,14 @@ public class DoctorService {
         doctor.setUser_id(user_id);
 
         Doctor doc = doctorMapper.selectDoctorByUserId(user_id);
-        Doctor doctor1 = doctorMapper.selectDoctorByIdNum(doctor.getId_num());
 
         String fileName;
 
 
-        if (doc != null || doctor1 != null){
-            System.out.println(files.size());
+        if (doc != null){
+            System.out.println("=============" + files.size());
 
             Long doctor_id = doc.getId();
-            ResponseMessage responseMessage = new ResponseMessage();
 
             int count = 0;
             int flag = 1;
@@ -64,11 +62,14 @@ public class DoctorService {
                     file.transferTo(dest);
                     String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
+                    //加一个地址select操作
+                    DoctorAddr doctorAddr = doctorMapper.selectDoctorAddr(doctor_id, types.get(count++));
 
-                    doctorMapper.updateDoctorAddr(file_addr, types.get(count), doctor_id);
+                    if (doctorAddr == null){
+                        doctorMapper.insertDoctorAddr(file_addr, types.get(count++), doctor_id);
+                    }
 
-                    count++;
-
+                    doctorMapper.updateDoctorAddr(file_addr, types.get(count++), doctor_id);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -89,6 +90,8 @@ public class DoctorService {
         }
 
         doctorMapper.insertDoctorInfo(doctor);
+
+        doc = doctorMapper.selectDoctorByUserId(user_id);
 
         Long doctor_id = doc.getId();
 
@@ -113,11 +116,7 @@ public class DoctorService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-
-                doctorMapper.insertDoctorAddr(file_addr, types.get(count), doctor_id);
-
-                count++;
-
+                doctorMapper.insertDoctorAddr(file_addr, types.get(count++), doctor_id);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -202,5 +201,79 @@ public class DoctorService {
         responseMessage.setInstrumentPictures(instrumentPictures);
 
         return responseMessage;
+    }
+
+    //包含图片的病症的详细信息
+    public ResponseMessage DoctorWatchPatientSomeInfo(RequestMessage message){
+
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        //Report
+        if (message.getReport() != null){
+
+            Report report = doctorMapper.selectReport(message.getReport().getId());
+
+            report.setAddress(doctorMapper.selectPatientReport(message.getReport().getId()));;
+            List<Report> reports = new ArrayList<>();
+            reports.add(report);
+            responseMessage.setReports(reports);
+
+        }
+
+        //Laboratory
+        if (message.getLaboratoryPicture() != null ){
+
+            LaboratoryPicture laboratoryPicture = doctorMapper.selectLaboratoryInfo(message.getLaboratoryPicture().getId());
+
+            laboratoryPicture.setAddress(doctorMapper.selectLaboratoryAddrInfo(message.getLaboratoryPicture().getId()));
+
+            List<LaboratoryPicture> laboratoryPictures = new ArrayList<>();
+            laboratoryPictures.add(laboratoryPicture);
+
+            responseMessage.setLaboratoryPictures(laboratoryPictures);
+        }
+
+        //instrument
+        if (message.getInstrumentPicture() != null){
+
+            InstrumentPicture instrumentPicture = doctorMapper.selectInstrumentInfo(message.getInstrumentPicture().getId());
+            instrumentPicture.setAddress(doctorMapper.selectInstrumentAddrInfo(message.getInstrumentPicture().getId()));
+
+            List<InstrumentPicture> instrumentPictures = new ArrayList<>();
+
+            instrumentPictures.add(instrumentPicture);
+
+            responseMessage.setInstrumentPictures(instrumentPictures);
+
+        }
+
+        //Image
+        if (message.getImagePicture() != null){
+
+            ImagePicture imagePicture = doctorMapper.selectImageInfo(message.getImagePicture().getId());
+            imagePicture.setAddress(doctorMapper.selectImageAddrInfo(message.getImagePicture().getId() ));
+
+            List<ImagePicture> imagePictures = new ArrayList<>();
+
+            imagePictures.add(imagePicture);
+
+            responseMessage.setImagePictures(imagePictures);
+        }
+
+        //DiseasePicture
+        if (message.getDiseasePicture() != null){
+
+            DiseasePicture diseasePicture = doctorMapper.selectDiseasePictureInfo(message.getDiseasePicture().getId());
+            diseasePicture.setAddress(doctorMapper.selectDiseasePictureAddrInfo(message.getDiseasePicture().getId()));
+
+            List<DiseasePicture> diseasePictures = new ArrayList<>();
+
+            diseasePictures.add(diseasePicture);
+
+            responseMessage.setDiseasePictures(diseasePictures);
+        }
+
+        return responseMessage;
+
     }
 }

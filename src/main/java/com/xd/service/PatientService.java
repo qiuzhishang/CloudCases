@@ -9,6 +9,7 @@ import com.xd.utils.ResponseMessage;
 import com.xd.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.java2d.pipe.SpanIterator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,14 +32,19 @@ public class PatientService {
     private PatientUploadFileMapper patientUploadFileMapper;
 
 
-    public List<Doctor> selectAllDoctor() {
+    public List<Doctor> selectAllDoctor(RequestMessage message) {
 
+        List<Doctor> doctors = patientMapper.patientSelectDoctors(message.getUserId(), message.getDoctor().getName(),
+                message.getDoctor().getHospital(), message.getDoctor().getDepartment());
 
-        List<Doctor> doctors = doctorMapper.selectAllDoctor();
+        System.out.println(message.getDoctor().getHospital() + message.getDoctor().getName() + message.getDoctor().getDepartment());
 
         for (Doctor doctor : doctors)
-            doctor.setAddress(doctorMapper.selectDoctorAddrInfo(doctor.getId()));
-        
+
+            //picture_type=1L表示1是Long型，医生的证件照
+            doctor.setAddr(patientMapper.patientSelectDoctorPictureInfoByType(doctor.getId(), 1L));
+
+
         return doctors;
 
     }

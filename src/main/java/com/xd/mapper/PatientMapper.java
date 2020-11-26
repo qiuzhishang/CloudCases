@@ -1,5 +1,6 @@
 package com.xd.mapper;
 
+import com.xd.pojo.Doctor;
 import com.xd.pojo.Patient;
 import com.xd.pojo.PatientDiseaseInfo;
 import org.apache.ibatis.annotations.Insert;
@@ -43,5 +44,22 @@ public interface PatientMapper {
 
     @Select("select * from disease_info where user_id = #{user_id}")
     List<PatientDiseaseInfo> selectDiseaseInfo(Long user_id);
+
+    //患者查医生
+    @Select("<script>select * " +
+            "FROM doctor_info " +
+            "where "+
+            "flag=1 " +
+            "<if test='name!= null'> and name like concat(#{name}, '%' ) </if>" +
+            "<if test='hospital!= null'> and hospital = #{hospital} ) </if>"+
+            "<if test='department!= null'> and department = #{department} ) </if></script>")
+    List<Doctor> patientSelectDoctors(Long userId, String name, String hospital, String department);
+
+    @Select("select doctor_addr_info from doctor_addr_info where doctor_id = #{doctor_id} and picture_type = #{picture_type}")
+    String patientSelectDoctorPictureInfoByType(Long doctor_id, Long picture_type);
+
+    @Select("select doctor_id from doctor_patient_connection where patient_id = #{patient_id} and flag =1")
+    List<Long> selectedDoctorId(Long patient_id);
+
 
 }

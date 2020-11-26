@@ -1,5 +1,6 @@
 package com.xd.controller;
 
+import com.xd.mapper.PatientMapper;
 import com.xd.pojo.RequestMessage;
 import com.xd.service.DoctorService;
 import com.xd.service.PatientService;
@@ -17,6 +18,9 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private PatientMapper patientMapper;
 
 
     //病人完善个人信息
@@ -38,7 +42,8 @@ public class PatientController {
 
         ResponseMessage responseMessage = new ResponseMessage();
 
-        patientService.selectAllDoctor();
+        responseMessage.setDoctors(patientService.selectAllDoctor(message));
+        responseMessage.setSelected_doctor_id(patientMapper.selectedDoctorId(message.getUserId()));
 
         responseMessage.setStatus_code(1);
 

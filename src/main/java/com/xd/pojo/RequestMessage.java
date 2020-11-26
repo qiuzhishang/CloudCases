@@ -22,6 +22,10 @@ public class RequestMessage {
     private OutPatientRecords outPatientRecords;
     private PatientDiseaseInfo patientDiseaseInfo;
 
+    private LaboratoryPicture laboratoryPicture;
+    private InstrumentPicture instrumentPicture;
+    private ImagePicture imagePicture;
+
     private List<Long> add_doctor_id;
     private List<Long> remove_doctor_id;
 
@@ -46,11 +50,39 @@ public class RequestMessage {
                 ", diseasePicture=" + diseasePicture +
                 ", outPatientRecords=" + outPatientRecords +
                 ", patientDiseaseInfo=" + patientDiseaseInfo +
+                ", laboratoryPicture=" + laboratoryPicture +
+                ", instrumentPicture=" + instrumentPicture +
+                ", imagePicture=" + imagePicture +
                 ", add_doctor_id=" + add_doctor_id +
                 ", remove_doctor_id=" + remove_doctor_id +
                 ", doctor=" + doctor +
                 ", watchPatientsInfo=" + watchPatientsInfo +
                 '}';
+    }
+
+    public ImagePicture getImagePicture() {
+        return imagePicture;
+    }
+
+    public void setImagePicture(ImagePicture imagePicture) {
+        this.imagePicture = imagePicture;
+    }
+
+
+    public InstrumentPicture getInstrumentPicture() {
+        return instrumentPicture;
+    }
+
+    public void setInstrumentPicture(InstrumentPicture instrumentPicture) {
+        this.instrumentPicture = instrumentPicture;
+    }
+
+    public LaboratoryPicture getLaboratoryPicture() {
+        return laboratoryPicture;
+    }
+
+    public void setLaboratoryPicture(LaboratoryPicture laboratoryPicture) {
+        this.laboratoryPicture = laboratoryPicture;
     }
 
     public Register getRegister() {

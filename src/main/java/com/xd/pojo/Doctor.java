@@ -14,6 +14,7 @@ public class Doctor {
     private String personal_info;
     private String social_work;
     private List<DoctorAddr> address;
+    private String addr;
     private Long user_id;
 
     @Override
@@ -29,8 +30,17 @@ public class Doctor {
                 ", personal_info='" + personal_info + '\'' +
                 ", social_work='" + social_work + '\'' +
                 ", address=" + address +
+                ", addr='" + addr + '\'' +
                 ", user_id=" + user_id +
                 '}';
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
     }
 
     public int getFlag() {

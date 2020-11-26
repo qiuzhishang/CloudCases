@@ -4,16 +4,16 @@ import com.xd.pojo.Doctor;
 import com.xd.pojo.RequestMessage;
 import com.xd.pojo.TextInfo;
 import com.xd.service.DoctorService;
-import com.xd.service.UploadFileService;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@SuppressWarnings("all")
+
 public class DoctorController {
 
     @Autowired
@@ -21,8 +21,8 @@ public class DoctorController {
 
     //医生全部信息填写
     @PostMapping(value = "/DoctorInfo")
-    public ResponseMessage DoctorInfo(@RequestParam(value = "files[]") List<MultipartFile> files,
-                                      @RequestParam(value = "types[]") List<Long> types,
+    public ResponseMessage DoctorInfo(@RequestParam(value = "files") List<MultipartFile> files,
+                                      @RequestParam(value = "types") List<String> types,
                                       @RequestParam(value = "userId") Long userId,
                                       @RequestParam(value = "name") String name,
                                       @RequestParam(value = "id_num") String id_num,
@@ -43,7 +43,15 @@ public class DoctorController {
         doctor.setHospital(hospital);
         doctor.setDepartment(department);
 
-        return doctorService.DoctorInfo(files, doctor, info, types);
+        System.out.println(types);
+        System.out.println(types.size());
+        List<Long> type0 = new ArrayList<Long>();
+        for (String type : types) {
+            type0.add(Long.parseLong(type));
+        }
+
+
+        return doctorService.DoctorInfo(files, doctor, info, type0);
 
     }
 
@@ -62,9 +70,18 @@ public class DoctorController {
         return doctorService.WatchPatientHospitalInfo(message);
     }
 
+    //医生查看患者的某个详细的病历信息
+    @RequestMapping(value = "/watchPatientSomeInfo",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public ResponseMessage WatchPatientSomeInfo(@RequestBody RequestMessage message){
+
+        return doctorService.DoctorWatchPatientSomeInfo(message);
+
+    }
+
+
     //医生查看个人信息
     @RequestMapping(value = "/DoctorInfos", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public ResponseMessage DoctorPernalInfo(@RequestBody RequestMessage message){
+    public ResponseMessage DoctorPersonalInfo(@RequestBody RequestMessage message){
 
         return doctorService.DoctorPersonalInfo(message);
     }

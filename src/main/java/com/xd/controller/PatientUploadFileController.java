@@ -27,7 +27,7 @@ public class PatientUploadFileController {
 
     //病症图片
     @PostMapping(value = "/DiseasePicture")
-    public ResponseMessage DiseasePicture(@RequestParam(value = "files[]") List<MultipartFile> files,
+    public ResponseMessage DiseasePicture(@RequestParam(value = "files") List<MultipartFile> files,
                            @RequestParam(value = "userId") Long userId,
                            @RequestParam(value = "picture_type") int picture_type,
                            @RequestParam(value = "information") String information,
@@ -46,7 +46,7 @@ public class PatientUploadFileController {
 
     //体检记录
     @PostMapping(value = "/MedicalExaminationReport")
-    public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files[]") List<MultipartFile> files,
+    public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files") List<MultipartFile> files,
                                                     @RequestParam(value = "hospital") String hospital,
                                                     @RequestParam(value = "report_info") String report_info,
                                                     @RequestParam(value = "result") String result,
@@ -67,7 +67,7 @@ public class PatientUploadFileController {
 
     //化验检查
     @PostMapping(value = "/LaboratoryExamination")
-    public ResponseMessage LaboratoryExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
+    public ResponseMessage LaboratoryExamination(@RequestParam(value = "files") List<MultipartFile> files,
                                                     @RequestParam(value = "items") String items,
                                                     @RequestParam(value = "result") String result,
                                                     @RequestParam(value = "userId") Long userId,
@@ -86,7 +86,7 @@ public class PatientUploadFileController {
     }
     //影像检查
     @PostMapping(value = "/ImageExamination")
-    public ResponseMessage ImageExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
+    public ResponseMessage ImageExamination(@RequestParam(value = "files") List<MultipartFile> files,
                                                  @RequestParam(value = "items") String items,
                                                  @RequestParam(value = "result") String result,
                                                  @RequestParam(value = "userId") Long userId,
@@ -106,7 +106,7 @@ public class PatientUploadFileController {
 
     //侵入型器械检查结果 InvasiveInstruments
     @PostMapping(value = "/InvasiveInstruments")
-    public ResponseMessage InvasiveInstruments(@RequestParam(value = "files[]") List<MultipartFile> files,
+    public ResponseMessage InvasiveInstruments(@RequestParam(value = "files") List<MultipartFile> files,
                                             @RequestParam(value = "items") String items,
                                             @RequestParam(value = "result") String result,
                                             @RequestParam(value = "userId") Long userId,
