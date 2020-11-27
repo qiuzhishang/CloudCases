@@ -12,6 +12,9 @@ public class TextInfo {
     private String report_info;
     private String result;
     private String information;
+    private String department;
+    private String doctor_name;
+    private String disease_info;
 
     private Date date;
     private int picture_type;
@@ -29,6 +32,9 @@ public class TextInfo {
                 ", report_info='" + report_info + '\'' +
                 ", result='" + result + '\'' +
                 ", information='" + information + '\'' +
+                ", department='" + department + '\'' +
+                ", doctor_name='" + doctor_name + '\'' +
+                ", disease_info='" + disease_info + '\'' +
                 ", date=" + date +
                 ", picture_type=" + picture_type +
                 ", items='" + items + '\'' +
@@ -37,6 +43,30 @@ public class TextInfo {
                 ", address=" + address +
                 ", userId=" + userId +
                 '}';
+    }
+
+    public String getDisease_info() {
+        return disease_info;
+    }
+
+    public void setDisease_info(String disease_info) {
+        this.disease_info = disease_info;
+    }
+
+    public String getDoctor_name() {
+        return doctor_name;
+    }
+
+    public void setDoctor_name(String doctor_name) {
+        this.doctor_name = doctor_name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getInformation() {

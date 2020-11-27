@@ -1,13 +1,11 @@
 package com.xd.controller;
 
+import com.xd.pojo.RequestMessage;
 import com.xd.pojo.TextInfo;
 import com.xd.service.UploadFileService;
 import com.xd.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
@@ -25,6 +23,38 @@ public class PatientUploadFileController {
     private UploadFileService uploadFileService;
 
 
+
+    //门诊病历
+    // @RequestMapping(value = "/outpatient", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    // public ResponseMessage OutpatientMedicalRecords(@RequestBody RequestMessage message){
+    //     ResponseMessage response = textService.outPatientMedicalRecords(message);
+    //     return response;
+    // }
+    //门诊病历
+    @PostMapping(value = "/outPatient")
+    public ResponseMessage OutpatientMedicalRecords(@RequestParam(value = "files") List<MultipartFile> files,
+                                                    @RequestParam(value = "userId") Long userId,
+                                                    @RequestParam(value = "date") String date,
+                                                    @RequestParam(value = "department") String department,
+                                                    @RequestParam(value = "hospital") String hospital,
+                                                    @RequestParam(value = "doctor_name") String doctor_name,
+                                                    @RequestParam(value = "disease_info") String disease_info){
+
+        TextInfo textInfo = new TextInfo();
+
+        textInfo.setDate(date);
+        textInfo.setUserId(userId);
+        textInfo.setDepartment(department);
+        textInfo.setHospital(hospital);
+        textInfo.setDoctor_name(doctor_name);
+        textInfo.setDisease_info(disease_info);
+
+        return uploadFileService.outPatientMedicalRecords(files, textInfo);
+
+
+    }
+
+
     //病症图片
     @PostMapping(value = "/DiseasePicture")
     public ResponseMessage DiseasePicture(@RequestParam(value = "files") List<MultipartFile> files,
@@ -40,8 +70,7 @@ public class PatientUploadFileController {
         info.setPicture_type(picture_type);
         info.setInformation(information);
 
-        ResponseMessage result = uploadFileService. DiseasePictureUpload(files, info);
-        return result;
+        return uploadFileService. DiseasePictureUpload(files, info);
     }
 
     //体检记录

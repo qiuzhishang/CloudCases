@@ -329,11 +329,26 @@ public class PatientService {
 
         for (InstrumentPicture instrumentPicture : instrumentPictures) {
             System.out.println(instrumentPicture.getId());
-            List<String> address = patientUploadFileMapper.selectInvasiveInstrumentsAddress(instrumentPicture.getId());
-            System.out.println(address);
-            instrumentPicture.setAddress(address);
+
+            System.out.println(patientUploadFileMapper.selectInvasiveInstrumentsAddress(instrumentPicture.getId()));
+            instrumentPicture.setAddress(patientUploadFileMapper.selectInvasiveInstrumentsAddress(instrumentPicture.getId()));
         }
 
         return instrumentPictures;
+    }
+    //查询门诊病历
+    public List<OutPatient> selectOutPatient(RequestMessage message){
+
+        Long user_id = message.getUserId();
+
+        List<OutPatient> outPatients = patientUploadFileMapper.selectOutPatient(user_id);
+
+        for (OutPatient outPatient : outPatients) {
+
+            outPatient.setAddress(patientUploadFileMapper.selectOutPatientAddrInfo(outPatient.getId()));
+            System.out.println(patientUploadFileMapper.selectOutPatientAddrInfo(outPatient.getId()));
+        }
+
+        return outPatients;
     }
 }

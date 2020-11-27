@@ -51,6 +51,7 @@ public class UploadFileService {
 
                 info.setUser_id(user_id);
                 patientUploadFileMapper.insertPictureInfo(info);
+
                 List<DiseasePicture> diseasePictures = patientUploadFileMapper.selectDiseasePicture(user_id);
                 Long max = 0L;
                 for (DiseasePicture diseasePicture : diseasePictures) {
@@ -92,10 +93,10 @@ public class UploadFileService {
         patientUploadFileMapper.insertMedicalExaminationReport(info);
 
         List<Report> IdReceive= patientUploadFileMapper.selectMedicalExaminationReportId(user_id);
-        Long max = 0L;
+        Long report_id = 0L;
         for (Report textInfo : IdReceive) {
-            if (max < textInfo.getId()){
-                max = textInfo.getId();
+            if (report_id < textInfo.getId()){
+                report_id = textInfo.getId();
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
@@ -119,7 +120,7 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                patientUploadFileMapper.insertMedicalExaminationReportAddr(file_addr, max);
+                patientUploadFileMapper.insertMedicalExaminationReportAddr(file_addr, report_id);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -150,10 +151,10 @@ public class UploadFileService {
         info.setUser_id(user_id);
         patientUploadFileMapper.insertLaboratoryExamination(info);
         List<LaboratoryPicture> IdReceive= patientUploadFileMapper.selectLaboratoryExaminationId(user_id);
-        Long max = 0L;
+        Long laboratory_id = 0L;
         for (LaboratoryPicture laboratoryPicture : IdReceive) {
-            if (max < laboratoryPicture.getId()){
-                max = laboratoryPicture.getId();
+            if (laboratory_id < laboratoryPicture.getId()){
+                laboratory_id = laboratoryPicture.getId();
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
@@ -177,7 +178,7 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                patientUploadFileMapper.insertLaboratoryExaminationAddr(file_addr, max);
+                patientUploadFileMapper.insertLaboratoryExaminationAddr(file_addr, laboratory_id);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -208,10 +209,10 @@ public class UploadFileService {
         info.setUser_id(user_id);
         patientUploadFileMapper.insertImageExamination(info);
         List<ImagePicture> IdReceive= patientUploadFileMapper.selectImageExaminationId(user_id);
-        Long max = 0L;
+        Long image_id = 0L;
         for (ImagePicture imagePicture : IdReceive) {
-            if (max < imagePicture.getId()){
-                max = imagePicture.getId();
+            if (image_id < imagePicture.getId()){
+                image_id = imagePicture.getId();
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
@@ -232,7 +233,7 @@ public class UploadFileService {
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
                 System.out.println(file_addr);
 
-                patientUploadFileMapper.insertImageExaminationAddr(file_addr, max);
+                patientUploadFileMapper.insertImageExaminationAddr(file_addr, image_id);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -262,10 +263,10 @@ public class UploadFileService {
 
         patientUploadFileMapper.insertInvasiveInstruments(info);
         List<InstrumentPicture> IdReceive= patientUploadFileMapper.selectInvasiveInstrumentsId(user_id);
-        Long max = 0L;
+        Long instrument_id = 0L;
         for (InstrumentPicture imagePicture : IdReceive) {
-            if (max < imagePicture.getId()){
-                max = imagePicture.getId();
+            if (instrument_id < imagePicture.getId()){
+                instrument_id = imagePicture.getId();
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
@@ -290,7 +291,7 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                patientUploadFileMapper.insertInvasiveInstrumentsAddr(file_addr, max);
+                patientUploadFileMapper.insertInvasiveInstrumentsAddr(file_addr, instrument_id);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -311,6 +312,71 @@ public class UploadFileService {
             return response;
         }
     }
+
+    //上传门诊病历
+    //门诊病历
+    public ResponseMessage outPatientMedicalRecords(List<MultipartFile> files, TextInfo info){
+
+        Long user_id = info.getUserId();
+        int flag =1;
+
+        info.setUser_id(user_id);
+        patientUploadFileMapper.insertOutpatient(info);
+
+        List<OutPatient> IdReceive = patientUploadFileMapper.selectOutPatient(user_id);
+        Long outPatient_id = 0L;
+
+        for (OutPatient outPatient : IdReceive) {
+            if (outPatient_id < outPatient.getId()){
+                outPatient_id = outPatient.getId();
+            }
+        }
+        System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
+        System.out.println(files.size());
+        for (MultipartFile file : files) {
+
+
+            if (file.isEmpty()) {
+                System.out.println("file is empty");
+            }
+            String fileName = file.getOriginalFilename();
+
+            fileName = fileName.split("\\.")[0] + System.currentTimeMillis() + "."
+                    + fileName.split("\\.")[1];
+            File dest = new File(AddressMethod.GeneratorAddress(user_id, fileName));
+            //存入数据库的路径path
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();
+            }
+            try {
+                info.setUser_id(user_id);
+                file.transferTo(dest);
+                String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
+
+                patientUploadFileMapper.insertOutPatientAddrInfo(file_addr, outPatient_id);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("上传失败");
+                flag = 0;
+            }
+            System.out.println("上传成功");
+
+        }
+
+
+        ResponseMessage response = new ResponseMessage();
+        if (flag == 1) {
+            response.setStatus_code(1);
+            return response;
+        } else {
+            response.setStatus_code(0);
+            return response;
+        }
+    }
+
+
+
 }
 
 

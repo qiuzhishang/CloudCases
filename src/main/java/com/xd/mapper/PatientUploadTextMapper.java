@@ -14,17 +14,6 @@ import java.util.List;
 public interface PatientUploadTextMapper {
 
 
-    //门诊病历
-    @Insert("insert into outpatient_info" +
-            "( department_treatment, hospital, doctor_name, disease_info, date, user_id)" +
-            "values" +
-            "( #{department_treatment}, #{hospital}, #{doctor_name}, #{disease_info}, #{date}, #{user_id})")
-    int insertOutpatient(String department_treatment, String hospital,String doctor_name, String disease_info, Date date, Long user_id);
-
-    @Select("select * from outpatient_info where user_id = #{user_id}")
-    List<OutPatient> selectOutPatient(Long user_id);
-
-
     //住院病历
     @Insert("insert into admission_info" +
             "( department_treatment, hospital, doctor_name, admission_info, s_date, o_date, user_id)" +

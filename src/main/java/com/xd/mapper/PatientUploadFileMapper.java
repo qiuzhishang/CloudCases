@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -112,6 +113,28 @@ public interface PatientUploadFileMapper {
 
     @Select("select file_addr from image_addr_info where image_id = #{image_id}")
     List<String> selectInvasiveInstrumentsAddress(Long image_id);
+
+    //门诊病历图片上传
+
+    //门诊病历
+    @Insert("insert into outpatient_info" +
+            "( date, department, hospital, doctor_name, disease_info,  user_id, flag)" +
+            "values" +
+            "( #{date}, #{department}, #{hospital}, #{doctor_name}, #{disease_info},  #{user_id}, 0)")
+    int insertOutpatient(TextInfo info);
+
+    @Insert("insert into outpatient_addr_info "
+            +"(file_addr, outpatient_id)"
+            +"values"
+            +"(#{file_addr}, #{outpatient_id})")
+    int insertOutPatientAddrInfo(String file_addr, Long outpatient_id);
+
+    @Select("select file_addr from outpatient_addr_info where outpatient_id = #{outpatient_id}")
+    List<String> selectOutPatientAddrInfo(Long outpatient_id);
+
+
+    @Select("select * from outpatient_info where user_id = #{user_id}")
+    List<OutPatient> selectOutPatient(Long user_id);
 
 
 }

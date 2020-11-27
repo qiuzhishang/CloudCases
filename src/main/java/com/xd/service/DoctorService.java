@@ -6,6 +6,7 @@ import com.xd.mapper.DoctorSelectPatientTextInfo;
 import com.xd.pojo.*;
 import com.xd.utils.AddressMethod;
 import com.xd.utils.ResponseMessage;
+import org.springframework.aop.aspectj.annotation.MetadataAwareAspectInstanceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -271,6 +272,19 @@ public class DoctorService {
             diseasePictures.add(diseasePicture);
 
             responseMessage.setDiseasePictures(diseasePictures);
+        }
+
+        //outpatient
+        if (message.getOutPatient() != null){
+
+            OutPatient outPatient = doctorMapper.selectOutPatientInfo(message.getOutPatient().getId());
+            outPatient.setAddress(doctorMapper.selectOutPatientAddrInfo(message.getOutPatient().getId()));
+
+            List<OutPatient> outPatients = new ArrayList<>();
+
+            outPatients.add(outPatient);
+
+            responseMessage.setOutPatients(outPatients);
         }
 
         return responseMessage;

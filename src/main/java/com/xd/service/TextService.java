@@ -17,43 +17,36 @@ public class TextService {
     @Autowired
     PatientUploadTextMapper patientUploadTextMapper;
 
-    //门诊病历
-    public ResponseMessage outPatientMedicalRecords(RequestMessage message){
+    // //门诊病历
+    // public ResponseMessage outPatientMedicalRecords(RequestMessage message){
+    //
+    //     Long user_id = message.getUserId();
+    //     String date = message.getOutPatient().getDate();
+    //
+    //     //java String 转sql日期
+    //     SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+    //     Date sDate = null;
+    //     try {
+    //         java.util.Date date3 = sdf2.parse(date);
+    //         sDate = new Date(date3.getTime());
+    //     } catch (ParseException e) {
+    //         e.printStackTrace();
+    //     }
+    //     //String Date date, String department_treatment, String hospital,                                    String doctor_name, long user_id, String phone_num
+    //     patientUploadTextMapper.insertOutpatient(message.getOutPatient().getDepartment(),
+    //             message.getOutPatient().getHospital(),
+    //             message.getOutPatient().getDoctor_name(),
+    //             message.getOutPatient().getDisease_info(),
+    //             sDate, user_id);
+    //
+    //     ResponseMessage response = new ResponseMessage();
+    //
+    //     response.setStatus_code(1);
+    //
+    //     return response;
+    // }
 
-        Long user_id = message.getUserId();
-        String date = message.getOutPatient().getDate();
 
-        //java String 转sql日期
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-        Date sDate = null;
-        try {
-            java.util.Date date3 = sdf2.parse(date);
-            sDate = new Date(date3.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        //String Date date, String department_treatment, String hospital,                                    String doctor_name, long user_id, String phone_num
-        patientUploadTextMapper.insertOutpatient(message.getOutPatient().getDepartment_treatment(),
-                message.getOutPatient().getHospital(),
-                message.getOutPatient().getDoctor_name(),
-                message.getOutPatient().getDisease_info(),
-                sDate, user_id);
-
-        ResponseMessage response = new ResponseMessage();
-
-        response.setStatus_code(1);
-
-        return response;
-    }
-
-    //查询门诊病历
-    public List<OutPatient> selectOutPatient(RequestMessage message){
-
-        Long user_id = message.getUserId();
-
-        return patientUploadTextMapper.selectOutPatient(user_id);
-
-    }
 
 
     //住院病历

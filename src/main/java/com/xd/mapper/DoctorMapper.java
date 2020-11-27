@@ -118,6 +118,14 @@ public interface DoctorMapper {
     @Select("select * from disease_picture_info where id=#{id}")
     DiseasePicture selectDiseasePictureInfo(Long id);
 
+    //outpatientPicture
+    @Select("select file_addr from outpatient_addr_info where disease_picture_id = #{disease_picture_id} ")
+    List<String> selectOutPatientAddrInfo(Long disease_picture_id);
+
+    @Select("select * from outpatient_info where id=#{id}")
+    OutPatient selectOutPatientInfo(Long id);
+
+
 
 
 }

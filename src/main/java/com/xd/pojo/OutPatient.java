@@ -1,14 +1,12 @@
 package com.xd.pojo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 //门诊病历
 public class OutPatient {
     private long id;
     private String date;//日期
-    private String department_treatment;//就诊科室
+    private String department;//就诊科室
     private String hospital;//就诊医院
     private String disease_info;//病历内容
     private String doctor_name;//医生名字
@@ -16,19 +14,30 @@ public class OutPatient {
     private Long user_id;
     private int flag;
 
+    private List<String> address;
+
     @Override
     public String toString() {
         return "OutPatient{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
-                ", department_treatment='" + department_treatment + '\'' +
+                ", department_treatment='" + department + '\'' +
                 ", hospital='" + hospital + '\'' +
                 ", disease_info='" + disease_info + '\'' +
                 ", doctor_name='" + doctor_name + '\'' +
                 ", phone_num='" + phone_num + '\'' +
                 ", user_id=" + user_id +
                 ", flag=" + flag +
+                ", address=" + address +
                 '}';
+    }
+
+    public List<String> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<String> address) {
+        this.address = address;
     }
 
     public int getFlag() {
@@ -73,12 +82,12 @@ public class OutPatient {
         this.date = date;
     }
 
-    public String getDepartment_treatment() {
-        return department_treatment;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartment_treatment(String department_treatment) {
-        this.department_treatment = department_treatment;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getHospital() {

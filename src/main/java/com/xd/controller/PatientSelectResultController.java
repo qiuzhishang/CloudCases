@@ -120,13 +120,13 @@ public class PatientSelectResultController {
         return response;
     }
 
-    //查询门诊信息
+    //查询门诊病历
     @RequestMapping(value = "/outPatient", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public ResponseMessage selectOutPatient(@RequestBody RequestMessage message) {
 
         ResponseMessage response = new ResponseMessage();
 
-        response.setOutPatients(textService.selectOutPatient(message));
+        response.setOutPatients(patientService.selectOutPatient(message));
 
         return response;
 
@@ -154,14 +154,14 @@ public class PatientSelectResultController {
 
         List<AdmissionNote> admissionNotes = textService.selectAdmissionNote(message);
         List<Examine> examines = textService.selectDiseaseExamine(message);
-        List<OutPatient> outPatients = textService.selectOutPatient(message);
+
         List<OutPatientRecords> outPatientRecords = textService.selectOutPatientRecords(message);
 
         ResponseMessage response = new ResponseMessage();
 
         response.setAdmissionNotes(admissionNotes);
         response.setExamines(examines);
-        response.setOutPatients(outPatients);
+
         response.setOutPatientRecords(outPatientRecords);
 
         return response;
@@ -173,7 +173,7 @@ public class PatientSelectResultController {
 
         List<AdmissionNote> admissionNotes = textService.selectAdmissionNote(message);
         List<Examine> examines = textService.selectDiseaseExamine(message);
-        List<OutPatient> outPatients = textService.selectOutPatient(message);
+        List<OutPatient> outPatients = patientService.selectOutPatient(message);
         List<OutPatientRecords> outPatientRecords = textService.selectOutPatientRecords(message);
         List<Report> reports = patientService.selectReportPicture(message);
         List<DiseasePicture> diseasePictures = patientService.selectDiseasePicture(message);

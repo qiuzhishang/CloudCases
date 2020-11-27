@@ -20,12 +20,7 @@ public class PatientUploadTextController {
     @Autowired
     private PatientService patientService;
 
-    //门诊病历
-    @RequestMapping(value = "/outpatient", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public ResponseMessage OutpatientMedicalRecords(@RequestBody RequestMessage message){
-        ResponseMessage response = textService.outPatientMedicalRecords(message);
-        return response;
-    }
+
 
     //住院病历
     @RequestMapping(value = "/admission", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
