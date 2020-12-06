@@ -45,7 +45,7 @@ public class DoctorController {
 
         System.out.println(types);
         System.out.println(types.size());
-        List<Long> type0 = new ArrayList<Long>();
+        List<Long> type0 = new ArrayList<>();
         for (String type : types) {
             type0.add(Long.parseLong(type));
         }
@@ -57,7 +57,7 @@ public class DoctorController {
 
     //医生查看跟自己相关联的患者基本信息
     @RequestMapping(value = "/selectDAP",  method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public ResponseMessage DoctorSeclectPatient(@RequestBody RequestMessage message){
+    public ResponseMessage DoctorSelectPatient(@RequestBody RequestMessage message){
 
         return doctorService.DoctorWatchPatient(message);
 

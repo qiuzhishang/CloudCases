@@ -10,7 +10,7 @@ public class OutPatient {
     private String hospital;//就诊医院
     private String disease_info;//病历内容
     private String doctor_name;//医生名字
-    private String phone_num;
+
     private Long user_id;
     private int flag;
 
@@ -25,7 +25,6 @@ public class OutPatient {
                 ", hospital='" + hospital + '\'' +
                 ", disease_info='" + disease_info + '\'' +
                 ", doctor_name='" + doctor_name + '\'' +
-                ", phone_num='" + phone_num + '\'' +
                 ", user_id=" + user_id +
                 ", flag=" + flag +
                 ", address=" + address +
@@ -106,12 +105,5 @@ public class OutPatient {
         this.disease_info = disease_info;
     }
 
-    public String getPhone_num() {
-        return phone_num;
-    }
-
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
-    }
 
 }

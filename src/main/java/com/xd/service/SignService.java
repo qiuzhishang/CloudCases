@@ -60,7 +60,6 @@ public class SignService {
                 System.out.println("userSign    5");
                 responseMessage.setStatus_code(4);//个人信息为空
                 responseMessage.setUserId(user.getId());
-                return responseMessage;
             }
 
             System.out.println(patientInfo);
@@ -85,11 +84,10 @@ public class SignService {
                     responseMessage.setUser_type(user.getUser_type());
                     responseMessage.setUserId(user.getId());
 
-                    return responseMessage;
 
                 }else {
                     responseMessage.setStatus_code(3);//token异常
-                    return responseMessage;
+
                 }
 
             }else {
@@ -97,7 +95,7 @@ public class SignService {
                 if (!user.getPass_word().equals(sign.getPass_word())) {
                     System.out.println("userSign    3");
                     responseMessage.setStatus_code(2);//密码错误
-                    return responseMessage;
+
                 }else {
 
                     System.out.println("userSign    4");
@@ -115,7 +113,6 @@ public class SignService {
                     responseMessage.setUser_type(user.getUser_type());
                     responseMessage.setUserId(user.getId());
 
-                    return responseMessage;
                 }
             }
 
@@ -129,7 +126,6 @@ public class SignService {
                 responseMessage.setStatus_code(4);//个人信息为空
                 responseMessage.setUserId(user.getId());
 
-                return responseMessage;
             }
 
             System.out.println(doctorInfo);
@@ -155,7 +151,7 @@ public class SignService {
 
                 }else {
                     responseMessage.setStatus_code(3);//token异常
-                    return responseMessage;
+
                 }
 
             }else {
@@ -179,13 +175,13 @@ public class SignService {
                     responseMessage.setUserId(user.getId());
 
                 }
-                return responseMessage;
+
             }
 
         }
 
 
         System.out.println("userSign    8");
-        return null;
+        return responseMessage;
     }
 }

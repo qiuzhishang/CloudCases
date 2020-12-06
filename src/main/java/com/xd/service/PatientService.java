@@ -67,7 +67,8 @@ public class PatientService {
                 message.getPatient().getEmerge()     !=null &&
                 message.getPatient().getNow_addr()   !=null &&
                 message.getPatient().getPostal_addr()!=null &&
-                message.getPatient().getRace()       != null) {
+                message.getPatient().getRace()       != null &&
+                message.getPatient().getBirthday() !=null) {
 
             Long id = message.getUserId();
             message.getPatient().setUser_id(id);

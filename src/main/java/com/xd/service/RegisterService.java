@@ -24,6 +24,12 @@ public class RegisterService {
 
         Register register = message.getRegister();
 
+        if (register == null){
+
+            response.setStatus_code(100);
+            return response;
+        }
+
         register.setTime();
 
         Register user = registerMapper.selectUserByPhoneNum(register.getPhone_num(), register.getUser_type());

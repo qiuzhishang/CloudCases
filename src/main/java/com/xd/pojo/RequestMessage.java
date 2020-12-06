@@ -6,6 +6,13 @@ public class RequestMessage {
 
     private int user_type;
 
+    private int call_type;
+
+    private Long id;
+    private String table_name;
+    private int flag;
+    private String content;
+
     private Sign sign;
     private Register register;
 
@@ -33,10 +40,23 @@ public class RequestMessage {
 
     private WatchPatientsInfo watchPatientsInfo;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "RequestMessage{" +
                 "user_type=" + user_type +
+                ", call_type=" + call_type +
+                ", id=" + id +
+                ", table_name='" + table_name + '\'' +
+                ", flag=" + flag +
+                ", content='" + content + '\'' +
                 ", sign=" + sign +
                 ", register=" + register +
                 ", token='" + token + '\'' +
@@ -58,6 +78,38 @@ public class RequestMessage {
                 ", doctor=" + doctor +
                 ", watchPatientsInfo=" + watchPatientsInfo +
                 '}';
+    }
+
+    public int getCall_type() {
+        return call_type;
+    }
+
+    public void setCall_type(int call_type) {
+        this.call_type = call_type;
+    }
+
+    public String getTable_name() {
+        return table_name;
+    }
+
+    public void setTable_name(String table_name) {
+        this.table_name = table_name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     public ImagePicture getImagePicture() {

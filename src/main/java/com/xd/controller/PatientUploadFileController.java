@@ -73,7 +73,7 @@ public class PatientUploadFileController {
         return uploadFileService. DiseasePictureUpload(files, info);
     }
 
-    //体检记录
+    //体检报告
     @PostMapping(value = "/MedicalExaminationReport")
     public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files") List<MultipartFile> files,
                                                     @RequestParam(value = "hospital") String hospital,

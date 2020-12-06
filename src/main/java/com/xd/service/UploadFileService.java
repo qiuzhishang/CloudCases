@@ -31,6 +31,10 @@ public class UploadFileService {
         Long user_id = info.getUserId();
 
         System.out.println(files.size());
+
+        info.setUser_id(user_id);
+        patientUploadFileMapper.insertPictureInfo(info);
+
         for (MultipartFile file : files) {
 
             if (file.isEmpty()) {
@@ -49,8 +53,6 @@ public class UploadFileService {
                 file.transferTo(dest);
                 String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
-                info.setUser_id(user_id);
-                patientUploadFileMapper.insertPictureInfo(info);
 
                 List<DiseasePicture> diseasePictures = patientUploadFileMapper.selectDiseasePicture(user_id);
                 Long max = 0L;

@@ -12,7 +12,7 @@ import java.util.List;
 //医生查询患者的各项文本的信息
 public interface DoctorSelectPatientTextInfo {
 
-    @Select("select * from admission_note where user_id = #{user_id} and flag = 1")
+    @Select("select * from admission_info where user_id = #{user_id} and flag = 1")
     List<AdmissionNote> doctorSelectAdmissionNote(Long user_id);
 
     @Select("select * from outpatient_info where user_id = #{user_id} and flag = 1")

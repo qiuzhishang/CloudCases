@@ -6,7 +6,6 @@ import com.xd.mapper.DoctorSelectPatientTextInfo;
 import com.xd.pojo.*;
 import com.xd.utils.AddressMethod;
 import com.xd.utils.ResponseMessage;
-import org.springframework.aop.aspectj.annotation.MetadataAwareAspectInstanceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -158,12 +157,20 @@ public class DoctorService {
     public ResponseMessage DoctorWatchPatient(RequestMessage message) {
 
         ResponseMessage responseMessage = new ResponseMessage();
+        List<Patient> patients;
 
-        //Long doctor_id,  String name, String id_num, String phone_num
-        List<Patient> patients = doctorMapper.selectPatients(message.getUserId(),
-                message.getWatchPatientsInfo().getName(),
-                message.getWatchPatientsInfo().getId_num(),
-                message.getWatchPatientsInfo().getPhone_num());
+        if (message.getWatchPatientsInfo()==null)
+             patients = doctorMapper.selectPatients(message.getUserId(),
+                    null,
+                    null,
+                    null);
+        else
+
+            //Long doctor_id,  String name, String id_num, String phone_num
+             patients = doctorMapper.selectPatients(message.getUserId(),
+                    message.getWatchPatientsInfo().getName(),
+                    message.getWatchPatientsInfo().getId_num(),
+                    message.getWatchPatientsInfo().getPhone_num());
 
         responseMessage.setPatients(patients);
         responseMessage.setStatus_code(1);

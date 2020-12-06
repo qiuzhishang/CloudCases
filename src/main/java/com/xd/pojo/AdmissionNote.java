@@ -11,6 +11,8 @@ public class AdmissionNote {
     private Long user_id;
     private int flag;
 
+    private Long id;
+
     @Override
     public String toString() {
         return "AdmissionNote{" +
@@ -22,7 +24,16 @@ public class AdmissionNote {
                 ", admission_info='" + admission_info + '\'' +
                 ", user_id=" + user_id +
                 ", flag=" + flag +
+                ", id=" + id +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getFlag() {
