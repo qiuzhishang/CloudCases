@@ -39,4 +39,7 @@ public interface DoctorSelectPatientTextInfo {
     @Select("select * from instrument_info where user_id = #{user_id} and flag = 1")
     List<InstrumentPicture> doctorSelectInvasiveInstrumentsId(Long user_id);
 
+    @Select("select * from disease_info where user_id = #{user_id} and flag =1")
+    List<PatientDiseaseInfo> doctorSelectPatientDiseaseInfo(Long user_id);
+
 }

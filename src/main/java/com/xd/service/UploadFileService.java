@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.instrument.Instrumentation;
 import java.util.List;
 
 @SuppressWarnings("all")
@@ -89,8 +90,11 @@ public class UploadFileService {
     public ResponseMessage MedicalExaminationReportUpload(List<MultipartFile> files, TextInfo info) {
 
         int flag = 1;
+        System.out.println(info);
 
         Long user_id = info.getUserId();
+
+        info.setUser_id(user_id);
 
         patientUploadFileMapper.insertMedicalExaminationReport(info);
 
@@ -319,6 +323,11 @@ public class UploadFileService {
     //门诊病历
     public ResponseMessage outPatientMedicalRecords(List<MultipartFile> files, TextInfo info){
 
+        // if (instrumentation == null)
+        //     System.out.println("instrumentation ------   null");
+        // else
+        //     System.out.println(instrumentation.getObjectSize(files));
+
         Long user_id = info.getUserId();
         int flag =1;
 
@@ -334,9 +343,12 @@ public class UploadFileService {
             }
         }
         System.out.println("===========操作系统是:"+System.getProperties().getProperty("os.name"));
-        System.out.println(files.size());
-        for (MultipartFile file : files) {
 
+        System.out.println(files.size());
+
+        System.out.println(files);
+
+        for (MultipartFile file : files) {
 
             if (file.isEmpty()) {
                 System.out.println("file is empty");

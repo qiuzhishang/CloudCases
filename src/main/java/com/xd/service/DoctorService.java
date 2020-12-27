@@ -3,6 +3,7 @@ package com.xd.service;
 
 import com.xd.mapper.DoctorMapper;
 import com.xd.mapper.DoctorSelectPatientTextInfo;
+import com.xd.mapper.PatientUploadTextMapper;
 import com.xd.pojo.*;
 import com.xd.utils.AddressMethod;
 import com.xd.utils.ResponseMessage;
@@ -22,6 +23,9 @@ public class DoctorService {
 
     @Autowired
     private DoctorSelectPatientTextInfo doctorSelectPatientTextInfo;
+
+    @Autowired
+    private PatientUploadTextMapper patientUploadTextMapper;
 
     //医生上传个人图片信息
     public ResponseMessage DoctorInfo(List<MultipartFile> files, Doctor doctor, TextInfo info, List<Long> types){
@@ -47,6 +51,8 @@ public class DoctorService {
             int count = 0;
             int flag = 1;
 
+
+
             for (MultipartFile file : files) {
 
                 fileName = file.getOriginalFilename();
@@ -62,14 +68,17 @@ public class DoctorService {
                     file.transferTo(dest);
                     String file_addr = AddressMethod.GeneratorAddressOut(user_id, fileName);
 
+                    System.out.println(count);
                     //加一个地址select操作
-                    DoctorAddr doctorAddr = doctorMapper.selectDoctorAddr(doctor_id, types.get(count++));
+                    DoctorAddr doctorAddr = doctorMapper.selectDoctorAddr(doctor_id, types.get(count));
 
                     if (doctorAddr == null){
-                        doctorMapper.insertDoctorAddr(file_addr, types.get(count++), doctor_id);
+                        doctorMapper.insertDoctorAddr(file_addr, types.get(count), doctor_id);
+                        count++;
                     }
 
-                    doctorMapper.updateDoctorAddr(file_addr, types.get(count++), doctor_id);
+                    doctorMapper.updateDoctorAddr(file_addr, types.get(count), doctor_id);
+                    count++;
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -82,6 +91,8 @@ public class DoctorService {
             if (flag == 1) {
 
                 response.setStatus_code(1);
+                response.setDoctor(doc);
+
                 return response;
             } else {
                 response.setStatus_code(0);
@@ -129,9 +140,11 @@ public class DoctorService {
         if (flag == 1) {
 
             response.setStatus_code(1);
+            response.setDoctor(doc);
             return response;
         } else {
             response.setStatus_code(0);
+
             return response;
         }
 
@@ -189,12 +202,16 @@ public class DoctorService {
         List<AdmissionNote> admissionNotes = doctorSelectPatientTextInfo.doctorSelectAdmissionNote(patientId);
         List<OutPatient> outPatients = doctorSelectPatientTextInfo.doctorSelectOutPatient(patientId);
         List<OutPatientRecords> outPatientRecords = doctorSelectPatientTextInfo.doctorSelectOutPatientRecords(patientId);
+        for (OutPatientRecords outPatientRecord : outPatientRecords) {
+            outPatientRecord.setMedicines(patientUploadTextMapper.selectMedicine(outPatientRecord.getId()));
+        }
         List<Examine> examines = doctorSelectPatientTextInfo.doctorSelectExamine(patientId);
         List<DiseasePicture> diseasePictures = doctorSelectPatientTextInfo.doctorSelectDiseasePicture(patientId);
         List<Report> reports = doctorSelectPatientTextInfo.doctorSelectMedicalExaminationReportId(patientId);
         List<LaboratoryPicture> laboratoryPictures = doctorSelectPatientTextInfo.doctorSelectLaboratoryExaminationId(patientId);
         List<ImagePicture> imagePictures = doctorSelectPatientTextInfo.doctorSelectImageExaminationId(patientId);
         List<InstrumentPicture> instrumentPictures = doctorSelectPatientTextInfo.doctorSelectInvasiveInstrumentsId(patientId);
+        List<PatientDiseaseInfo> patientDiseaseInfos = doctorSelectPatientTextInfo.doctorSelectPatientDiseaseInfo(patientId);
 
         ResponseMessage responseMessage = new ResponseMessage();
 
@@ -207,6 +224,7 @@ public class DoctorService {
         responseMessage.setLaboratoryPictures(laboratoryPictures);
         responseMessage.setImagePictures(imagePictures);
         responseMessage.setInstrumentPictures(instrumentPictures);
+        responseMessage.setPatientDiseaseInfoList(patientDiseaseInfos);
 
         return responseMessage;
     }

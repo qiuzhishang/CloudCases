@@ -59,7 +59,10 @@ public interface AdminMapper {
     @Select("select file_addr from report_addr_info where report_id = #{report_id}")
     List<String> selectAllReportAddr(Long report_id);
 
+
     @Update("update ${table_name} set flag = #{flag}, content= #{content} where id = #{id}")
     int updateAdmission(String table_name, int flag, String content, Long id);
+
+
 
 }

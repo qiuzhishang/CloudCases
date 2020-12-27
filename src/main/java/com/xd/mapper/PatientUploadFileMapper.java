@@ -111,8 +111,8 @@ public interface PatientUploadFileMapper {
             "(#{file_addr}, #{instrument_id}, 0)")
     int insertInvasiveInstrumentsAddr(String file_addr, Long instrument_id);
 
-    @Select("select file_addr from image_addr_info where image_id = #{image_id}")
-    List<String> selectInvasiveInstrumentsAddress(Long image_id);
+    @Select("select file_addr from instrument_addr_info where instrument_id = #{instrument_id}")
+    List<String> selectInvasiveInstrumentsAddress(Long instrument_id);
 
     //门诊病历图片上传
 

@@ -46,16 +46,15 @@ public class SignService {
 
         System.out.println(user.getId());
 
-        Patient patientInfo = patientMapper.selectPatientByUserId(user.getId());
-        Doctor doctorInfo = doctorMapper.selectDoctorByUserId(user.getId());
 
-        System.out.println(patientInfo);
-        System.out.println(doctorInfo);
 
         System.out.println("user_type : " + user.getUser_type());
 
         //患者登录
         if (UserType.Patient.getValue() == user.getUser_type()){
+
+            Patient patientInfo = patientMapper.selectPatientByUserId(user.getId());
+
             if (patientInfo == null) {
                 System.out.println("userSign    5");
                 responseMessage.setStatus_code(4);//个人信息为空
@@ -119,6 +118,8 @@ public class SignService {
 
         }else if(UserType.Doctor.getValue() == user.getUser_type()){//医生登录
 
+            Doctor doctorInfo = doctorMapper.selectDoctorByUserId(user.getId());
+
             System.out.println("==============================");
 
             if (doctorInfo == null) {
@@ -143,9 +144,10 @@ public class SignService {
 
                     responseMessage.setToken(new_token);
                     responseMessage.setStatus_code(0);
-                    responseMessage.setName(doctorInfo.getName());
+                    responseMessage.setName(name);
                     responseMessage.setUser_type(user.getUser_type());
                     responseMessage.setUserId(user.getId());
+                    responseMessage.setDoctor(doctorInfo);
 
                     return responseMessage;
 
@@ -173,6 +175,7 @@ public class SignService {
                     responseMessage.setName(name);
                     responseMessage.setUser_type(user.getUser_type());
                     responseMessage.setUserId(user.getId());
+                    responseMessage.setDoctor(doctorInfo);
 
                 }
 

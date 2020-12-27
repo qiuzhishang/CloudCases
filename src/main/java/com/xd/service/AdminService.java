@@ -14,6 +14,9 @@ public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private PatientUploadTextMapper patientUploadTextMapper;
+
     public ResponseMessage AdminSign(RequestMessage message){
 
         Sign signInfo = message.getSign();
@@ -24,11 +27,23 @@ public class AdminService {
 
             responseMessage.setStatus_code(100);
 
+            //住院病历
             responseMessage.setAdmissionNotes(adminMapper.selectAllAdmission());
+            //病理学检查
             responseMessage.setExamines(adminMapper.selectAllExamine());
+            //既往病史
             responseMessage.setPatientDiseaseInfoList(adminMapper.selectAllDiseaseInfo());
-            responseMessage.setOutPatientRecords(adminMapper.selectAllOutPatientRecords());
 
+            //门诊记录
+            List<OutPatientRecords> outPatientRecords = adminMapper.selectAllOutPatientRecords();
+            for (OutPatientRecords outPatientRecord : outPatientRecords) {
+                outPatientRecord.setMedicines(patientUploadTextMapper.selectMedicine(outPatientRecord.getId()));
+            }
+            responseMessage.setOutPatientRecords(outPatientRecords);
+
+
+
+            //病症图片
             List<DiseasePicture> diseasePictures = adminMapper.selectAllDiseasePicture();
             for (DiseasePicture diseasePicture : diseasePictures) {
                 diseasePicture.setAddress(adminMapper.selectAllDiseasePictureAddr(diseasePicture.getId()));
@@ -41,30 +56,35 @@ public class AdminService {
             }
             responseMessage.setDoctors(doctors);
 
+            //影像检查
             List<ImagePicture> imagePictures = adminMapper.selectAllImage();
             for (ImagePicture imagePicture : imagePictures) {
                 imagePicture.setAddress(adminMapper.selectAllImageAddr(imagePicture.getId()));
             }
             responseMessage.setImagePictures(imagePictures);
 
+            //侵入式器械
             List<InstrumentPicture> instrumentPictures = adminMapper.selectAllInstrumentPicture();
             for (InstrumentPicture instrumentPicture : instrumentPictures) {
                 instrumentPicture.setAddress(adminMapper.selectAllInstrumentAddr(instrumentPicture.getId()));
             }
             responseMessage.setInstrumentPictures(instrumentPictures);
 
+            //化验检查
             List<LaboratoryPicture> laboratoryPictures = adminMapper.SelectAllLaboratoryPicture();
             for (LaboratoryPicture laboratoryPicture : laboratoryPictures) {
                 laboratoryPicture.setAddress(adminMapper.selectAllLaboratoryAddr(laboratoryPicture.getId()));
             }
             responseMessage.setLaboratoryPictures(laboratoryPictures);
 
+            //门诊病历
             List<OutPatient> outPatients = adminMapper.selectAllOutPatient();
             for (OutPatient outPatient : outPatients) {
                 outPatient.setAddress(adminMapper.selectAllOutPatientAddr(outPatient.getId()));
             }
             responseMessage.setOutPatients(outPatients);
 
+            //体检报告
             List<Report> reports = adminMapper.selectAllReport();
             for (Report report : reports) {
                 report.setAddress(adminMapper.selectAllReportAddr(report.getId()));

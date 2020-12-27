@@ -23,16 +23,8 @@ public class PatientUploadFileController {
     private UploadFileService uploadFileService;
 
 
-
-    //门诊病历
-    // @RequestMapping(value = "/outpatient", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    // public ResponseMessage OutpatientMedicalRecords(@RequestBody RequestMessage message){
-    //     ResponseMessage response = textService.outPatientMedicalRecords(message);
-    //     return response;
-    // }
-    //门诊病历
     @PostMapping(value = "/outPatient")
-    public ResponseMessage OutpatientMedicalRecords(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage OutpatientMedicalRecords(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                     @RequestParam(value = "userId") Long userId,
                                                     @RequestParam(value = "date") String date,
                                                     @RequestParam(value = "department") String department,
@@ -57,7 +49,7 @@ public class PatientUploadFileController {
 
     //病症图片
     @PostMapping(value = "/DiseasePicture")
-    public ResponseMessage DiseasePicture(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage DiseasePicture(@RequestParam(value = "files[]") List<MultipartFile> files,
                            @RequestParam(value = "userId") Long userId,
                            @RequestParam(value = "picture_type") int picture_type,
                            @RequestParam(value = "information") String information,
@@ -75,7 +67,7 @@ public class PatientUploadFileController {
 
     //体检报告
     @PostMapping(value = "/MedicalExaminationReport")
-    public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage MedicalExaminationReport(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                     @RequestParam(value = "hospital") String hospital,
                                                     @RequestParam(value = "report_info") String report_info,
                                                     @RequestParam(value = "result") String result,
@@ -96,7 +88,7 @@ public class PatientUploadFileController {
 
     //化验检查
     @PostMapping(value = "/LaboratoryExamination")
-    public ResponseMessage LaboratoryExamination(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage LaboratoryExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                     @RequestParam(value = "items") String items,
                                                     @RequestParam(value = "result") String result,
                                                     @RequestParam(value = "userId") Long userId,
@@ -115,7 +107,7 @@ public class PatientUploadFileController {
     }
     //影像检查
     @PostMapping(value = "/ImageExamination")
-    public ResponseMessage ImageExamination(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage ImageExamination(@RequestParam(value = "files[]") List<MultipartFile> files,
                                                  @RequestParam(value = "items") String items,
                                                  @RequestParam(value = "result") String result,
                                                  @RequestParam(value = "userId") Long userId,
@@ -135,7 +127,7 @@ public class PatientUploadFileController {
 
     //侵入型器械检查结果 InvasiveInstruments
     @PostMapping(value = "/InvasiveInstruments")
-    public ResponseMessage InvasiveInstruments(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage InvasiveInstruments(@RequestParam(value = "files[]") List<MultipartFile> files,
                                             @RequestParam(value = "items") String items,
                                             @RequestParam(value = "result") String result,
                                             @RequestParam(value = "userId") Long userId,
@@ -156,30 +148,6 @@ public class PatientUploadFileController {
 
 
 
-    //门诊病历
-//    @PostMapping(value = "/OutpatientMedicalRecords")
-//    public ResponseMessage OutpatientMedicalRecords(@RequestParam(value = "files") MultipartFile[] files,
-//                                           @RequestParam(value = "date") String date,
-//                                           @RequestParam(value = "department_treatment") String department_treatment,
-//                                           @RequestParam(value = "hospital") String hospital,
-//                                           @RequestParam(value = "doctor_name") String doctor_name,
-//                                           @RequestParam(value = "phone_num") String phone_num){
-//
-//        //java String 转sql日期
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        java.sql.Date sDate = null;
-//        try {
-//            java.util.Date date3 = sdf.parse(date);
-//            sDate = new java.sql.Date(date3.getTime());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        ResponseMessage result = uploadFileService.OutpatientMedicalRecords(files, sDate, department_treatment, hospital, doctor_name, phone_num );
-//
-//
-//        return result;
-//    }
 
 
 }

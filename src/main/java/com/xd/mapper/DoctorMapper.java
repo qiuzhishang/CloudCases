@@ -30,6 +30,7 @@ public interface DoctorMapper {
             "(#{name}, #{id_num}, #{hospital}, #{department}, #{specialty}, #{personal_info}, #{social_work}, #{user_id}, 0)")
     int insertDoctorInfo(Doctor doctor);
 
+
     //医生查询个人信息
     @Select("select * from doctor_info where user_id = #{user_id}")
     Doctor selectDoctorInfo(Long user_id);
@@ -43,7 +44,7 @@ public interface DoctorMapper {
 
     //@Update("update doctor_patient_connection set flag = #{flag} where id = #{id}")
     //医生第二次上传更新图片信息
-    @Update("update doctor_addr_info set doctor_addr_info = #{doctor_addr_info} and flag =0 where picture_type = #{picture_type} and doctor_id = #{doctor_id}  ")
+    @Update("update doctor_addr_info set doctor_addr_info = #{doctor_addr_info}  where picture_type = #{picture_type} and doctor_id = #{doctor_id}  ")
     int updateDoctorAddr(String doctor_addr_info, Long picture_type, Long doctor_id);
 
     @Select("select * from doctor_addr_info where doctor_id=#{doctor_id} and picture_type=#{picture_type}")

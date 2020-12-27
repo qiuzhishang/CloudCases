@@ -21,7 +21,7 @@ public class DoctorController {
 
     //医生全部信息填写
     @PostMapping(value = "/DoctorInfo")
-    public ResponseMessage DoctorInfo(@RequestParam(value = "files") List<MultipartFile> files,
+    public ResponseMessage DoctorInfo(@RequestParam(value = "files[]") List<MultipartFile> files,
                                       @RequestParam(value = "types") List<String> types,
                                       @RequestParam(value = "userId") Long userId,
                                       @RequestParam(value = "name") String name,
