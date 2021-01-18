@@ -4,6 +4,9 @@ import java.util.List;
 
 public class RequestMessage {
 
+    private String phone_num;
+    private String pass_word;
+
     private int user_type;
 
     private int call_type;
@@ -17,7 +20,7 @@ public class RequestMessage {
     private Register register;
 
     private String token;
-    private String phone_num;
+
     private Long userId;
 
     private Report report;
@@ -51,7 +54,9 @@ public class RequestMessage {
     @Override
     public String toString() {
         return "RequestMessage{" +
-                "user_type=" + user_type +
+                "phone_num='" + phone_num + '\'' +
+                ", pass_word='" + pass_word + '\'' +
+                ", user_type=" + user_type +
                 ", call_type=" + call_type +
                 ", id=" + id +
                 ", table_name='" + table_name + '\'' +
@@ -60,7 +65,6 @@ public class RequestMessage {
                 ", sign=" + sign +
                 ", register=" + register +
                 ", token='" + token + '\'' +
-                ", phone_num='" + phone_num + '\'' +
                 ", userId=" + userId +
                 ", report=" + report +
                 ", examine=" + examine +
@@ -78,6 +82,14 @@ public class RequestMessage {
                 ", doctor=" + doctor +
                 ", watchPatientsInfo=" + watchPatientsInfo +
                 '}';
+    }
+
+    public String getPass_word() {
+        return pass_word;
+    }
+
+    public void setPass_word(String pass_word) {
+        this.pass_word = pass_word;
     }
 
     public int getCall_type() {

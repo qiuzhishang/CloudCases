@@ -2,7 +2,6 @@ package com.xd.controller;
 
 import com.xd.mapper.PatientMapper;
 import com.xd.pojo.RequestMessage;
-import com.xd.service.DoctorService;
 import com.xd.service.PatientService;
 import com.xd.utils.ResponseMessage;
 

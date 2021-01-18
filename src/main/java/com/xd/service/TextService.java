@@ -165,7 +165,9 @@ public class TextService {
 
                 List<Medicine> medicines = patientUploadTextMapper.selectMedicine(treat_id);
                 System.out.println("================"+ treat_id);
-                outPatientRecord.setMedicines(medicines);
+                if (medicines != null)
+
+                    outPatientRecord.setMedicines(medicines);
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -182,7 +184,20 @@ public class TextService {
 
         Long user_id = message.getUserId();
 
-        patientUploadTextMapper.insertExamineInfo(message.getExamine().getExamine_info(), user_id);
+        String date = message.getExamine().getDate();
+
+        //java String 转sql日期
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date sDate = null;
+        try {
+            java.util.Date date3 = sdf2.parse(date);
+            sDate = new Date(date3.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        patientUploadTextMapper.insertExamineInfo(message.getExamine().getExamine_info(), sDate, user_id);
+
 
         ResponseMessage response = new ResponseMessage();
         response.setStatus_code(1);

@@ -7,6 +7,8 @@ public class ImagePicture {
     private Long id;
 
     private String date;
+    private String items;
+    private String result;
 
     private Long user_id;
     private int flag;
@@ -18,10 +20,28 @@ public class ImagePicture {
         return "ImagePicture{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
+                ", items='" + items + '\'' +
+                ", result='" + result + '\'' +
                 ", user_id=" + user_id +
                 ", flag=" + flag +
                 ", address=" + address +
                 '}';
+    }
+
+    public String getItems() {
+        return items;
+    }
+
+    public void setItems(String items) {
+        this.items = items;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public int getFlag() {

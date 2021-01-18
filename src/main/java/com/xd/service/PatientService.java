@@ -290,7 +290,7 @@ public class PatientService {
 
         List<LaboratoryPicture> laboratoryPictures;
         laboratoryPictures = patientUploadFileMapper.selectLaboratoryExaminationId(user_id);
-        ResponseMessage response = new ResponseMessage();
+
         for (LaboratoryPicture laboratoryPicture : laboratoryPictures) {
             System.out.println(laboratoryPicture.getId());
             List<String> address = patientUploadFileMapper.selectLaboratoryAddress(laboratoryPicture.getId());

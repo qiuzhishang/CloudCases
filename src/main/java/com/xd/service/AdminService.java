@@ -19,11 +19,9 @@ public class AdminService {
 
     public ResponseMessage AdminSign(RequestMessage message){
 
-        Sign signInfo = message.getSign();
-
         ResponseMessage responseMessage = new ResponseMessage();
 
-        if (signInfo.getPhone_num().equals("admin")&&signInfo.getPass_word().equals("123456XXX")){
+        if (message.getPhone_num().equals("admin")&&message.getPass_word().equals("123456XXX")){
 
             responseMessage.setStatus_code(100);
 

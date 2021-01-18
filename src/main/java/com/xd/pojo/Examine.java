@@ -3,6 +3,7 @@ package com.xd.pojo;
 public class Examine {
     private Long id;
     private Long user_id;
+    private String date;
     private String examine_info;
     private int flag;
 
@@ -11,9 +12,18 @@ public class Examine {
         return "Examine{" +
                 "id=" + id +
                 ", user_id=" + user_id +
+                ", date='" + date + '\'' +
                 ", examine_info='" + examine_info + '\'' +
                 ", flag=" + flag +
                 '}';
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getFlag() {

@@ -13,7 +13,14 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/adminSign", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/adminX", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AdminSign(){
+
+        return "hello";
+
+    }
+
+    @RequestMapping(value = "/adminSign", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=UTF-8")
     public ResponseMessage AdminSign(@RequestBody RequestMessage message){
 
         return adminService.AdminSign(message);

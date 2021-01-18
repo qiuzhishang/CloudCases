@@ -65,6 +65,11 @@ public class SignService {
 
             if (sign.getPass_word() == null){
                 System.out.println("userSign    2");
+                if (token == null){
+                    responseMessage.setStatus_code(3);
+
+                    return responseMessage;
+                }
                 if (token.equals(user.getToken())){
 
                     System.out.println(" patient Sign    4");
@@ -130,6 +135,12 @@ public class SignService {
             }
 
             System.out.println(doctorInfo);
+
+            if (token == null){
+                responseMessage.setStatus_code(3);
+
+                return responseMessage;
+            }
 
             if (sign.getPass_word() == null){
                 System.out.println("userSign    2");

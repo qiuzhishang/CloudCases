@@ -16,9 +16,9 @@ public interface PatientUploadTextMapper {
 
     //住院病历
     @Insert("insert into admission_info" +
-            "( department_treatment, hospital, doctor_name, admission_info, s_date, o_date, user_id)" +
+            "( department_treatment, hospital, doctor_name, admission_info, s_date, o_date, user_id, flag)" +
             "values" +
-            "( #{department_treatment}, #{hospital}, #{doctor_name}, #{admission_info}, #{s_date}, #{o_date}, #{user_id})")
+            "( #{department_treatment}, #{hospital}, #{doctor_name}, #{admission_info}, #{s_date}, #{o_date}, #{user_id}, 0)")
     int insertAdmission(String department_treatment, String hospital, String doctor_name, String admission_info, Date s_date, Date o_date, Long user_id);
 
     //查询住院病历
@@ -27,10 +27,10 @@ public interface PatientUploadTextMapper {
 
     //门诊就诊记录
     @Insert("insert into outpatient_records" +
-            "( department_treatment, hospital, disease_info, doctor_name, treat_info, treating_info, treat_items, treat_methods, date, user_id)" +
+            "( department_treatment, hospital, disease_info, doctor_name, treat_info, treating_info, treat_items, treat_methods, date, user_id, flag)" +
             "values" +
-            "( #{department_treatment}, #{hospital}, #{disease_info}, #{doctor_name}, #{treat_info}, #{treating_info}, #{treat_items}, #{treat_methods}, #{date}, #{user_id})")
-    int insertOutPatientRecords(String department_treatment, String hospital, String disease_info, String doctor_name, String treat_info, String treating_info, String treat_items, String treat_methods, java.sql.Date date, Long user_id);
+            "( #{department_treatment}, #{hospital}, #{disease_info}, #{doctor_name}, #{treat_info}, #{treating_info}, #{treat_items}, #{treat_methods}, #{date}, #{user_id}, 0)")
+    int insertOutPatientRecords(String department_treatment, String hospital, String disease_info, String doctor_name, String treat_info, String treating_info, String treat_items, String treat_methods, Date date, Long user_id);
 //            int insertOutPatientRecords(OutPatientRecords outPatientRecords, Long user_id);
 
     @Select("select * from outpatient_records where user_id = #{user_id}")
@@ -47,10 +47,10 @@ public interface PatientUploadTextMapper {
 
     //病理学检查
     @Insert("insert into disease_examine_info"
-            +"(examine_info, user_id)"
+            +"(examine_info, date, user_id, flag)"
             + "values"
-            +"(#{examine_info}, #{user_id})")
-    int insertExamineInfo(String examine_info, Long user_id);
+            +"(#{examine_info}, #{date}, #{user_id}, 0)")
+    int insertExamineInfo(String examine_info, Date date, Long user_id);
 
     //查询病理学检查
     @Select("select * from disease_examine_info where user_id = #{user_id}")

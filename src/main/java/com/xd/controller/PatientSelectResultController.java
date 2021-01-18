@@ -1,5 +1,6 @@
 package com.xd.controller;
 
+import com.xd.mapper.PatientUploadTextMapper;
 import com.xd.pojo.*;
 import com.xd.service.PatientService;
 import com.xd.service.TextService;
@@ -175,6 +176,7 @@ public class PatientSelectResultController {
         List<Examine> examines = textService.selectDiseaseExamine(message);
         List<OutPatient> outPatients = patientService.selectOutPatient(message);
         List<OutPatientRecords> outPatientRecords = textService.selectOutPatientRecords(message);
+
         List<Report> reports = patientService.selectReportPicture(message);
         List<DiseasePicture> diseasePictures = patientService.selectDiseasePicture(message);
         List<LaboratoryPicture> laboratoryPictures = patientService.selectLaboratoryPicture(message);
