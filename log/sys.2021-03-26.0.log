@@ -1,0 +1,20 @@
+2021-03-26 15:30:30,937 INFO (StartupInfoLogger.java:55)- Starting Spring01Application on DESKTOP-4QM2JK0 with PID 29592 (D:\CloudCases\target\classes started by VV in D:\CloudCases)
+2021-03-26 15:30:30,948 DEBUG (StartupInfoLogger.java:56)- Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-03-26 15:30:30,949 INFO (SpringApplication.java:655)- The following profiles are active: dev1
+2021-03-26 15:30:34,167 INFO (StartupInfoLogger.java:61)- Started Spring01Application in 4.074 seconds (JVM running for 5.075)
+2021-03-26 15:38:42,016 DEBUG (BaseJdbcLogger.java:137)- ==>  Preparing: select * from user_enter_info where phone_num = ? and user_type = ?
+2021-03-26 15:38:42,046 DEBUG (BaseJdbcLogger.java:137)- ==> Parameters: 6(String), 1(Integer)
+2021-03-26 15:38:42,097 DEBUG (BaseJdbcLogger.java:137)- <==      Total: 1
+2021-03-26 15:38:42,102 DEBUG (BaseJdbcLogger.java:137)- ==>  Preparing: select * from doctor_info where user_id = ?
+2021-03-26 15:38:42,103 DEBUG (BaseJdbcLogger.java:137)- ==> Parameters: 105(Long)
+2021-03-26 15:38:42,136 DEBUG (BaseJdbcLogger.java:137)- <==      Total: 1
+2021-03-26 15:39:27,250 DEBUG (BaseJdbcLogger.java:137)- ==>  Preparing: insert into outpatient_info( date, department, hospital, doctor_name, disease_info, user_id, flag)values( ?, ?, ?, ?, ?, ?, 0)
+2021-03-26 15:39:27,260 DEBUG (BaseJdbcLogger.java:137)- ==> Parameters: 2020-12-07(Date), 外科(String), 校医院(String), 张三(String), 奥斯卡登记哈看得起不唯一(String), 137(Long)
+2021-03-26 15:39:27,329 DEBUG (BaseJdbcLogger.java:137)- <==    Updates: 1
+2021-03-26 15:39:27,330 DEBUG (BaseJdbcLogger.java:137)- ==>  Preparing: select * from outpatient_info where user_id = ?
+2021-03-26 15:39:27,331 DEBUG (BaseJdbcLogger.java:137)- ==> Parameters: 137(Long)
+2021-03-26 15:39:27,373 DEBUG (BaseJdbcLogger.java:137)- <==      Total: 24
+2021-03-26 15:40:50,240 INFO (StartupInfoLogger.java:55)- Starting Spring01ApplicationTests on DESKTOP-4QM2JK0 with PID 25668 (started by VV in D:\CloudCases)
+2021-03-26 15:40:50,242 DEBUG (StartupInfoLogger.java:56)- Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-03-26 15:40:50,242 INFO (SpringApplication.java:655)- The following profiles are active: dev1
+2021-03-26 15:40:54,420 INFO (StartupInfoLogger.java:61)- Started Spring01ApplicationTests in 4.691 seconds (JVM running for 5.911)

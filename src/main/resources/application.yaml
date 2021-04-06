@@ -48,3 +48,6 @@ server:
       min-spare: 500
       max: 2500
 ---
+logging:
+  config: classpath:logback-boot.xml
+---

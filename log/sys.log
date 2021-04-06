@@ -1,0 +1,4 @@
+2021-04-05 16:34:42,319 INFO (StartupInfoLogger.java:55)- Starting Spring01ApplicationTests on DESKTOP-4QM2JK0 with PID 16776 (started by VV in D:\CloudCases)
+2021-04-05 16:34:42,325 DEBUG (StartupInfoLogger.java:56)- Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-04-05 16:34:42,327 INFO (SpringApplication.java:655)- The following profiles are active: dev1
+2021-04-05 16:34:46,094 INFO (StartupInfoLogger.java:61)- Started Spring01ApplicationTests in 4.373 seconds (JVM running for 5.717)

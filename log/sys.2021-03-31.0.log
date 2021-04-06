@@ -1,0 +1,4 @@
+2021-03-31 08:32:27,803 INFO (StartupInfoLogger.java:55)- Starting Spring01Application on DESKTOP-4QM2JK0 with PID 26712 (D:\CloudCases\target\classes started by VV in D:\CloudCases)
+2021-03-31 08:32:27,808 DEBUG (StartupInfoLogger.java:56)- Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-03-31 08:32:27,808 INFO (SpringApplication.java:655)- The following profiles are active: dev1
+2021-03-31 08:32:31,539 INFO (StartupInfoLogger.java:61)- Started Spring01Application in 4.457 seconds (JVM running for 6.561)
